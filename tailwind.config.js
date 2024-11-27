@@ -13,6 +13,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ["InterVariable", ...defaultTheme.fontFamily.sans],
+                poppins: ["Poppins", "sans-serif"],
             },
         },
     },

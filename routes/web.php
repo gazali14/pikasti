@@ -20,6 +20,9 @@ Route::prefix('orang_tua/before_login')->group(function () {
     Route::get('/profil_kader', function () {
         return view('orang_tua.before_login.profil_kader');
     })->name('orang_tua.before_login.profil_kader');
+    Route::get('/login', function () {
+        return view('orang_tua.before_login.login');
+    })->name('orang_tua.before_login.login');
 });
 
 Route::get('/orang_tua/dashboard', function () {
