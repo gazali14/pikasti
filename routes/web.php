@@ -44,6 +44,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/presensi_kader', function () {
         return view('admin.presensi_kader');
     })->name('admin.presensi_kader');
+
+    Route::get('/dokumentasi', function () {
+        return view('admin.dokumentasi');
+    })->name('admin.dokumentasi');
+
+    Route::get('/kohort', function () {
+        return view('admin.kohort');
+    })->name('admin.kohort');
 });
 
 // Routes for kader
@@ -56,11 +64,27 @@ Route::prefix('kader')->group(function () {
         return view('kader.konsultasi');
     })->name('kader.konsultasi');
 
-    Route::get('/perkembangan_bayi', function () {
-        return view('kader.perkembangan_bayi');
-    })->name('kader.perkembangan_bayi');
+    Route::get('/kms', function () {
+        return view('kader.kms');
+    })->name('kader.kms');
 
     Route::get('/presensi_bayi', function () {
         return view('kader.presensi_bayi');
     })->name('kader.presensi_bayi');
+
+    Route::get('/laporan', function () {
+        return view('kader.laporan');
+    })->name('kader.laporan');
+
+    Route::get('/pmt', function () {
+        return view('kader.pmt');
+    })->name('kader.pmt');
+
+    Route::get('/vitamin', function () {
+        return view('kader.vitamin');
+    })->name('kader.vitamin');
+
+    Route::get('/vitamin-pmt', function () {
+        return view('kader.vitamin-pmt');
+    })->name('kader.vitamin-pmt');
 });
