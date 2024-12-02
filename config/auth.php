@@ -39,6 +39,16 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            'model' => App\Models\Kader::class,
+        ],
+
+        'bayi' => [
+            'driver' => 'session',
+            'provider' => 'bayis',
+        ],
+        'kader' => [ 
+            'driver' => 'session',
+            'provider' => 'kaders',
         ],
     ],
 
@@ -64,6 +74,17 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+
+        'bayis' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Bayi::class,
+        ],
+            'kaders' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Kader::class,
+        ],
+
+
 
         // 'users' => [
         //     'driver' => 'database',
