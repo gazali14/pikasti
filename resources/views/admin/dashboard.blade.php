@@ -1,5 +1,5 @@
 <x-layout-admin>
-    <div class="p-6 bg-[#EEFFF8] min-h-screen">
+    <div class="p-1 bg-[#EEFFF8] min-h-screen">
         <!-- Filter Tahunan -->
         <x-filters-admin />
 
