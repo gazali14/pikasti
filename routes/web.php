@@ -75,6 +75,10 @@ Route::prefix('kader')->group(function () {
         return view('kader.presensi_bayi');
     })->name('kader.presensi_bayi');
 
+    Route::get('/cek_presensi', function () {
+        return view('kader.cek_presensi');
+    })->name('kader.cek_presensi');
+
     Route::get('/laporan', function () {
         return view('kader.laporan');
     })->name('kader.laporan');
