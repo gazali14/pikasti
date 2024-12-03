@@ -1,3 +1,12 @@
 <x-layout-admin>
-    ngoding di sini
+    <div class="p-1 bg-[#EEFFF8] min-h-screen">
+        <!-- Filter Tahunan -->
+        <x-filters-admin />
+
+        <!-- Container dengan scroll -->
+        <div class="mt-1">
+            <!-- Grafik Jumlah Kader -->
+            <x-grafik-admin />
+        </div>
+    </div>
 </x-layout-admin>

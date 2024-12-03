@@ -16,17 +16,25 @@
         .bg-sidebar { background: #62BCB1; }
         .active-nav-link { background: #93E5DC; }
         .nav-item:hover { background: #93E5DC; }
+
+        @media (max-width: 640px) {
+            .chart canvas {
+                height: 300px !important;
+            }
+        }
+
     </style>
 </head>
 <body class="bg-gray-100 font-family-karla flex">
     <x-sidebar-kader></x-sidebar-kader>
-    <div class="relative w-full flex flex-col h-screen overflow-y-hidden">
+    <div class="relative w-full flex flex-col h-screen">
         <x-header-kader></x-header-kader>
-        <main class="w-full flex-grow p-6">
+        <main class="w-full flex-grow p-6 overflow-y-auto">
             <h1 class="text-3xl text-black pb-6"></h1>
             {{ $slot }}
         </main>
     </div>
+
     
     <!-- AlpineJS -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>

@@ -1,37 +1,39 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
-// Routes for orang_tua before_login
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+
 Route::get('/', function () {
     return view('orang_tua.before_login.home');
 })->name('home');
 
+// Routes for orang_tua before_login
 Route::prefix('orang_tua/before_login')->group(function () {
     Route::get('/home', function () {
         return view('orang_tua.before_login.home');
     })->name('orang_tua.before_login.home');
+    
     Route::get('/dokumentasi', function () {
         return view('orang_tua.before_login.dokumentasi');
     })->name('orang_tua.before_login.dokumentasi');
+    
     Route::get('/jadwal', function () {
         return view('orang_tua.before_login.jadwal');
     })->name('orang_tua.before_login.jadwal');
+    
     Route::get('/profil_kader', function () {
         return view('orang_tua.before_login.profil_kader');
     })->name('orang_tua.before_login.profil_kader');
-    Route::get('/login', function () {
-        return view('orang_tua.before_login.login');
-    })->name('orang_tua.before_login.login');
+    
+    // Arahkan login ke LoginController
+    Route::get('/login', [LoginController::class, 'index'])->name('orang_tua.before_login.login')->middleware('guest');
+    Route::post('/login', [LoginController::class, 'login_proses'])->name('login-proses');
 });
 
-Route::get('/orang_tua/dashboard', function () {
-    return view('orang_tua.dashboard');
-})->name('orang_tua.dashboard');
-
-
 // Routes for admin
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth:kader')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
@@ -58,7 +60,7 @@ Route::prefix('admin')->group(function () {
 });
 
 // Routes for kader
-Route::prefix('kader')->group(function () {
+Route::prefix('kader')->middleware('auth:kader')->group(function () {
     Route::get('/dashboard', function () {
         return view('kader.dashboard');
     })->name('kader.dashboard');
@@ -94,4 +96,29 @@ Route::prefix('kader')->group(function () {
     Route::get('/vitamin-pmt', function () {
         return view('kader.vitamin-pmt');
     })->name('kader.vitamin-pmt');
+});
+
+// Routes for orang_tua after login (Authenticated)
+Route::middleware('auth:bayi')->group(function () {
+    Route::get('/home', function () {
+        return view('orang_tua.before_login.home');
+    })->name('orang_tua.before_login.home');
+    
+    Route::get('/dashboard', function () {
+        return view('orang_tua.dashboard');
+    })->name('orang_tua.dashboard');
+
+    Route::get('/jadwal', function () {
+        return view('orang_tua.before_login.jadwal');
+    })->name('orang_tua.before_login.jadwal');
+
+    Route::get('/dokumentasi', function () {
+        return view('orang_tua.before_login.dokumentasi');
+    })->name('orang_tua.before_login.dokumentasi');
+
+    Route::get('/profil_kader', function () {
+        return view('orang_tua.before_login.profil_kader');
+    })->name('orang_tua.before_login.profil_kader');
+
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
