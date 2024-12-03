@@ -79,30 +79,47 @@
   <!-- Mobile menu, show/hide based on menu state. -->
   <div x-show="isOpen" class="md:hidden" id="mobile-menu">
     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-      
-      <a href="{{ route('orang_tua.before_login.home') }}" 
-        class="{{ request()->routeIs('orang_tua.before_login.home') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
-        block rounded-md px-3 py-2 text-base font-medium" 
-        aria-current="page">Home</a>
-
-      <a href="{{ route('orang_tua.before_login.jadwal') }}" 
-        class="{{ request()->routeIs('orang_tua.before_login.jadwal') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
-        block rounded-md px-3 py-2 text-base font-medium">Jadwal</a>
-
-      <a href="{{ route('orang_tua.before_login.profil_kader') }}" 
-        class="{{ request()->routeIs('orang_tua.before_login.profil_kader') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
-        block rounded-md px-3 py-2 text-base font-medium">Profil Kader</a>
-
-      <a href="{{ route('orang_tua.before_login.dokumentasi') }}" 
-        class="{{ request()->routeIs('orang_tua.before_login.dokumentasi') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
-        block rounded-md px-3 py-2 text-base font-medium">Dokumentasi</a>
 
       <!-- Cek jika pengguna sudah login -->
       @auth
+            <a href="{{ route('orang_tua.before_login.home') }}" 
+            class="{{ request()->routeIs('orang_tua.before_login.home') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
+            block rounded-md px-3 py-2 text-base font-medium" 
+            aria-current="page">Home</a>
+
+          <a href="{{ route('orang_tua.before_login.jadwal') }}" 
+            class="{{ request()->routeIs('orang_tua.before_login.jadwal') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
+            block rounded-md px-3 py-2 text-base font-medium">Jadwal</a>
+
+          <a href="{{ route('orang_tua.before_login.profil_kader') }}" 
+            class="{{ request()->routeIs('orang_tua.before_login.profil_kader') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
+            block rounded-md px-3 py-2 text-base font-medium">Profil Kader</a>
+
+          <a href="{{ route('orang_tua.before_login.dokumentasi') }}" 
+            class="{{ request()->routeIs('orang_tua.before_login.dokumentasi') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
+            block rounded-md px-3 py-2 text-base font-medium">Dokumentasi</a>
+
           <a href="{{ route('orang_tua.dashboard') }}" 
             class="{{ request()->routeIs('orang_tua.dashboard') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
             block rounded-md px-3 py-2 text-base font-medium">Dashboard</a>
       @else
+          <a href="/" 
+            class="{{ request()->routeIs('orang_tua.before_login.home') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
+            block rounded-md px-3 py-2 text-base font-medium" 
+            aria-current="page">Home</a>
+
+          <a href="/orang_tua/before_login/jadwal" 
+            class="{{ request()->routeIs('orang_tua.before_login.jadwal') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
+            block rounded-md px-3 py-2 text-base font-medium">Jadwal</a>
+
+          <a href="/orang_tua/before_login/profil_kader" 
+            class="{{ request()->routeIs('orang_tua.before_login.profil_kader') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
+            block rounded-md px-3 py-2 text-base font-medium">Profil Kader</a>
+
+          <a href="/orang_tua/before_login/dokumentasi" 
+            class="{{ request()->routeIs('orang_tua.before_login.dokumentasi') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
+            block rounded-md px-3 py-2 text-base font-medium">Dokumentasi</a>
+
           <a href="{{ route('orang_tua.before_login.login') }}" 
             class="{{ request()->routeIs('orang_tua.before_login.login') ? 'bg-white text-[#62BCB1]' : 'text-white hover:bg-[#93E5DC]'}} 
             block rounded-md px-3 py-2 text-base font-medium">Login</a>
