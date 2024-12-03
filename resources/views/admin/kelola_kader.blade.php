@@ -6,5 +6,6 @@
         </div>
 
         <!-- Form Tambah Kader -->
+        <x-form-tambah-kader></x-form-tambah-kader>
     </div>
 </x-layout-admin>
