@@ -15,12 +15,12 @@ class KaderSeeder extends Seeder
     public function run(): void
     {
         Kader::create([
-            'nik' => '747202140801002',
-            'nama'=> 'Ahmad', 
+            'nik' => '082167889911',
+            'nama'=> 'Joni', 
             'jabatan'=>'admin', 
             'alamat'=>'jl bonasut', 
             'foto'=>'img/ahmad.png', 
-            'password'=> Hash::make('ahmad123'), 
+            'password'=> Hash::make('jonikubesar'), 
             'is_admin' => true
 
         ]);
