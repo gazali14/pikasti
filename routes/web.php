@@ -1,19 +1,17 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
-Route::get('/', function () {
-    return view('orang_tua.before_login.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Routes for orang_tua before_login
 Route::prefix('orang_tua/before_login')->group(function () {
-    Route::get('/home', function () {
-        return view('orang_tua.before_login.home');
-    })->name('orang_tua.before_login.home');
+    // Arahkan Home ke HomeController
+    Route::get('/home', [HomeController::class, 'index'])->name('orang_tua.before_login.home');
     
     Route::get('/dokumentasi', function () {
         return view('orang_tua.before_login.dokumentasi');
@@ -100,9 +98,7 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
 
 // Routes for orang_tua after login (Authenticated)
 Route::middleware('auth:bayi')->group(function () {
-    Route::get('/home', function () {
-        return view('orang_tua.before_login.home');
-    })->name('orang_tua.before_login.home');
+    Route::get('/home', [HomeController::class, 'index'])->name('orang_tua.before_login.home');
     
     Route::get('/dashboard', function () {
         return view('orang_tua.dashboard');

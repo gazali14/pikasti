@@ -63,115 +63,79 @@
     <section class="w-full max-w-[800px]">
       <div class="border-l-4 border-[#7ea9a4] ml-3 mt-3 py-16 space-y-14">
         
-        <div class="relative">
-          <div class="absolute top-0 -left-3.5 bg-[#7ea9a4] h-6 w-6 rounded-full "></div>
-          <div class="pl-10 border-3 border-gray-300 p-6 bg-[#41a99d] rounded-lg ml-5 shadow-inner">
-            <h3 class="text-2xl sm:text-3xl text-white font-semibold tracking-wide mb-2">27 Januari 2025</h3>
-            <p class="text-white text-lg sm:text-xl">
-              Imunisasi Campak
-            </p>
-          </div>
-        </div>
-
+        @forelse($jadwal as $item)
+          <div class="relative">
+              <div class="absolute top-0 -left-3.5 bg-[#7ea9a4] h-6 w-6 rounded-full"></div>
+                <div class="pl-10 border-3 border-gray-300 p-6 bg-[#41a99d] rounded-lg ml-5 shadow-inner">
+                  <h3 class="text-2xl sm:text-3xl text-white font-semibold tracking-wide mb-2">
+                      {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
+                  </h3>
+                  <p class="text-white text-lg sm:text-xl">
+                      {{ $item->nama_kegiatan }} - {{ \Carbon\Carbon::parse($item->waktu)->format('H:i') }}
+                  </p>
+                </div>
+              </div>
+        @empty
+                <p class="text-center text-gray-500">Belum ada jadwal yang tersedia.</p>
+        @endforelse
         
-        <div class="relative">
-          <div class="absolute top-0 -left-3.5 bg-[#7ea9a4] h-6 w-6 rounded-full "></div>
-          <div class="pl-10 border-3 border-gray-300 p-6 bg-[#93e5dc] rounded-lg ml-5 shadow-inner">
-            <h3 class="text-2xl sm:text-3xl text-white font-semibold tracking-wide mb-2">27 Januari 2025</h3>
-            <p class="text-white text-lg sm:text-xl">
-              Imunisasi Campak
-            </p>
-          </div>
-        </div>
-
-        
-        <div class="relative">
-          <div class="absolute top-0 -left-3.5 bg-[#7ea9a4] h-6 w-6 rounded-full "></div>
-          <div class="pl-10 border-3 border-gray-300 p-6 bg-[#93e5dc] rounded-lg ml-5 shadow-inner">
-            <h3 class="text-2xl sm:text-3xl text-white font-semibold tracking-wide mb-2">27 Januari 2025</h3>
-            <p class="text-white text-lg sm:text-xl">
-              Imunisasi Campak
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   </div>
 </div>
 
-
-<div class="flex justify-end cursor-pointer mt-10">
-  <p class="flex items-center space-x-2">
-    <span class="text-[#353535] font-semibold text-xl sm:text-2xl"><u>Lihat Selengkapnya</u></span>
-    <img
-      src="{{ asset('img/arrow.png') }}" 
-      alt="Ikon"
-      class="w-[10%] h-auto">
-  </p>
-</div>
+<a href="orang_tua/before_login/jadwal">
+  <div class="flex justify-end cursor-pointer mt-10 hover:underline">
+    <p class="flex items-center space-x-2">
+      <span class="text-[#353535] font-semibold text-xl sm:text-2xl">Lihat Selengkapnya</span>
+      <img
+        src="{{ asset('img/arrow.png') }}" 
+        alt="Ikon"
+        class="w-[10%] h-auto">
+    </p>
+  </div>
+</a>
 
 
   {{-- PROFIL KADER --}}
   <div>
     <div class="flex items-center w-full mt-20">
-      <div class="border-t-2 border-[#7EA9A4] flex-grow mr-2 "></div>
-      <p class="text-center px-2 text-[#41A99D] font-bold text-2xl">PROFIL KADER</p>
-      <div class="border-t-2 border-[#7EA9A4] flex-grow ml-2"></div>
+        <div class="border-t-2 border-[#7EA9A4] flex-grow mr-2"></div>
+        <p class="text-center px-2 text-[#41A99D] font-bold text-2xl">PROFIL KADER</p>
+        <div class="border-t-2 border-[#7EA9A4] flex-grow ml-2"></div>
     </div>
 
-    {{-- CARD --}}
     <div class="container px-5 py-5">
-      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Card 1 -->
-        <div class="bg-[#f3f3f3] shadow-md rounded-t-xl">
-          <a href="">
-            <img src="https://images.unsplash.com/photo-1504051771394-dd2e66b2e08f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-            alt="Gambar"
-            class="h-64 w-full object-cover rounded-t-xl">
-          </a>
-          <div class="px-4 py-3 w-full">
-            <p class="text-lg font-bold block truncate">Nama</p>
-            <span class="text-[#35353580] uppercase text-sm">Jabatan</span>
-          </div>
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @forelse($kader as $item)
+                <!-- Card Kader -->
+                <div class="bg-[#f3f3f3] shadow-md rounded-t-xl">
+                    <a href="">
+                        <img src="{{ asset($item->foto) }}" alt="Gambar"
+                             class="h-64 w-full object-cover rounded-t-xl">
+                    </a>
+                    <div class="px-4 py-3 w-full">
+                        <p class="text-lg font-bold block truncate">{{ $item->nama }}</p>
+                        <span class="text-[#35353580] uppercase text-sm">{{ $item->jabatan }}</span>
+                    </div>
+                </div>
+            @empty
+                <p class="text-center text-gray-500">Belum ada kader yang tersedia.</p>
+            @endforelse
         </div>
-
-        <!-- Card 2 -->
-        <div class="bg-[#f3f3f3] shadow-md rounded-t-xl">
-          <a href="">
-            <img src="https://images.unsplash.com/photo-1504051771394-dd2e66b2e08f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-            alt="Gambar"
-            class="h-64 w-full object-cover rounded-t-xl">
-          </a>
-          <div class="px-4 py-3 w-full">
-            <p class="text-lg font-bold block truncate">Nama</p>
-            <span class="text-[#35353580] uppercase text-sm">Jabatan</span>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="bg-[#f3f3f3] shadow-md rounded-t-xl">
-          <a href="">
-            <img src="https://images.unsplash.com/photo-1504051771394-dd2e66b2e08f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-            alt="Gambar"
-            class="h-64 w-full object-cover rounded-t-xl">
-          </a>
-          <div class="px-4 py-3 w-full">
-            <p class="text-lg font-bold block truncate">Nama</p>
-            <span class="text-[#35353580] uppercase text-sm">Jabatan</span>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
+
 
   <!-- Lihat Selengkapnya -->
-  <div class="flex justify-end cursor-pointer mt-10">
-    <p class="flex items-center space-x-2">
-      <span class="text-[#353535] font-semibold text-2xl"><u>Lihat Selengkapnya</u></span>
-      <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-[10%] h-auto">
-    </p>
-  </div>
-  
+  <a href="orang_tua/before_login/profil_kader">
+    <div class="flex justify-end cursor-pointer mt-10 hover:underline">
+      <p class="flex items-center space-x-2">
+        <span class="text-[#353535] font-semibold text-2xl">Lihat Selengkapnya</span>
+        <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-[10%] h-auto">
+      </p>
+    </div>
+  </a>
 
 {{-- DOKUMENTASI KEGIATAN --}}
 <div>
@@ -225,12 +189,14 @@
 </div>
 
 {{-- Lihat Selengkapnya --}}
-<div class="flex justify-end cursor-pointer mt-5 mb-10">
-  <p class="flex items-center space-x-2">
-    <span class="text-[#353535] font-semibold text-2xl"><u>Lihat Selengkapnya</u></span>
-    <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-[10%] h-auto">
-  </p>
-</div>
+<a href="orang_tua/before_login/dokumentasi">
+  <div class="flex justify-end cursor-pointer mt-5 mb-10 hover:underline">
+    <p class="flex items-center space-x-2">
+      <span class="text-[#353535] font-semibold text-2xl">Lihat Selengkapnya</span>
+      <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-[10%] h-auto">
+    </p>
+  </div>
+</a>
 
 </x-layout>
 
