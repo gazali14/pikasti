@@ -10,7 +10,7 @@
 
 <body>
 
-    <div class="p-2 bg-[#EEFFF8] rounded shadow">
+    <div>
         <div class="mx-auto mt-1 mb-10 px-10">
             <form class="mb-2 flex justify-start items-center">
                 <label for="default-search"

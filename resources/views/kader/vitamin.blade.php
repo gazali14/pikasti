@@ -7,7 +7,7 @@
 
 
         <!-- Tabel Daftar PMT dengan Scroll -->
-        <div class="p-2 bg-[#EEFFF8] rounded shadow">
+        <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded shadow">
             <x-tabel-pmt />
         </div>
 
