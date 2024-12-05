@@ -19,10 +19,19 @@ class KaderSeeder extends Seeder
             'nama'=> 'Ahmad', 
             'jabatan'=>'admin', 
             'alamat'=>'jl bonasut', 
-            'foto'=>'img/ahmad.png', 
+            'foto'=>'img/login-pict.png', 
             'password'=> Hash::make('ahmad123'), 
             'is_admin' => true
+        ]);
 
+        Kader::create([
+            'nik' => '7472021408010005',
+            'nama' => 'Gaza',
+            'jabatan' => 'Sekretaris',
+            'alamat' => 'Jl. Pondok Bambu, RT 14/RW 7',
+            'foto' => 'img/login-pict.png',
+            'password' => Hash::make('laodegazali14'),
+            'is_admin' => false,
         ]);
     }
 }

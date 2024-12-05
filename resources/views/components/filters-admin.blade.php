@@ -1,4 +1,4 @@
-<div class="absolute top-0 right-0 w-full bg-white p-4 shadow rounded-md z-10">
+<div class="relative sm:static w-full bg-white p-2 shadow rounded-md z-10 sm:z-0">
     <form method="GET" action="{{ route('admin.dashboard') }}" class="flex items-center justify-end gap-4">
         <!-- Dropdown Tahun -->
         <div class="relative w-1/4">
@@ -12,7 +12,7 @@
         </div>
 
         <!-- Tombol Terapkan -->
-        <div class="flex justify-end mt-4 ml-4 mr-20">
+        <div class="flex justify-end ml-4 mr-20">
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                 Terapkan
             </button>

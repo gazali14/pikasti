@@ -13,11 +13,7 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-        </div>
-    </div>
 </header>
-
-
 
 <!-- Mobile Header & Nav -->
 <header x-data="{ isOpen: false, isSubmenuOpen: false }" class="w-full bg-sidebar py-2 px-6 sm:hidden">

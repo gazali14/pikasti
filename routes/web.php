@@ -1,19 +1,18 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KaderController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
-Route::get('/', function () {
-    return view('orang_tua.before_login.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Routes for orang_tua before_login
 Route::prefix('orang_tua/before_login')->group(function () {
-    Route::get('/home', function () {
-        return view('orang_tua.before_login.home');
-    })->name('orang_tua.before_login.home');
+    // Arahkan Home ke HomeController
+    Route::get('/home', [HomeController::class, 'index'])->name('orang_tua.before_login.home');
     
     Route::get('/dokumentasi', function () {
         return view('orang_tua.before_login.dokumentasi');
@@ -32,12 +31,15 @@ Route::prefix('orang_tua/before_login')->group(function () {
     Route::post('/login', [LoginController::class, 'login_proses'])->name('login-proses');
 });
 
+Route::get('/kader/count-by-month', [KaderController::class, 'countKaderByMonth']);
+
 // Routes for admin
 Route::prefix('admin')->middleware('auth:kader')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
+    
     Route::get('/kelola_jadwal', function () {
         return view('admin.kelola_jadwal');
     })->name('admin.kelola_jadwal');
@@ -77,6 +79,10 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
         return view('kader.presensi_bayi');
     })->name('kader.presensi_bayi');
 
+    Route::get('/presensi_bayi', [KaderController::class, 'index'])->name('kader.presensi_bayi');
+    Route::get('/cek_presensi/{id_kegiatan}', [KaderController::class, 'cekPresensi'])->name('kader.cek_presensi');
+    Route::post('/cek_presensi/search', [KaderController::class, 'search'])->name('kader.cek_presensi.search');
+
     Route::get('/laporan', function () {
         return view('kader.laporan');
     })->name('kader.laporan');
@@ -96,9 +102,7 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
 
 // Routes for orang_tua after login (Authenticated)
 Route::middleware('auth:bayi')->group(function () {
-    Route::get('/home', function () {
-        return view('orang_tua.before_login.home');
-    })->name('orang_tua.before_login.home');
+    Route::get('/home', [HomeController::class, 'index'])->name('orang_tua.before_login.home');
     
     Route::get('/dashboard', function () {
         return view('orang_tua.dashboard');
