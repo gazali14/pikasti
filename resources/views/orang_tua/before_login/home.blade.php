@@ -165,7 +165,7 @@
 
       {{-- CARD 2 --}}
       <a href="">
-      <div class="rounded-xl shadow-lg bg-[#f3f3f3] w-full max-w-sm mx-auto">
+      <div class="rounded-xl shadow-lg bg-[#f3f3f3] w-full max-w-sm mx-auto sm:block hidden">
         <div class="p-5 flex-col">
           <div class="rounded-xl overflow-hidden">
             <img src="https://images.unsplash.com/photo-1576765975429-d2d8cf8c0ba0?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
@@ -181,7 +181,7 @@
 
       {{-- CARD 3 --}}
       <a href="">
-      <div class="rounded-xl shadow-lg bg-[#f3f3f3] w-full max-w-sm mx-auto">
+      <div class="rounded-xl shadow-lg bg-[#f3f3f3] w-full max-w-sm mx-auto hidden sm:block">
         <div class="p-5 flex-col">
           <div class="rounded-xl overflow-hidden">
             <img src="https://images.unsplash.com/photo-1576765975429-d2d8cf8c0ba0?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
@@ -201,7 +201,7 @@
 
 {{-- Lihat Selengkapnya --}}
 <a href="orang_tua/before_login/dokumentasi">
-  <div class="flex justify-end cursor-pointer mt-5 mb-10 hover:underline">
+  <div class="flex justify-end cursor-pointer mt-0 sm:mt-5 mb-10 hover:underline">
     <p class="flex items-center space-x-2">
       <span class="text-[#353535] font-semibold text-lg sm:text-xl md:text-2xl">Lihat Selengkapnya</span>
       <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-6 sm:w-8 md:w-10 h-auto">
