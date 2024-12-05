@@ -10,7 +10,7 @@
 
 <body>
 
-    <div class="container mx-auto mt-5 mb-10 px-10">
+    <div class="container mx-auto mt-1 mb-10 px-10">
         <!-- Header -->
         <div class="flex justify-between items-center mb-3">
         </div>

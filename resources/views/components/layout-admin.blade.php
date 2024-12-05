@@ -8,6 +8,7 @@
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
     <link rel="icon" type="image/png" href="{{ asset('img/logo2.png') }}">
+
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
@@ -28,14 +29,20 @@
         .nav-item:hover {
             background: #93E5DC;
         }
+
+        @media (max-width: 640px) {
+            .chart canvas {
+                height: 300px !important;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-gray-100 font-family-karla flex">
     <x-sidebar-admin></x-sidebar-admin>
-    <div class="relative w-full flex flex-col h-screen overflow-y-hidden">
+    <div class="relative w-full flex flex-col h-screen">
         <x-header-admin></x-header-admin>
-        <main class="w-full flex-grow p-4">
+        <main class="w-full flex-grow p-6 overflow-y-auto">
             <h1 class="text-3xl text-black pb-6"></h1>
             {{ $slot }}
         </main>
