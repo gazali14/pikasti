@@ -31,11 +31,11 @@
     </style>
 </head>
 
-<body class="bg-gray-100 font-family-karla flex">
+<body class="bg-green-50 font-family-karla flex">
     <x-sidebar-admin></x-sidebar-admin>
     <div class="relative w-full flex flex-col h-screen">
         <x-header-admin></x-header-admin>
-        <main class="w-full flex-grow p-6 overflow-y-auto">
+        <main class="w-full flex-grow p-6 overflow-y-auto bg-[#EEFFF8]">
             <h1 class="text-3xl text-black pb-6"></h1>
             {{ $slot }}
         </main>
