@@ -1,6 +1,4 @@
 <!-- Header Component -->
-<<<<<<< HEAD
-=======
 <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
     <div class="w-1/2"></div>
     <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end z-50">
@@ -15,7 +13,7 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
->>>>>>> ec035aa2a847e10affea6d3d145d2b314cda2848
+</header>
 
 <!-- Mobile Header & Nav -->
 <header x-data="{ isOpen: false, isSubmenuOpen: false }" class="w-full bg-sidebar py-2 px-6 sm:hidden">
