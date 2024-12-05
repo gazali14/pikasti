@@ -73,4 +73,5 @@ class JadwalController extends Controller
 
         return view('jadwal.index', compact('jadwals', 'search'));
     }
+    //
 }
