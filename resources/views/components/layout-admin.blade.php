@@ -43,7 +43,6 @@
     <div class="relative w-full flex flex-col h-screen">
         <x-header-admin></x-header-admin>
         <main class="w-full flex-grow p-6 overflow-y-auto">
-            <h1 class="text-3xl text-black pb-6"></h1>
             {{ $slot }}
         </main>
     </div>

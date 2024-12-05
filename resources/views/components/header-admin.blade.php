@@ -21,8 +21,6 @@
     </div>
 </header>
 
-
-
 <!-- Mobile Header & Nav -->
 <header x-data="{ isOpen: false }" class="w-full bg-sidebar py-2 px-6 sm:hidden">
     <div class="flex items-center justify-between">
@@ -75,6 +73,7 @@
         </a>
         <a href="#"
             class="{{ request()->is('#') ? 'active-nav-link text-white' : 'text-white opacity-75 hover:opacity-100' }} flex items-center py-2 pl-4 nav-item">
+            >>>>>>> 5cdd5d3 (Perubahan di dashboard admin)
             <i class="fas fa-sign-out-alt mr-3"></i>
             Logout
         </a>
