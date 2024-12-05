@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KaderController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
@@ -75,9 +76,9 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
         return view('kader.presensi_bayi');
     })->name('kader.presensi_bayi');
 
-    Route::get('/cek_presensi', function () {
-        return view('kader.cek_presensi');
-    })->name('kader.cek_presensi');
+    Route::get('/presensi_bayi', [KaderController::class, 'index'])->name('kader.presensi_bayi');
+    Route::get('/cek_presensi/{id_kegiatan}', [KaderController::class, 'cekPresensi'])->name('kader.cek_presensi');
+    Route::post('/cek_presensi/search', [KaderController::class, 'search'])->name('kader.cek_presensi.search');
 
     Route::get('/laporan', function () {
         return view('kader.laporan');
