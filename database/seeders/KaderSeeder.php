@@ -16,11 +16,11 @@ class KaderSeeder extends Seeder
     {
         Kader::create([
             'nik' => '082167889911',
-            'nama'=> 'Joni', 
+            'nama'=> 'Katak', 
             'jabatan'=>'admin', 
             'alamat'=>'jl bonasut', 
             'foto'=>'img/ahmad.png', 
-            'password'=> Hash::make('jonikubesar'), 
+            'password'=> Hash::make('katak123'), 
             'is_admin' => true
 
         ]);
