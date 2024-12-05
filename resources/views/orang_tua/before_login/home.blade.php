@@ -110,14 +110,13 @@
             @forelse($kader as $item)
                 <!-- Card Kader -->
                 <div class="bg-[#f3f3f3] shadow-md rounded-t-xl overflow-hidden w-full max-w-xs mx-auto">
-                    <a href="">
-                        <img src="{{ asset($item->foto) }}" alt="Gambar"
-                             class="h-64 w-full object-cover rounded-t-xl">
-                    </a>
-                    <div class="px-4 py-3 w-full">
-                        <p class="text-lg font-bold block truncate">{{ $item->nama }}</p>
-                        <span class="text-[#35353580] uppercase text-sm">{{ $item->jabatan }}</span>
-                    </div>
+                  <img src="{{ asset($item->foto) }}" 
+                  alt="Gambar"
+                  class="h-64 w-full object-cover rounded-t-xl">
+                  <div class="px-4 py-3 w-full">
+                    <p class="text-lg font-bold block truncate">{{ $item->nama }}</p>
+                    <span class="text-[#35353580] uppercase text-sm">{{ $item->jabatan }}</span>
+                  </div>
                 </div>
             @empty
                 <p class="text-center text-gray-500">Belum ada kader yang tersedia.</p>
