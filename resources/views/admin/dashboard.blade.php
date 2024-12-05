@@ -1,7 +1,6 @@
 <x-layout-admin>
     <div class="p-1 bg-[#EEFFF8] min-h-screen">
-        <!-- Filter Tahunan -->
-        <x-filters-admin />
+        
 
         <!-- Container dengan scroll -->
         <div class="mt-1">

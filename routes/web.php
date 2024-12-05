@@ -31,12 +31,15 @@ Route::prefix('orang_tua/before_login')->group(function () {
     Route::post('/login', [LoginController::class, 'login_proses'])->name('login-proses');
 });
 
+Route::get('/kader/count-by-month', [KaderController::class, 'countKaderByMonth']);
+
 // Routes for admin
 Route::prefix('admin')->middleware('auth:kader')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
+    
     Route::get('/kelola_jadwal', function () {
         return view('admin.kelola_jadwal');
     })->name('admin.kelola_jadwal');

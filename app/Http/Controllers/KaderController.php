@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Bayi;
 use App\Models\Jadwal; // Import model Jadwal
 use Illuminate\Http\Request;
+use App\Models\Kader;
+use Carbon\Carbon;
 
 class KaderController extends Controller
 {
@@ -58,4 +60,37 @@ class KaderController extends Controller
         return view('kader.cek_presensi', compact('bayis', 'jadwal'));
     }
 
+    /**
+     * Menghitung jumlah kader per bulan di tahun tertentu.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function countKaderByMonth(Request $request)
+    {
+        $year = $request->input('year') ?? date('Y'); // Default ke tahun sekarang jika tidak diberikan
+
+        // Validasi input tahun
+        $request->validate([
+            'year' => 'nullable|integer|min:1900|max:' . date('Y'),
+        ]);
+
+        // Mengambil jumlah kader per bulan
+        $kaderPerMonth = Kader::selectRaw('strftime("%m", created_at) as month, COUNT(*) as count')
+            ->whereRaw('strftime("%Y", created_at) = ?', [$year])
+            ->groupByRaw('strftime("%m", created_at)')
+            ->pluck('count', 'month');
+
+        // Konversi hasil menjadi array dengan nama bulan
+        $result = [];
+        for ($month = 1; $month <= 12; $month++) {
+            $monthKey = str_pad($month, 2, '0', STR_PAD_LEFT); // Format bulan menjadi "01", "02", ...
+            $result[Carbon::create()->month($month)->translatedFormat('F')] = $kaderPerMonth[$monthKey] ?? 0;
+        }
+
+        return response()->json([
+            'year' => $year,
+            'data' => $result,
+        ]);
+    }
 }
