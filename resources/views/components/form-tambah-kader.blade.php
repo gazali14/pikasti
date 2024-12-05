@@ -1,53 +1,167 @@
- <!-- Form Tambah Kader -->
- <div class="mt-6 bg-white p-6 rounded shadow">
-     <h2 class="text-lg font-semibold mb-4">Tambah Kader</h2>
-     <form action="{{ route('admin.kelola_kader') }}" method="POST" class="space-y-4">
-         @csrf
-         <!-- Input NIK -->
-         <div>
-             <label for="nik" class="block text-sm font-medium text-gray-700">NIK</label>
-             <input type="text" id="nik" name="nik" placeholder="Masukkan NIK (16 digit)"
-                 class="mt-1 block w-full p-2 border border-gray-300 rounded shadow-sm focus:ring focus:ring-teal-300 focus:border-teal-500">
-         </div>
+<style>
+    h1 {
+        margin-top: 20px;
+        text-align: left;
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: xx-large
+    }
 
-         <!-- Input Nama -->
-         <div>
-             <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
-             <input type="text" id="nama" name="nama" placeholder="Masukkan Nama"
-                 class="mt-1 block w-full p-2 border border-gray-300 rounded shadow-sm focus:ring focus:ring-teal-300 focus:border-teal-500">
-         </div>
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
 
-         <!-- Input Alamat -->
-         <div>
-             <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat</label>
-             <input type="text" id="alamat" name="alamat" placeholder="Masukkan Alamat"
-                 class="mt-1 block w-full p-2 border border-gray-300 rounded shadow-sm focus:ring focus:ring-teal-300 focus:border-teal-500">
-         </div>
+    .form-section {
+        width: 70%;
+        padding: 10px;
+    }
 
-         <!-- Input Jabatan -->
-         <div>
-             <label for="jabatan" class="block text-sm font-medium text-gray-700">Jabatan</label>
-             <input type="text" id="jabatan" name="jabatan" placeholder="Masukkan Jabatan"
-                 class="mt-1 block w-full p-2 border border-gray-300 rounded shadow-sm focus:ring focus:ring-teal-300 focus:border-teal-500">
-         </div>
+    .photo-section {
+        width: 30%;
+        padding: 10px;
+        text-align: center;
+    }
 
-         <!-- Input Password -->
-         <div>
-             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-             <input type="password" id="password" name="password" placeholder="Masukkan Password"
-                 class="mt-1 block w-full p-2 border border-gray-300 rounded shadow-sm focus:ring focus:ring-teal-300 focus:border-teal-500">
-         </div>
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
 
-         <!-- Tombol Aksi -->
-         <div class="flex space-x-4">
-             <button type="reset"
-                 class="px-4 py-2 bg-red-500 text-white rounded shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
-                 Reset
-             </button>
-             <button type="submit"
-                 class="px-4 py-2 bg-teal-500 text-white rounded shadow hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-300">
-                 Simpan
-             </button>
-         </div>
-     </form>
- </div>
+    .form-group label {
+        width: 30%;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: 70%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .form-group .error {
+        color: red;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    .photo-section img {
+        width: 200px;
+        height: 240px;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .buttons button {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .buttons .reset {
+        background-color: #f44336;
+    }
+
+    .buttons .submit {
+        background-color: #4caf50;
+    }
+
+    .form-section,
+    .photo-section {
+        height: auto;
+        overflow: visible;
+    }
+</style>
+</head>
+
+<body>
+    <h1>Tambah Kader</h1>
+
+    @if (session('success'))
+        <p style="color: green;">{{ session('success') }}</p>
+    @endif
+
+    <form action="{{ route('admin.kelola_kader') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+
+        <!-- Kolom Kiri: Form -->
+        <div class="form-section">
+            <div class="form-group">
+                <label for="nik">NIK</label>
+                <input type="text" name="nik" id="nik" value="{{ old('nik') }}" placeholder="Masukkan NIK">
+                @error('nik')
+                    <span class="error">* {{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="nama">Nama</label>
+                <input type="text" name="nama" id="nama" value="{{ old('nama') }}"
+                    placeholder="Masukkan Nama">
+                @error('nama')
+                    <span class="error">* {{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="alamat">Alamat</label>
+                <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}"
+                    placeholder="Masukkan Alamat">
+                @error('alamat')
+                    <span class="error">* {{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="jabatan">Jabatan</label>
+                <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan') }}"
+                    placeholder="Masukkan Jabatan">
+                @error('jabatan')
+                    <span class="error">* {{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Masukkan Password">
+                @error('password')
+                    <span class="error">* {{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+
+        <!-- Kolom Kanan: Foto -->
+        <div class="photo-section">
+            <label for="pas_foto"></label>
+            <img src="{{ asset('images/placeholder.jpg') }}" alt="Placeholder">
+            <input type="file" name="pas_foto" id="pas_foto">
+            @error('pas_foto')
+                <span class="error">* {{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Tombol -->
+        <div class="flex justify-center gap-4 mt-6 w-full">
+            <button
+                class="px-4 py-2 text-sm bg-red-500 text-white rounded w-32 h-10 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Reset</button>
+            <button
+                class="px-4 py-2 text-sm bg-green-500 text-white rounded w-32 h-10 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Simpan</button>
+        </div>
+
+    </form>
