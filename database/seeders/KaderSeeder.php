@@ -24,6 +24,7 @@ class KaderSeeder extends Seeder
             'is_admin' => true
         ]);
 
+
         Kader::create([
             'nik' => '7472021408010005',
             'nama' => 'Gaza',

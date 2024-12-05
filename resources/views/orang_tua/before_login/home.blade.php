@@ -1,5 +1,5 @@
 <x-layout>
-  <div class="container px-5 md:px-10 lg:px-20 py-5 grid grid-cols-1 xl:grid-cols-2 items-center">
+  <div class="container px-5 md:px-10 lg:px-20 py-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 items-center">
     <div class="max-w-full lg:max-w-lg text-center lg:text-left">
       <h1 class="font-poppins text-4xl lg:text-7xl font-bold bg-gradient-to-b from-[#41A99D] via-[#1AE3CC] to-[#41A99D] bg-clip-text text-transparent mb-5">
         Posyandu<br>Pikasti
@@ -12,7 +12,7 @@
       <img 
         src="{{ asset('img/home1.png') }}" 
         alt="Gambar"
-        class="w-full lg:w-auto h-auto max-w-full object-contain">
+        class="w-full h-auto max-w-full object-contain">
     </div>
   </div>
 
@@ -22,7 +22,7 @@
       <img 
         src="{{ asset('img/bayi-home.png') }}" 
         alt="Gambar"
-        class="w-[80%] sm:w-[60%] lg:w-full h-auto object contain">
+        class="w-[80%] sm:w-[60%] lg:w-full h-auto object-contain hidden lg:block">
     </div>
     <div class="font-poppins mt-10 lg:mt-0 lg:ml-10 text-center lg:text-left">
       <div>
@@ -87,11 +87,11 @@
 <a href="orang_tua/before_login/jadwal">
   <div class="flex justify-end cursor-pointer mt-10 hover:underline">
     <p class="flex items-center space-x-2">
-      <span class="text-[#353535] font-semibold text-xl sm:text-2xl">Lihat Selengkapnya</span>
+      <span class="text-[#353535] font-semibold text-lg sm:text-xl md:text-2xl">Lihat Selengkapnya</span>
       <img
         src="{{ asset('img/arrow.png') }}" 
         alt="Ikon"
-        class="w-[10%] h-auto">
+        class="w-6 sm:w-8 md:w-10 h-auto">
     </p>
   </div>
 </a>
@@ -106,10 +106,10 @@
     </div>
 
     <div class="container px-5 py-5">
-        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($kader as $item)
                 <!-- Card Kader -->
-                <div class="bg-[#f3f3f3] shadow-md rounded-t-xl">
+                <div class="bg-[#f3f3f3] shadow-md rounded-t-xl overflow-hidden w-full max-w-xs mx-auto">
                     <a href="">
                         <img src="{{ asset($item->foto) }}" alt="Gambar"
                              class="h-64 w-full object-cover rounded-t-xl">
@@ -131,8 +131,8 @@
   <a href="orang_tua/before_login/profil_kader">
     <div class="flex justify-end cursor-pointer mt-10 hover:underline">
       <p class="flex items-center space-x-2">
-        <span class="text-[#353535] font-semibold text-2xl">Lihat Selengkapnya</span>
-        <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-[10%] h-auto">
+        <span class="text-[#353535] font-semibold text-lg sm:text-xl md:text-2xl">Lihat Selengkapnya</span>
+        <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-6 sm:w-8 md:w-10 h-auto">
       </p>
     </div>
   </a>
@@ -145,44 +145,56 @@
     <div class="border-t-2 border-[#7EA9A4] flex-grow ml-2"></div>
   </div>
 
-  <div class="flex items-center justify-center min-h-screen container mx-auto">
+  <div class="container px-5 py-5">
     {{-- GRID --}}
-    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 p-5">
       {{-- CARD 1 --}}
-      <div class="rounded-xl shadow-lg bg-[#f3f3f3]">
-        <div class="p-5 flex-col">
+      <a href="">
+      <div class="rounded-xl shadow-lg bg-[#f3f3f3] w-full max-w-sm mx-auto">
+        <div class="p-5 flex flex-col">
           <div class="rounded-xl overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1576765975429-d2d8cf8c0ba0?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gambar" class="w-full h-64 object-cover rounded-t-xl">
+            <img src="https://images.unsplash.com/photo-1576765975429-d2d8cf8c0ba0?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            alt="Gambar" 
+            class="w-full h-full object-cover rounded-t-xl">
           </div>
-          <h5 class="text-2xl md:text-3xl font-poppins mt-3 font-semibold">Nama Kegiatan</h5>
-          <p class="text-[#35353580] text-lg mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quaerat quidem architecto perspiciatis. Esse nihil porro accusamus, voluptatibus labore consequatur ab quidem facilis in quia officiis alias aspernatur sequi natus?</p>
+          <h5 class="text-2xl sm:text-xl md:text-3xl font-poppins mt-3 font-semibold truncate">Nama Kegiatan</h5>
+          <p class="text-[#35353580] text-lg sm:text-sm md:text-base mt-2 truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quaerat quidem architecto perspiciatis. Esse nihil porro accusamus, voluptatibus labore consequatur ab quidem facilis in quia officiis alias aspernatur sequi natus?</p>
           <div class="flex justify-end mt-2 font-medium text-[#35353560]"><h6>Tanggal</h6></div>
         </div>
       </div>
+    </a>
 
       {{-- CARD 2 --}}
-      <div class="rounded-xl shadow-lg bg-[#f3f3f3]">
+      <a href="">
+      <div class="rounded-xl shadow-lg bg-[#f3f3f3] w-full max-w-sm mx-auto">
         <div class="p-5 flex-col">
           <div class="rounded-xl overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1576765975429-d2d8cf8c0ba0?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gambar" class="w-full h-64 object-cover rounded-t-xl">
+            <img src="https://images.unsplash.com/photo-1576765975429-d2d8cf8c0ba0?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            alt="Gambar" 
+            class="w-full h-full object-cover rounded-t-xl">
           </div>
-          <h5 class="text-2xl md:text-3xl font-poppins mt-3 font-semibold">Nama Kegiatan</h5>
-          <p class="text-[#35353580] text-lg mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quaerat quidem architecto perspiciatis. Esse nihil porro accusamus, voluptatibus labore consequatur ab quidem facilis in quia officiis alias aspernatur sequi natus?</p>
+          <h5 class="text-2xl sm:text-xl md:text-3xl font-poppins mt-3 font-semibold truncate">Nama Kegiatan</h5>
+          <p class="text-[#35353580] text-lg sm:text-sm md:text-base mt-2 truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quaerat quidem architecto perspiciatis. Esse nihil porro accusamus, voluptatibus labore consequatur ab quidem facilis in quia officiis alias aspernatur sequi natus?</p>
           <div class="flex justify-end mt-2 font-medium text-[#35353560]"><h6>Tanggal</h6></div>
         </div>
       </div>
+    </a>
 
       {{-- CARD 3 --}}
-      <div class="rounded-xl shadow-lg bg-[#f3f3f3]">
+      <a href="">
+      <div class="rounded-xl shadow-lg bg-[#f3f3f3] w-full max-w-sm mx-auto">
         <div class="p-5 flex-col">
           <div class="rounded-xl overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1576765975429-d2d8cf8c0ba0?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gambar" class="w-full h-64 object-cover rounded-t-xl">
+            <img src="https://images.unsplash.com/photo-1576765975429-d2d8cf8c0ba0?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            alt="Gambar" 
+            class="w-full h-full object-cover rounded-t-xl">
           </div>
-          <h5 class="text-2xl md:text-3xl font-poppins mt-3 font-semibold">Nama Kegiatan</h5>
-          <p class="text-[#35353580] text-lg mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quaerat quidem architecto perspiciatis. Esse nihil porro accusamus, voluptatibus labore consequatur ab quidem facilis in quia officiis alias aspernatur sequi natus?</p>
+          <h5 class="text-2xl sm:text-xl md:text-3xl font-poppins mt-3 font-semibold truncate">Nama Kegiatan</h5>
+          <p class="text-[#35353580] text-lg sm:text-sm md:text-base mt-2 truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde quaerat quidem architecto perspiciatis. Esse nihil porro accusamus, voluptatibus labore consequatur ab quidem facilis in quia officiis alias aspernatur sequi natus?</p>
           <div class="flex justify-end mt-2 font-medium text-[#35353560]"><h6>Tanggal</h6></div>
         </div>
       </div>
+    </a>
       {{-- END GRID --}}
     </div>
   </div>
@@ -192,8 +204,8 @@
 <a href="orang_tua/before_login/dokumentasi">
   <div class="flex justify-end cursor-pointer mt-5 mb-10 hover:underline">
     <p class="flex items-center space-x-2">
-      <span class="text-[#353535] font-semibold text-2xl">Lihat Selengkapnya</span>
-      <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-[10%] h-auto">
+      <span class="text-[#353535] font-semibold text-lg sm:text-xl md:text-2xl">Lihat Selengkapnya</span>
+      <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-6 sm:w-8 md:w-10 h-auto">
     </p>
   </div>
 </a>
