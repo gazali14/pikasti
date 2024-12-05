@@ -8,6 +8,7 @@
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
     <link rel="icon" type="image/png" href="{{ asset('img/logo2.png') }}">
+
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
@@ -27,6 +28,12 @@
 
         .nav-item:hover {
             background: #93E5DC;
+        }
+
+        @media (max-width: 640px) {
+            .chart canvas {
+                height: 300px !important;
+            }
         }
     </style>
 </head>
