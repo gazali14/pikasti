@@ -10,7 +10,7 @@ class Bayi extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'nik', 'nama', 'nama_ibu', 'tanggal_lahir', 'berat_badan_lahir', 'tinggi_badan_lahir', 'alamat', 'no_telpon', 'password',
+        'nik', 'nama', 'nama_ibu', 'jenis_kelamin', 'tanggal_lahir', 'berat_badan_lahir', 'tinggi_badan_lahir', 'alamat', 'no_telpon', 'password',
     ];
 
     protected $hidden = [

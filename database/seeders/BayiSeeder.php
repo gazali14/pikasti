@@ -18,6 +18,7 @@ class BayiSeeder extends Seeder
             'nik' => '747202140801312',
             'nama'=> 'Afra', 
             'nama_ibu'=>'Nanna',
+            'jenis_kelamin'=>'laki-laki',
             'tanggal_lahir' => '2020-08-14',
             'berat_badan_lahir'=> 3,
             'tinggi_badan_lahir'=> 70, 

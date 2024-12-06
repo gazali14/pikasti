@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama', 100); // Nama bayi dengan panjang maksimal 100 karakter
             $table->string('nama_ibu', 100); // Nama ibu dengan panjang maksimal 100 karakter
             $table->date('tanggal_lahir'); // Format tanggal lahir
+            $table->string('jenis_kelamin', 10);
             $table->unsignedTinyInteger('berat_badan_lahir'); // Berat badan lahir dalam kg (maks 255 kg)
             $table->unsignedTinyInteger('tinggi_badan_lahir'); // Tinggi badan lahir dalam cm (maks 255 cm)
             $table->text('alamat'); // Alamat tanpa batas panjang
