@@ -21,8 +21,6 @@
     </div>
 </header>
 
-
-
 <!-- Mobile Header & Nav -->
 <header x-data="{ isOpen: false }" class="w-full bg-sidebar py-2 px-6 sm:hidden">
     <div class="flex items-center justify-between">
