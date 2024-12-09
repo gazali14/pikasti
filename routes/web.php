@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KaderController;
 use App\Http\Controllers\HalamanJadwalController;
+use App\Http\Controllers\ProfilKaderController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
@@ -19,11 +20,11 @@ Route::prefix('orang_tua/before_login')->group(function () {
         return view('orang_tua.before_login.dokumentasi');
     })->name('orang_tua.before_login.dokumentasi');
     
+    // Route untuk Jadwal
     Route::get('/jadwal', [HalamanJadwalController::class, 'index'])->name('orang_tua.before_login.jadwal');
     
-    Route::get('/profil_kader', function () {
-        return view('orang_tua.before_login.profil_kader');
-    })->name('orang_tua.before_login.profil_kader');
+    // Route untuk Profil Kader
+    Route::get('/profil_kader', [ProfilKaderController::class, 'index'])->name('profil_kader');
     
     // Arahkan login ke LoginController
     Route::get('/login', [LoginController::class, 'index'])->name('orang_tua.before_login.login')->middleware('guest');
