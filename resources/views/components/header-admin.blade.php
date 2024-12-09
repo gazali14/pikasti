@@ -4,7 +4,7 @@
     <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end z-50 mt-4">
         <button @click="isOpen = !isOpen"
             class="relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
-            <img class="size-8 rounded-full"
+            <img class="w-10 rounded-full object-cover "
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                 alt="">
         </button>

@@ -178,13 +178,23 @@
                 @enderror
             </div>
 
-            <!-- Tombol -->
+            <!-- Tombol
             <div class="flex justify-center gap-4 mt-6 w-full">
                 <button
                     class="px-4 py-2 text-sm bg-red-500 text-white rounded w-32 h-10 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Reset</button>
                 <button
                     class="px-4 py-2 text-sm bg-[#62BCB1] text-white rounded w-32 h-10 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Simpan</button>
-            </div>
+            </div> -->
 
+            <div class="flex justify-center space-x-4 w-full">
+                <button type="reset"
+                    class="px-4 py-2 bg-red-500 text-white rounded shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
+                    Reset
+                </button>
+                <button type="submit"
+                    class="px-4 py-2 bg-teal-500 text-white rounded shadow hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-300">
+                    Simpan
+                </button>
+            </div>
         </form>
     </div>

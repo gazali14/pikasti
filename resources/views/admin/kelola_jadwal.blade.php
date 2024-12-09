@@ -1,3 +1,3 @@
 <x-layout-admin>
-    Hello World!!!
+    ngoding di sini
 </x-layout-admin>
