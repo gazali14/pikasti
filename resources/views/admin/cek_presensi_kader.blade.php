@@ -37,7 +37,7 @@
                 </div>
                 -->
 
-                <div class="relative w-full sm:w-auto items-center mb-4">
+                <div class="relative w-full sm:w-auto items-center mb-4 flex">
                     <!-- Input Box -->
                     <input type="search" id="default-search"
                         class="block w-full py-2 pl-5 pr-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-gray-300 focus:ring-1 focus:ring-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
@@ -206,5 +206,6 @@
     </body>
 
     </html>
+
 
 </x-layout-admin>
