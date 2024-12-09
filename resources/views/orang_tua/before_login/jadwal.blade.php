@@ -4,6 +4,42 @@
     <div class="flex justify-end mb-8 items-center">
       <label for="tahun" class="sm:block text-lg sm:text-xl hidden font-semibold text-white mb-2 mr-4">Pilih Tahun:</label>
       <div class="w-full sm:w-auto">
+        <select id="tahun" class="w-full sm:w-auto p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#41a99d] text-gray-500 font-light text-base">
+          <option value="">Filter berdasarkan tahun</option>
+          @foreach ($jadwals->groupBy(fn($item) => \Carbon\Carbon::parse($item->tanggal)->year) as $year => $events)
+            <option value="{{ $year }}">{{ $year }}</option>
+          @endforeach
+        </select>
+      </div>
+    </div>
+  
+    <!-- Jadwal -->
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      @foreach ($jadwals as $index => $jadwal)
+        <div class="rounded-xl border border-gray-300 px-10 py-5 shadow-xl flex flex-col justify-between max-w-xs mx-auto min-h-[150px] min-w-[300px]
+        {{ $index == 0 ? 'bg-white' : 'bg-[#41a99d]' }}">
+          <h1 class="text-2xl font-bold {{ $index == 0 ? 'text-[#41A99D]' : 'text-white' }}">
+            {{ \Carbon\Carbon::parse($jadwal->tanggal)->translatedFormat('d F Y') }}
+          </h1>
+          <p class="text-xl font-medium {{ $index == 0 ? 'text-[#62bcb1]' : 'text-white' }}">{{ $jadwal->nama_kegiatan }}</p>
+          <p class="text-lg font-medium self-end mt-5 {{ $index == 0 ? 'text-[#62bcb1]' : 'text-white' }}">
+            {{ \Carbon\Carbon::parse($jadwal->waktu)->format('H:i') }} - Selesai
+          </p>
+        </div>
+      @endforeach
+    </div>
+  </div>
+</x-layout>
+
+{{-- FOOTER --}}
+<x-footer-home></x-footer-home>
+
+{{-- <x-layout>
+  <div class="container px-5 sm:px-10 lg:px-20 py-5">
+    <!-- Filter Tahun di Sebelah Kanan -->
+    <div class="flex justify-end mb-8 items-center">
+      <label for="tahun" class="sm:block text-lg sm:text-xl hidden font-semibold text-white mb-2 mr-4">Pilih Tahun:</label>
+      <div class="w-full sm:w-auto">
         <select name="year" id="tahun" class="w-full sm:w-auto p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#41a99d] text-gray-500 font-light text-base">
           <option value="">Filter berdasarkan tahun</option>
           <option value="2025">2025</option>
@@ -103,7 +139,7 @@
     
   </div>
     
-  </x-layout>
+  </x-layout> --}}
   
   {{-- FOOTER --}}
-  <x-footer-home></x-footer-home>
+  {{-- <x-footer-home></x-footer-home> --}}
