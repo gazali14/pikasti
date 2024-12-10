@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KaderController;
 use App\Http\Controllers\HalamanJadwalController;
 use App\Http\Controllers\ProfilKaderController;
+use App\Http\Controllers\HalamanDokumentasiController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
@@ -16,16 +17,15 @@ Route::prefix('orang_tua/before_login')->group(function () {
     // Arahkan Home ke HomeController
     Route::get('/home', [HomeController::class, 'index'])->name('orang_tua.before_login.home');
     
-    Route::get('/dokumentasi', function () {
-        return view('orang_tua.before_login.dokumentasi');
-    })->name('orang_tua.before_login.dokumentasi');
-    
     // Route untuk Jadwal
-    Route::get('/jadwal', [HalamanJadwalController::class, 'index'])->name('orang_tua.before_login.jadwal');
+    Route::get('/jadwal', [HalamanJadwalController::class, 'index'])->name('jadwal');
     
     // Route untuk Profil Kader
     Route::get('/profil_kader', [ProfilKaderController::class, 'index'])->name('profil_kader');
     
+    // Route untuk Dokumentasi
+    Route::get('/dokumentasi', [HalamanDokumentasiController::class, 'index'])->name('dokumentasi');
+
     // Arahkan login ke LoginController
     Route::get('/login', [LoginController::class, 'index'])->name('orang_tua.before_login.login')->middleware('guest');
     Route::post('/login', [LoginController::class, 'login_proses'])->name('login-proses');
@@ -109,15 +109,11 @@ Route::middleware('auth:bayi')->group(function () {
         return view('orang_tua.dashboard');
     })->name('orang_tua.dashboard');
 
-    Route::get('/jadwal', [HalamanJadwalController::class, 'index'])->name('orang_tua.before_login.jadwal');
-    
-    Route::get('/dokumentasi', function () {
-        return view('orang_tua.before_login.dokumentasi');
-    })->name('orang_tua.before_login.dokumentasi');
+    Route::get('/dokumentasi', [HalamanDokumentasiController::class, 'index'])->name('dokumentasi');
 
-    Route::get('/profil_kader', function () {
-        return view('orang_tua.before_login.profil_kader');
-    })->name('orang_tua.before_login.profil_kader');
+    Route::get('/jadwal', [HalamanJadwalController::class, 'index'])->name('jadwal');
+
+    Route::get('/profil_kader', [ProfilKaderController::class, 'index'])->name('profil_kader');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
