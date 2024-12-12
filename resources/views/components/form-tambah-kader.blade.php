@@ -1,192 +1,92 @@
-<style>
-    h1 {
-        margin-top: 20px;
-        text-align: left;
-        margin-bottom: 10px;
-        font-weight: bold;
-        font-size: xx-large;
-        margin-left: 10px;
-    }
+<!DOCTYPE html>
+<html lang="en">
 
-    form {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-    }
-
-    .container {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        margin-top: 10px;
-        max-width: 100%;
-        overflow-x: hidden;
-    }
-
-
-    .form-section {
-        width: 70%;
-        padding: 10px;
-    }
-
-    .photo-section {
-        width: 30%;
-        padding: 10px;
-        text-align: center;
-    }
-
-    .form-group {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-
-    }
-
-    .form-group label {
-        width: 30%;
-        font-weight: bold;
-    }
-
-    .form-group input {
-        width: 70%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        max-width: 100%;
-    }
-
-    .form-group .error {
-        color: red;
-        font-size: 12px;
-        margin-left: 10px;
-    }
-
-    .photo-section img {
-        width: 200px;
-        height: 240px;
-        object-fit: cover;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        max-width: 100%;
-    }
-
-    .buttons {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-top: 20px;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .buttons button {
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        color: #fff;
-        cursor: pointer;
-
-    }
-
-    .buttons .reset {
-        background-color: #f44336;
-    }
-
-    .buttons .submit {
-        background-color: #4caf50;
-    }
-
-    .form-section,
-    .photo-section {
-        height: auto;
-        overflow: visible;
-    }
-</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Kader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <div class=container>
-        <h1>Tambah Kader</h1>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
+        <h1 class="text-2xl font-bold mb-6 text-gray-800">Tambah Kader</h1>
 
         @if (session('success'))
-            <p style="color: green;">{{ session('success') }}</p>
+            <p class="text-green-500">{{ session('success') }}</p>
         @endif
 
-        <form action="{{ route('admin.kelola_kader') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.kelola_kader') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
-            <!-- Kolom Kiri: Form -->
-            <div class="form-section">
-                <div class="form-group">
-                    <label for="nik">NIK</label>
-                    <input type="text" name="nik" id="nik" value="{{ old('nik') }}"
-                        placeholder="Masukkan NIK">
-                    @error('nik')
-                        <span class="error">* {{ $message }}</span>
-                    @enderror
+            <div class="flex flex-wrap md:flex-nowrap gap-6">
+                <!-- Kolom Kiri: Form -->
+                <div class="w-full md:w-2/3 space-y-4">
+                    <div>
+                        <label for="nik" class="block text-gray-700 font-medium">NIK</label>
+                        <input type="text" name="nik" id="nik" value="{{ old('nik') }}"
+                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
+                            placeholder="Masukkan NIK">
+                        @error('nik')
+                            <span class="text-red-500 text-sm">* {{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="nama" class="block text-gray-700 font-medium">Nama</label>
+                        <input type="text" name="nama" id="nama" value="{{ old('nama') }}"
+                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
+                            placeholder="Masukkan Nama">
+                        @error('nama')
+                            <span class="text-red-500 text-sm">* {{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="alamat" class="block text-gray-700 font-medium">Alamat</label>
+                        <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}"
+                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
+                            placeholder="Masukkan Alamat">
+                        @error('alamat')
+                            <span class="text-red-500 text-sm">* {{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="jabatan" class="block text-gray-700 font-medium">Jabatan</label>
+                        <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan') }}"
+                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
+                            placeholder="Masukkan Jabatan">
+                        @error('jabatan')
+                            <span class="text-red-500 text-sm">* {{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-gray-700 font-medium">Password</label>
+                        <input type="password" name="password" id="password"
+                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
+                            placeholder="Masukkan Password">
+                        @error('password')
+                            <span class="text-red-500 text-sm">* {{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="nama">Nama</label>
-                    <input type="text" name="nama" id="nama" value="{{ old('nama') }}"
-                        placeholder="Masukkan Nama">
-                    @error('nama')
-                        <span class="error">* {{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="alamat">Alamat</label>
-                    <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}"
-                        placeholder="Masukkan Alamat">
-                    @error('alamat')
-                        <span class="error">* {{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="jabatan">Jabatan</label>
-                    <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan') }}"
-                        placeholder="Masukkan Jabatan">
-                    @error('jabatan')
-                        <span class="error">* {{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Masukkan Password">
-                    @error('password')
-                        <span class="error">* {{ $message }}</span>
+                <!-- Kolom Kanan: Foto -->
+                <div class="w-full md:w-1/3 flex flex-col items-center space-y-4">
+                    <img src="{{ asset('images/placeholder.jpg') }}" alt="Placeholder"
+                        class="w-48 h-60 object-cover border rounded shadow">
+                    <input type="file" name="pas_foto" id="pas_foto"
+                        class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none">
+                    @error('pas_foto')
+                        <span class="text-red-500 text-sm">* {{ $message }}</span>
                     @enderror
                 </div>
             </div>
 
-            <!-- Kolom Kanan: Foto -->
-            <div class="photo-section">
-                <label for="pas_foto"></label>
-                <img src="{{ asset('images/placeholder.jpg') }}" alt="Placeholder">
-                <input type="file" name="pas_foto" id="pas_foto">
-                @error('pas_foto')
-                    <span class="error">* {{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- Tombol
-            <div class="flex justify-center gap-4 mt-6 w-full">
-                <button
-                    class="px-4 py-2 text-sm bg-red-500 text-white rounded w-32 h-10 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Reset</button>
-                <button
-                    class="px-4 py-2 text-sm bg-[#62BCB1] text-white rounded w-32 h-10 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Simpan</button>
-            </div> -->
-
-            <div class="flex justify-center space-x-4 w-full">
+            <!-- Tombol -->
+            <div class="flex justify-center gap-4">
                 <button type="reset"
                     class="px-4 py-2 bg-red-500 text-white rounded shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
                     Reset
@@ -198,3 +98,6 @@
             </div>
         </form>
     </div>
+</body>
+
+</html>
