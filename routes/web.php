@@ -19,7 +19,8 @@ Route::prefix('orang_tua/before_login')->group(function () {
     
     // Route untuk Jadwal
     Route::get('/jadwal', [HalamanJadwalController::class, 'index'])->name('jadwal');
-    
+    Route::get('/jadwal/filter', [HalamanJadwalController::class, 'filter'])->name('jadwal.filter');
+
     // Route untuk Profil Kader
     Route::get('/profil_kader', [ProfilKaderController::class, 'index'])->name('profil_kader');
     
