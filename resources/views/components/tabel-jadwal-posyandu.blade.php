@@ -63,6 +63,17 @@
                             class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">Hapus</button>
                     </td>
                 </tr>
+                <tr class="text-center">
+                    <td class="border border-[#62BCB1] py-2 px-4">Kegiatan 3</td>
+                    <td class="border border-[#62BCB1] py-2 px-4">
+                        <button
+                            class="editButton bg-teal-500 text-white px-3 py-1 rounded-md hover:bg-teal-600 transition">Edit</button>
+                    </td>
+                    <td class="border border-[#62BCB1] py-2 px-4">
+                        <button
+                            class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">Hapus</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
