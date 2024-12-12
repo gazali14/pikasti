@@ -110,11 +110,11 @@ Route::middleware('auth:bayi')->group(function () {
         return view('orang_tua.dashboard');
     })->name('orang_tua.dashboard');
 
-    Route::get('/dokumentasi', [HalamanDokumentasiController::class, 'index'])->name('dokumentasi');
+    Route::get('/dokumentasi', [HalamanDokumentasiController::class, 'index'])->name('orang_tua.before_login.dokumentasi');
 
-    Route::get('/jadwal', [HalamanJadwalController::class, 'index'])->name('jadwal');
+    Route::get('/jadwal', [HalamanJadwalController::class, 'index'])->name('orang_tua.before_login.jadwal');
 
-    Route::get('/profil_kader', [ProfilKaderController::class, 'index'])->name('profil_kader');
+    Route::get('/profil_kader', [ProfilKaderController::class, 'index'])->name('orang_tua.before_login.profil_kader');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
