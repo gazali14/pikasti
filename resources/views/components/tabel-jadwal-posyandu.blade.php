@@ -148,7 +148,7 @@
         // Event listener untuk form submit
         document.getElementById('popupInputForm').addEventListener('submit', (event) => {
             event.preventDefault();
-            // Ambil nilai input dan lakukan aksi (misalnya, simpan ke database atau update tabel)
+            // Ambil nilai input dan lakukan action (misalnya, simpan ke database atau update tabel)
             const namaKegiatan = document.getElementById('namaKegiatan').value;
             console.log(`Data disimpan: ${namaKegiatan}`);
             hidePopup();
