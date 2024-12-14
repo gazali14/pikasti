@@ -3,48 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
+use App\Models\Kader;
 use App\Models\KehadiranKader;
+use App\Models\PresensiKader;
 use Illuminate\Http\Request;
 
 class AdminPresensi extends Controller
 {
     public function savePresensi(Request $request)
     {
-        // Ambil ID kegiatan dari request
-        $id_kegiatan = $request->input('id_kegiatan');
+        $validated = $request->validate([
+            'presensi' => 'required|array',
+            'presensi.*.nik' => 'required|string',
+            'presensi.*.nama_kader' => 'required|string',
+            'presensi.*.kehadiran' => 'required|boolean',
+            'presensi.*.jenis_kelamin' => 'required|string',
+            'presensi.*.tanggal' => 'required|date',
+            'presensi.*.waktu' => 'required|string',
+            'presensi.*.id_kegiatan' => 'required|integer', // Pastikan ID kegiatan valid
+        ]);
 
-        // Ambil tanggal kegiatan dari tabel Jadwal
-        $jadwal = Jadwal::findOrFail($id_kegiatan);
-        $tanggal_kegiatan = $jadwal->tanggal;
-
-        // Ambil data kehadiran dari form
-        $kehadiran = $request->input('kehadiran', []);
-
-        foreach ($kehadiran as $nik => $value) {
-            // Cari data  berdasarkan NIK
-            $kader = KehadiranKader::where('nik', $nik)->first();
-
-            if ($kader) {
-                // Update atau buat data kehadiran
-                KehadiranKader::updateOrCreate(
-                    [
-                        'nik' => $nik,
-                        'tanggal' => $tanggal_kegiatan, // Tanggal kegiatan dari Jadwal
-                        'id_kegiatan' => $id_kegiatan, // ID kegiatan
-                    ],
-                    [
-                        'nama_bayi' => $kader->nama,
-                        'jenis_kelamin' => $kader->jenis_kelamin,
-                        'kehadiran' => $value, // 1 jika hadir
-                        'waktu' => now()->toTimeString(),
-                    ]
-                );
-            }
+        // Simpan data presensi
+        foreach ($validated['presensi'] as $data) {
+            PresensiKader::create([
+                'nik' => $data['nik'],
+                'nama_kader' => $data['nama_kader'],
+                'kehadiran' => $data['kehadiran'],
+                'jenis_kelamin' => $data['jenis_kelamin'],
+                'tanggal' => $data['tanggal'],
+                'waktu' => $data['waktu'],
+                'id_kegiatan' => $data['id_kegiatan'],
+            ]);
         }
 
-        // Redirect ke halaman sebelumnya dengan pesan sukses
-        return redirect()->back()->with('success', 'Data presensi berhasil disimpan.');
+        return response()->json([
+            'message' => 'Presensi berhasil disimpan!',
+        ]);
     }
+
 
     public function presensiBayi()
     {
@@ -55,4 +51,15 @@ class AdminPresensi extends Controller
         return view('admin.presensi_kader', compact('jadwal'));
     }
 
+    public function cekPresensiBayi($id)
+    {
+        $kegiatan = Jadwal::find($id);
+        $kaders = Kader::all();
+        
+        if (!$kegiatan) {
+            return redirect()->back()->with('error', 'Kegiatan tidak ditemukan.');
+        }
+        return view('admin.cek_presensi_kader', compact('kegiatan', 'kaders'));
+    }
+    //buat controller pake looping save presensi fungsi save presensi
 }
