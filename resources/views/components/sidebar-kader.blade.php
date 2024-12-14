@@ -8,7 +8,9 @@
             <i class="fas fa-tachometer-alt mr-3"></i>
             Dashboard
         </a>
-        <a href="/kader/presensi_bayi" class="{{ request()->is('kader/presensi_bayi') ? 'active-nav-link text-white' : 'text-white opacity-75 hover:opacity-100'}} flex items-center py-4 pl-6 nav-item">
+        <a href="/kader/presensi_bayi" 
+            class="{{ request()->is('kader/presensi_bayi') || request()->is('kader/cek_presensi*') ? 'active-nav-link text-white' : 'text-white opacity-75 hover:opacity-100'}} 
+                flex items-center py-4 pl-6 nav-item">
             <i class="fas fa-check-square mr-3"></i>
             Presensi Bayi
         </a>

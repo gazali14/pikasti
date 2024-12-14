@@ -10,7 +10,7 @@
 
 <body>
 
-    <div>
+    <div class="">
         <div class="mx-auto mt-1 mb-10 px-10">
             <form class="mb-2 flex justify-start items-center">
                 <label for="default-search"
@@ -38,57 +38,59 @@
 
 
             <!-- Table -->
-            <table id="kaderTable" class="min-w-full table-fixed border-collapse border border-[#62BCB1]">
-                <thead>
-                    <tr>
-                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
-                            Nama</th>
-                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
-                            Alamat</th>
-                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
-                            Jabatan</th>
-                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
-                            Password</th>
-                    </tr>
-                </thead>
-                <tbody
-                    class= "bg-white text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                    <!-- Contoh Data -->
-                    <tr class="border-b kader-row" data-id="1">
-                        <td
-                            class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                            John Doe
-                        </td>
-                        <td
-                            class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                            Jl. Mawar
-                            No. 1</td>
-                        <td
-                            class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                            Ketua</td>
-                        <td
-                            class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                            abc123</td>
-                    </tr>
-                    <tr class="border-b kader-row" data-id="2">
-                        <td
-                            class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                            Jane Smith
-                        </td>
-                        <td
-                            class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                            Jl. Melati
-                            No. 2</td>
-                        <td
-                            class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                            Sekretaris
-                        </td>
-                        <td
-                            class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                            def456</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="overflow-x-auto">
+                <table id="kaderTable" class="min-w-full table-fixed border-collapse border border-[#62BCB1]">
+                    <thead>
+                        <tr>
+                            <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
+                                Nama</th>
+                            <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
+                                Alamat</th>
+                            <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
+                                Jabatan</th>
+                            <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
+                                Password</th>
+                        </tr>
+                    </thead>
+                    <tbody
+                        class= "bg-white text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                        <!-- Contoh Data -->
+                        <tr class="border-b kader-row" data-id="1">
+                            <td
+                                class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                                John Doe
+                            </td>
+                            <td
+                                class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                                Jl. Mawar
+                                No. 1</td>
+                            <td
+                                class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                                Ketua</td>
+                            <td
+                                class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                                abc123</td>
+                        </tr>
+                        <tr class="border-b kader-row" data-id="2">
+                            <td
+                                class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                                Jane Smith
+                            </td>
+                            <td
+                                class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                                Jl. Melati
+                                No. 2</td>
+                            <td
+                                class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                                Sekretaris
+                            </td>
+                            <td
+                                class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                                def456</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Tombol Edit dan Hapus di bawah tabel -->
