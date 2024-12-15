@@ -9,6 +9,7 @@ use App\Http\Controllers\HalamanJadwalController;
 use App\Http\Controllers\ProfilKaderController;
 use App\Http\Controllers\HalamanDokumentasiController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\AdminKelolaKaderController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
@@ -46,9 +47,14 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
         return view('admin.kelola_jadwal');
     })->name('admin.kelola_jadwal');
 
-    Route::get('/kelola_kader', function () {
-        return view('admin.kelola_kader');
-    })->name('admin.kelola_kader');
+    // Route::get('/kelola_kader', function () {
+    //     return view('admin.kelola_kader');
+    // })->name('admin.kelola_kader');
+
+    Route::get('/kelola_kader', [AdminKelolaKaderController::class, 'index'])->name('admin.kelola_kader.index');
+    Route::post('/kelola_kader', [AdminKelolaKaderController::class, 'store'])->name('admin.kelola_kader.store');
+    Route::get('/kelola_kader/{id}/edit', [AdminKelolaKaderController::class, 'edit'])->name('admin.kelola_kader.edit');
+    Route::delete('/kelola_kader/{id}', [AdminKelolaKaderController::class, 'destroy'])->name('admin.kelola_kader.destroy');
 
     // Route::get('/presensi_kader', function () {
     //     return view('admin.presensi_kader');
