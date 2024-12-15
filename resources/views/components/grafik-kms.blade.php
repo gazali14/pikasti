@@ -21,6 +21,17 @@
                 height: 300px;
             }
         }
+        #beratBadanChart {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        #tinggiBadanChart{
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -55,43 +66,50 @@
                             label: 'Berat Badan -3 SD',
                             data: Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 6)), // Rentang 2 sampai 8
                             borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan -2 SD',
                             data: Array.from({ length: 60 }, (_, i) => 2.2 + (Math.sqrt(i / 59) * 6.8)), // Rentang 2.2 sampai 9
                             borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan -1 SD',
                             data: Array.from({ length: 60 }, (_, i) => 2.5 + (Math.sqrt(i / 59) * 7.6)), // Rentang 2.5 sampai 10.1
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan Median',
                             data: Array.from({ length: 60 }, (_, i) => 3 + (Math.sqrt(i / 59) * 8.5)), // Rentang 3 sampai 11.5
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan +1 SD',
                             data: Array.from({ length: 60 }, (_, i) => 3.5 + (Math.sqrt(i / 59) * 9.5)), // Rentang 3.5 sampai 13
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan +2 SD',
                             data: Array.from({ length: 60 }, (_, i) => 4 + (Math.sqrt(i / 59) * 11)), // Rentang 4 sampai 15
                             borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan +3 SD',
                             data: Array.from({ length: 60 }, (_, i) => 4.5 + (Math.sqrt(i / 59) * 12.4)), // Rentang 4.5 sampai 16.9
                             borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         }
                     ]
                 },
@@ -138,43 +156,50 @@
                             label: 'Tinggi Badan -3 SD',
                             data: Array(60).fill(8).map((v, i) => v + (i * (4 / 59))), // Rentang 8 sampai 12
                             borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan -2 SD',
                             data: Array(60).fill(9).map((v, i) => v + (i * (4.9 / 59))), // Rentang 9 sampai 13.9
                             borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan -1 SD',
                             data: Array(60).fill(10).map((v, i) => v + (i * (5.9 / 59))), // Rentang 10 sampai 15.9
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan Median',
                             data: Array(60).fill(11.5).map((v, i) => v + (i * (6.9 / 59))), // Rentang 11.5 sampai 18.4
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan +1 SD',
                             data: Array(60).fill(13).map((v, i) => v + (i * (8.5 / 59))), // Rentang 13 sampai 21.5
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan +2 SD',
                             data: Array(60).fill(14.5).map((v, i) => v + (i * (10 / 59))), // Rentang 14.5 sampai 25
                             borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan +3 SD',
                             data: Array(60).fill(16.5).map((v, i) => v + (i * (12.4 / 59))), // Rentang 16.5 sampai 28.9
                             borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         }
                     ]
                 },
@@ -223,43 +248,50 @@
                             label: 'Berat Badan -3 SD',
                             data: Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 6.9)), // Rentang 2 sampai 8.9
                             borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan -2 SD',
                             data: Array.from({ length: 60 }, (_, i) => 2.2 + (Math.sqrt(i / 59) * 7.7)), // Rentang 2.2 sampai 9.9
                             borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan -1 SD',
                             data: Array.from({ length: 60 }, (_, i) => 2.5 + (Math.sqrt(i / 59) * 8.5)), // Rentang 2.5 sampai 11
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan Median',
                             data: Array.from({ length: 60 }, (_, i) => 3 + (Math.sqrt(i / 59) * 9.1)), // Rentang 3 sampai 12.1
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan +1 SD',
                             data: Array.from({ length: 60 }, (_, i) => 3.5 + (Math.sqrt(i / 59) * 10.3)), // Rentang 3.5 sampai 13.8
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan +2 SD',
                             data: Array.from({ length: 60 }, (_, i) => 4 + (Math.sqrt(i / 59) * 11.2)), // Rentang 4 sampai 15.2
                             borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Berat Badan +3 SD',
                             data: Array.from({ length: 60 }, (_, i) => 4.5 + (Math.sqrt(i / 59) * 12.5)), // Rentang 4.5 sampai 17
                             borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         }
                     ]
                 },
@@ -306,43 +338,50 @@
                             label: 'Tinggi Badan -3 SD',
                             data: Array(60).fill(8.5).map((v, i) => v + (i * (3.7 / 59))), // Rentang 8.5 sampai 12.2
                             borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan -2 SD',
                             data: Array(60).fill(9.5).map((v, i) => v + (i * (4.5 / 59))), // Rentang 9.5 sampai 14
                             borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan -1 SD',
                             data: Array(60).fill(10.8).map((v, i) => v + (i * (5.2 / 59))), // Rentang 10.8 sampai 16
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan Median',
                             data: Array(60).fill(12).map((v, i) => v + (i * (6.9 / 59))), // Rentang 12 sampai 18.4
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan +1 SD',
                             data: Array(60).fill(13.5).map((v, i) => v + (i * (7.5 / 59))), // Rentang 13.5 sampai 21
                             borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan +2 SD',
                             data: Array(60).fill(15).map((v, i) => v + (i * (9 / 59))), // Rentang 15 sampai 24
                             borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         },
                         {
                             label: 'Tinggi Badan +3 SD',
                             data: Array(60).fill(16.9).map((v, i) => v + (i * (10.3 / 59))), // Rentang 16.5 sampai 28.9
                             borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false
+                            fill: false,
+                            pointRadius: 0 // Menghilangkan titik data
                         }
                     ]
                 },
