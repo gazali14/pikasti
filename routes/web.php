@@ -48,9 +48,9 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
     //     return view('admin.kelola_jadwal');
     // })->name('admin.kelola_jadwal');
 
+    Route::put('/jadwal/{id}', [AdminKelolaJadwalController::class, 'update'])->name('jadwal.update');
     Route::get('/kelola_jadwal', [AdminKelolaJadwalController::class, 'index'])->name('jadwal.indeks');
     Route::post('/jadwal', [AdminKelolaJadwalController::class, 'store'])->name("jadwal.store");
-    Route::put('/jadwal/{jadwal}', [AdminKelolaJadwalController::class, 'update'])->name("jadwal.update");
     Route::delete('/jadwal/{jadwal}', [AdminKelolaJadwalController::class, 'destroy'])->name("jadwal.destroy");
 
     // Menambahkan rute untuk pencarian jadwal
@@ -61,6 +61,8 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
     // Route::get('/kelola_kader', function () {
     //     return view('admin.kelola_kader');
     // })->name('admin.kelola_kader');
+
+  
 
     Route::get('/kelola_kader', [AdminKelolaKaderController::class, 'index'])->name('admin.kelola_kader.index');
     Route::post('/kelola_kader', [AdminKelolaKaderController::class, 'store'])->name('admin.kelola_kader.store');
