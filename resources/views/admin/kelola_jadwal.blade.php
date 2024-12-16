@@ -16,6 +16,7 @@
                     </button>
                 </form>
 
+
                 <!-- Tombol tambah -->
                 <button id="tambahButton"
                     class="ml-4 bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition"
@@ -134,7 +135,7 @@
 
         // SweetAlert Konfirmasi Hapus
         document.querySelectorAll('.delete-form').forEach((form) => {
-            form.addEventListener('submit', function (e) {
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
                 Swal.fire({
@@ -149,6 +150,23 @@
                         this.submit(); // Kirim form jika dikonfirmasi
                     }
                 });
+            });
+        });
+
+        document.getElementById('search').addEventListener('input', function() {
+            let searchQuery = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#jadwalPosyanduTable tbody tr');
+
+            rows.forEach((row) => {
+                let namaKegiatan = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                let tanggal = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                let jamPelayanan = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+
+                if (namaKegiatan.includes(searchQuery) || tanggal.includes(searchQuery) || jamPelayanan.includes(searchQuery)) {
+                    row.style.display = ''; // Tampilkan baris
+                } else {
+                    row.style.display = 'none'; // Sembunyikan baris yang tidak sesuai
+                }
             });
         });
     </script>

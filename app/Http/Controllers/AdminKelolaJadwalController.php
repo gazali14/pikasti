@@ -27,7 +27,7 @@ class AdminKelolaJadwalController extends Controller
             'tanggal' => 'required|date',
             'waktu' => 'required|date_format:H:i',
         ]);
-    
+
         // Map data validasi ke format yang cocok dengan kolom database
         $data = [
             'nama_kegiatan' => $validated['namaKegiatan'], // Sesuaikan dengan nama kolom di tabel
@@ -42,6 +42,29 @@ class AdminKelolaJadwalController extends Controller
         return redirect()->route('jadwal.indeks')->with('success', 'Jadwal berhasil ditambahkan!');
         // return;
     }
+    public function destroy($id)
+    {
+        // Cari jadwal berdasarkan ID
+        $jadwal = Jadwal::findOrFail($id);
 
-    
+        // Hapus jadwal
+        $jadwal->delete();
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('jadwal.indeks')->with('success', 'Jadwal berhasil dihapus!');
+    }
+
+    public function search(Request $request)
+    {
+        $searchQuery = $request->input('search');
+
+        // Pencarian di database
+        $jadwals = Jadwal::where('nama_kegiatan', 'like', "%$searchQuery%")
+            ->orWhere('tanggal', 'like', "%$searchQuery%")
+            ->orWhere('waktu', 'like', "%$searchQuery%")
+            ->get();
+
+        // Kembalikan hasil pencarian ke view
+        return view('admin.kelola_jadwal', compact('jadwals'));
+    }
 }

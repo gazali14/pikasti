@@ -48,6 +48,8 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
     //     return view('admin.kelola_jadwal');
     // })->name('admin.kelola_jadwal');
 
+    Route::get('/jadwal/search', [AdminKelolaJadwalController::class, 'search'])->name('jadwal.search');
+    Route::resource('admin/jadwal', AdminKelolaJadwalController::class);
     Route::put('/jadwal/{id}', [AdminKelolaJadwalController::class, 'update'])->name('jadwal.update');
     Route::get('/kelola_jadwal', [AdminKelolaJadwalController::class, 'index'])->name('jadwal.indeks');
     Route::post('/jadwal', [AdminKelolaJadwalController::class, 'store'])->name("jadwal.store");
