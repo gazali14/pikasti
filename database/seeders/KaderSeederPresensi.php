@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Kader;
+// use App\Models\Kader;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;

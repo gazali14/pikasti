@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfilKaderController;
 use App\Http\Controllers\HalamanDokumentasiController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\AdminKelolaKaderController;
+use App\Http\Controllers\AdminKelolaJadwalController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
@@ -43,9 +44,19 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    Route::get('/kelola_jadwal', function () {
-        return view('admin.kelola_jadwal');
-    })->name('admin.kelola_jadwal');
+    // Route::get('/kelola_jadwal', function () {
+    //     return view('admin.kelola_jadwal');
+    // })->name('admin.kelola_jadwal');
+
+    Route::get('/kelola_jadwal', [AdminKelolaJadwalController::class, 'index'])->name('jadwal.indeks');
+    Route::post('/jadwal', [AdminKelolaJadwalController::class, 'store'])->name("jadwal.store");
+    Route::put('/jadwal/{jadwal}', [AdminKelolaJadwalController::class, 'update'])->name("jadwal.update");
+    Route::delete('/jadwal/{jadwal}', [AdminKelolaJadwalController::class, 'destroy'])->name("jadwal.destroy");
+
+    // Menambahkan rute untuk pencarian jadwal
+    Route::get('/jadwal/search', [AdminKelolaJadwalController::class, 'search'])->name('jadwal.search');
+
+
 
     // Route::get('/kelola_kader', function () {
     //     return view('admin.kelola_kader');
