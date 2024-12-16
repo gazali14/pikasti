@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" href="{{ asset('img/logo2.png') }}">
 
     <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');

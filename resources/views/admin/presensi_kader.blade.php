@@ -1,6 +1,4 @@
 <x-layout-admin>
-    <!DOCTYPE html>
-    <html lang="id">
 
     <head>
         <meta charset="UTF-8">
@@ -22,31 +20,23 @@
 
             <!-- Jadwal Kegiatan -->
             <ul id="activity-list" class="list-none mt-12">
-                <li
-                    class="activity-item flex justify-between items-center p-3 mb-3 rounded-xl bg-[#41a99dac] text-white hover:scale-105 transition-all">
-                    <div class="details flex flex-col justify-center">
-                        <strong class="sm:text-xl">Contoh Kegiatan 1</strong>
-                    </div>
-                    <div>
-                        <button class="p-3 bg-[#4b9df1] text-white rounded-lg hover:bg-[#3278c7]"
-                            onclick="alert('Navigasi ke presensi kegiatan ini!')">
-                            Presensi
-                        </button>
-                    </div>
-                </li>
-                <li
-                    class="activity-item flex justify-between items-center p-3 mb-3 rounded-xl bg-[#41a99dac] text-white hover:scale-105 transition-all">
-                    <div class="details flex flex-col justify-center">
-                        <strong class="sm:text-xl">Contoh Kegiatan 2</strong>
-                    </div>
-                    <div>
-                        <button class="p-3 bg-[#4b9df1] text-white rounded-lg hover:bg-[#3278c7]"
-                            onclick="alert('Navigasi ke presensi kegiatan ini!')">
-                            Presensi
-                        </button>
-                    </div>
-                </li>
-                <p class="text-center text-gray-500">Belum ada jadwal yang tersedia.</p>
+                @forelse ($kegiatan as $item)
+                    <li
+                        class="activity-item flex justify-between items-center p-3 mb-3 rounded-xl bg-[#41a99dac] text-white hover:scale-105 transition-all">
+                        <div class="details flex flex-col justify-center">
+                            <strong class="sm:text-xl">{{ $item->nama_kegiatan }}</strong>
+                            <small class="text-gray-200">{{ $item->tanggal_kegiatan }}</small>
+                        </div>
+                        <div>
+                            <a href="{{ route('cek.presensi.bayi', $item->id) }}"
+                                class="p-3 bg-[#4b9df1] text-white rounded-lg hover:bg-[#3278c7]">
+                                Presensi
+                            </a>
+                        </div>
+                    </li>
+                @empty
+                    <p class="text-center text-gray-500">Belum ada jadwal yang tersedia.</p>
+                @endforelse
             </ul>
         </div>
 
@@ -67,5 +57,4 @@
     </body>
 
     </html>
-
 </x-layout-admin>

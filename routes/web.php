@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPresensi;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -7,6 +8,8 @@ use App\Http\Controllers\KaderController;
 use App\Http\Controllers\HalamanJadwalController;
 use App\Http\Controllers\ProfilKaderController;
 use App\Http\Controllers\HalamanDokumentasiController;
+use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\AdminKelolaKaderController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
@@ -44,17 +47,29 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
         return view('admin.kelola_jadwal');
     })->name('admin.kelola_jadwal');
 
-    Route::get('/kelola_kader', function () {
-        return view('admin.kelola_kader');
-    })->name('admin.kelola_kader');
+    // Route::get('/kelola_kader', function () {
+    //     return view('admin.kelola_kader');
+    // })->name('admin.kelola_kader');
 
-    Route::get('/presensi_kader', function () {
-        return view('admin.presensi_kader');
-    })->name('admin.presensi_kader');
+    Route::get('/kelola_kader', [AdminKelolaKaderController::class, 'index'])->name('admin.kelola_kader.index');
+    Route::post('/kelola_kader', [AdminKelolaKaderController::class, 'store'])->name('admin.kelola_kader.store');
+    Route::get('/kelola_kader/{id}/edit', [AdminKelolaKaderController::class, 'edit'])->name('admin.kelola_kader.edit');
+    Route::delete('/kelola_kader/{id}', [AdminKelolaKaderController::class, 'destroy'])->name('admin.kelola_kader.destroy');
+
+    // Route::get('/presensi_kader', function () {
+    //     return view('admin.presensi_kader');
+    // })->name('admin.presensi_kader');
+    Route::get('/presensi_kader', [KegiatanController::class, 'index'])->name('admin.presensi_kader');
+
+    Route::get('/admin/cek-presensi-bayi/{id}', [AdminPresensi::class, 'cekPresensiBayi'])->name('cek.presensi.bayi');
 
     Route::get('/dokumentasi', function () {
         return view('admin.dokumentasi');
     })->name('admin.dokumentasi');
+
+    // Route::post();
+    // Route untuk menyimpan data presensi
+    Route::post('/save-presensi', [AdminPresensi::class, 'savePresensi'])->name('presensi.store');
 
     Route::get('/kohort', function () {
         return view('admin.kohort');
