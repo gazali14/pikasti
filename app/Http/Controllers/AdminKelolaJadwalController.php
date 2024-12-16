@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
+use App\Models\Kehadiran;
+use App\Models\KehadiranKader;
 use Illuminate\Http\Request;
 
 class AdminKelolaJadwalController extends Controller
@@ -65,6 +67,46 @@ class AdminKelolaJadwalController extends Controller
             ->get();
 
         // Kembalikan hasil pencarian ke view
-        return view('admin.kelola_jadwal', compact('jadwals'));
+        return view('jadwal.indeks', compact('jadwals'));
     }
+    /**
+     * Menampilkan form untuk mengedit jadwal.
+     */
+    public function edit($id)
+    {
+        // Cari jadwal berdasarkan ID
+        $jadwal = Jadwal::findOrFail($id);
+
+        // Tampilkan form edit dengan data jadwal
+        return view('admin.edit_jadwal', compact('jadwal'));
+    }
+
+    /**
+     * Mengupdate jadwal yang ada berdasarkan ID.
+     */
+    public function update(Request $request, $id)
+    {
+        // Validasi data yang diterima
+        $validated = $request->validate([
+            'namaKegiatan' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'waktu' => 'required|date_format:H:i',
+        ]);
+
+        // Cari jadwal berdasarkan ID
+        $jadwal = Jadwal::findOrFail($id);
+
+        // Update data jadwal
+        $jadwal->nama_kegiatan = $validated['namaKegiatan'];
+        $jadwal->tanggal = $validated['tanggal'];
+        $jadwal->waktu = $validated['waktu'];
+
+        // Simpan perubahan ke database
+        $jadwal->save();
+
+        // Redirect kembali ke halaman kelola jadwal dengan pesan sukses
+        return redirect()->route('jadwal.indeks')->with('success', 'Jadwal berhasil diperbarui!');
+    }
+
+
 }

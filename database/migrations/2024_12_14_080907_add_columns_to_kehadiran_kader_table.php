@@ -9,8 +9,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('kehadiran_kaders', function (Blueprint $table) {
-            $table->id();
-            $table->string('nik')->unique();
             $table->string('nik')->unique();
             $table->string('nama_kader');
             $table->boolean('kehadiran');

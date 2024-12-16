@@ -19,7 +19,10 @@ return new class extends Migration
             $table->string('jenis_kelamin',10);
             $table->date('tanggal');
             $table->time('waktu');
-            $$table->unsignedBigInteger('id_kegiatan'); // Relasi ke tabel kegiatan
+            $table->foreign('id_kegiatan')
+                    ->references('id')
+                    ->on('jadwals')
+                    ->onDelete('cascade');
             $table->timestamps();
         });
 
