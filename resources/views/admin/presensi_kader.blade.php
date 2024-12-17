@@ -1,4 +1,6 @@
 <x-layout-admin>
+    <!DOCTYPE html>
+    <html lang="id">
 
     <head>
         <meta charset="UTF-8">
@@ -18,29 +20,36 @@
                     placeholder="Search here..." oninput="filterActivities()" />
             </div>
 
-            <!-- Jadwal Kegiatan -->
+             <!-- Jadwal Kegiatan -->
             <ul id="activity-list" class="list-none mt-12">
-                @forelse ($kegiatan as $item)
-                    <li
-                        class="activity-item flex justify-between items-center p-3 mb-3 rounded-xl bg-[#41a99dac] text-white hover:scale-105 transition-all">
-                        <div class="details flex flex-col justify-center">
-                            <strong class="sm:text-xl">{{ $item->nama_kegiatan }}</strong>
-                            <small class="text-gray-200">{{ $item->tanggal_kegiatan }}</small>
-                        </div>
-                        <div>
-                            <a href="{{ route('cek.presensi.bayi', $item->id) }}"
-                                class="p-3 bg-[#4b9df1] text-white rounded-lg hover:bg-[#3278c7]">
-                                Presensi
-                            </a>
-                        </div>
-                    </li>
+                @forelse ($jadwal as $index => $item)
+                <li class="activity-item flex justify-between items-center p-3 mb-3 rounded-xl bg-[#41a99dac] text-white hover:scale-105 transition-all">
+                <div class="details flex flex-col justify-center">
+                    <strong class="sm:text-xl">{{ $item->nama_kegiatan }} - {{ \Carbon\Carbon::parse($item->waktu)->format('H:i') }}</strong>
+                </div>
+                <div>
+                    <strong class="text-lg">{{ \Carbon\Carbon::parse($item->tanggal)->format('d F Y') }}</strong>
+                    <button 
+                    class="p-3 bg-[#4b9df1] text-white rounded-lg hover:bg-[#3278c7]" 
+                    onclick="window.location.href='{{ route('admin.cek_presensi_kader', ['id_kegiatan' => $item->id]) }}'">
+                    Presensi
+                    </button>
+                </div>
+                </li>
                 @empty
-                    <p class="text-center text-gray-500">Belum ada jadwal yang tersedia.</p>
+                <p class="text-center text-gray-500">Belum ada jadwal yang tersedia.</p>
                 @endforelse
             </ul>
+
         </div>
 
         <script>
+            document.getElementById('page-title').textContent = "Daftar Presensi Kegiatan";
+            const pageTitle = document.getElementById('page-title');
+            pageTitle.textContent = "Daftar Presensi Kegiatan";
+  
+            pageTitle.classList.add("font-semibold", "text-2xl", "text-[#2c3e50]", "mt-1", "tracking-wider", "p-2");
+  
             function filterActivities() {
                 const searchValue = document.getElementById("search").value.toLowerCase();
                 const activities = document.querySelectorAll(".activity-item");
@@ -57,4 +66,5 @@
     </body>
 
     </html>
+
 </x-layout-admin>
