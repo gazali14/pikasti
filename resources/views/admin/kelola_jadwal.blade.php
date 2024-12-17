@@ -10,10 +10,6 @@
                     <input type="text" id="search" name="search"
                         class="border border-gray-300 rounded-md px-3 py-2 w-full focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"
                         placeholder="Cari Jadwal Posyandu" />
-                    <button type="submit"
-                        class="ml-2 bg-[#41a99dac] text-white px-4 py-2 rounded-md hover:bg-[#3a928d] transition active:scale-95">
-                        Cari
-                    </button>
                 </form>
 
 
@@ -73,8 +69,8 @@
                     @csrf
                     <div class="mb-4">
                         <label class="block mb-2 text-sm font-bold text-black-700" for="namaKegiatan">Nama Kegiatan</label>
-                        <input type="text" id="namaKegiatan" name="namaKegiatan"
-                            class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white focus:border-gray-300 focus:ring-1 focus:ring-gray-300 rounded-lg" required />
+                        <input type="text" id="namaKegiatan" name="nama_kegiatan" placeholder="Nama Kegiatan" required
+                            class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white focus:border-gray-300 focus:ring-1 focus:ring-gray-300 rounded-lg"/>
                     </div>
                     <div class="mb-4 flex space-x-4">
                         <div class="w-1/2">
@@ -102,6 +98,12 @@
     <!-- Menambahkan SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+              
+    @if (session('error'))
+        <script>
+            alert("{{ session('error') }}");
+        </script>
+    @endif
     <!-- JavaScript -->
     <script>
         function showPopup(title, id = '', nama_kegiatan = '', tanggal = '', waktu = '') {

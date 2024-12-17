@@ -25,36 +25,31 @@ class AdminKelolaJadwalController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'namaKegiatan' => 'required|string|max:255', // Pastikan nama field sesuai dengan form
+            'nama_kegiatan' => 'required|string|max:255',
             'tanggal' => 'required|date',
             'waktu' => 'required|date_format:H:i',
         ]);
 
-        // Map data validasi ke format yang cocok dengan kolom database
-        $data = [
-            'nama_kegiatan' => $validated['namaKegiatan'], // Sesuaikan dengan nama kolom di tabel
-            'tanggal' => $validated['tanggal'],
-            'waktu' => $validated['waktu'],
-        ];
-
-        // Simpan data ke tabel 'jadwals'
-        Jadwal::create($data);
-
-        // Redirect kembali ke halaman kelola jadwal dengan pesan sukses
-        return redirect()->route('jadwal.indeks')->with('success', 'Jadwal berhasil ditambahkan!');
-        // return;
+        Jadwal::create($validated);
+        return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil ditambahkan!');
     }
-    public function destroy($id)
+
+    public function destroy(Jadwal $jadwal)
     {
-        // Cari jadwal berdasarkan ID
-        $jadwal = Jadwal::findOrFail($id);
+        try {
+            // Coba hapus data jadwal
+            $jadwal->delete();
 
-        // Hapus jadwal
-        $jadwal->delete();
-
-        // Redirect dengan pesan sukses
-        return redirect()->route('jadwal.indeks')->with('success', 'Jadwal berhasil dihapus!');
+            return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil dihapus!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Tangkap error jika ada foreign key constraint
+            return redirect()->route('jadwal.index')
+                ->with('error', 'Jadwal tidak bisa dihapus karena masih memiliki keterkaitan dengan data lain.');
+        }
     }
+
+
+
 
     public function search(Request $request)
     {
@@ -67,7 +62,7 @@ class AdminKelolaJadwalController extends Controller
             ->get();
 
         // Kembalikan hasil pencarian ke view
-        return view('jadwal.indeks', compact('jadwals'));
+        return view('admin.kelola_jadwal', compact('jadwals'));
     }
     /**
      * Menampilkan form untuk mengedit jadwal.
@@ -88,18 +83,20 @@ class AdminKelolaJadwalController extends Controller
     {
         // Validasi data yang diterima
         $validated = $request->validate([
-            'namaKegiatan' => 'required|string|max:255',
+            'nama_kegiatan' => 'required|string|max:255',
             'tanggal' => 'required|date',
             'waktu' => 'required|date_format:H:i',
         ]);
+
 
         // Cari jadwal berdasarkan ID
         $jadwal = Jadwal::findOrFail($id);
 
         // Update data jadwal
-        $jadwal->nama_kegiatan = $validated['namaKegiatan'];
+        $jadwal->nama_kegiatan = $validated['nama_kegiatan'];
         $jadwal->tanggal = $validated['tanggal'];
         $jadwal->waktu = $validated['waktu'];
+
 
         // Simpan perubahan ke database
         $jadwal->save();

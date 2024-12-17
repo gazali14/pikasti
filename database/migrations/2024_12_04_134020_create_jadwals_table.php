@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jadwals', function (Blueprint $table) {
-            $table->id(); // Primary key
+            $table->foreign('jadwal_id')// Primary key
+                    ->references('id')->on('jadwals')
+                    ->onDelete('cascade');
             $table->string('nama_kegiatan'); // Nama kegiatan
             $table->date('tanggal'); // Tanggal kegiatan
             $table->time('waktu'); // Waktu kegiatan

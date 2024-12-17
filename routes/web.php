@@ -11,6 +11,8 @@ use App\Http\Controllers\HalamanDokumentasiController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\AdminKelolaKaderController;
 use App\Http\Controllers\AdminKelolaJadwalController;
+use App\Http\Controllers\KMSController;
+
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
@@ -49,14 +51,11 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
     // })->name('admin.kelola_jadwal');
 
     Route::get('/jadwal/search', [AdminKelolaJadwalController::class, 'search'])->name('jadwal.search');
-    Route::resource('admin/jadwal', AdminKelolaJadwalController::class);
+    Route::resource('jadwal', AdminKelolaJadwalController::class);
     Route::put('/jadwal/{id}', [AdminKelolaJadwalController::class, 'update'])->name('jadwal.update');
     Route::get('/kelola_jadwal', [AdminKelolaJadwalController::class, 'index'])->name('jadwal.indeks');
     Route::post('/jadwal', [AdminKelolaJadwalController::class, 'store'])->name("jadwal.store");
     Route::delete('/jadwal/{jadwal}', [AdminKelolaJadwalController::class, 'destroy'])->name("jadwal.destroy");
-
-    // Menambahkan rute untuk pencarian jadwal
-    Route::get('/jadwal/search', [AdminKelolaJadwalController::class, 'search'])->name('jadwal.search');
 
 
 
@@ -100,6 +99,7 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
     Route::get('/konsultasi', function () {
         return view('kader.konsultasi');
     })->name('kader.konsultasi');
+
 
     Route::get('/kms', function () {
         return view('kader.kms');

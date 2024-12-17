@@ -9,7 +9,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('kehadiran_kaders', function (Blueprint $table) {
-            $table->string('nik')->unique();
+            if (!Schema::hasColumn('kehadiran_kaders', 'nik')) {
+                $table->string('nik')->nullable(false);
+            }
+
             $table->string('nama_kader');
             $table->boolean('kehadiran');
             $table->string('jenis_kelamin');
