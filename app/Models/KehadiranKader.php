@@ -9,14 +9,13 @@ class KehadiranKader extends Model
 {
     use HasFactory;
 
-    protected $table = 'kehadiran_kader';
+    protected $table = 'kehadiran_kaders';
 
     // Kolom yang dapat diisi
     protected $fillable = [
         'nik', 
         'nama_kader', 
         'kehadiran', 
-        'jenis_kelamin', 
         'tanggal', 
         'waktu', 
         'id_kegiatan'
