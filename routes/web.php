@@ -12,6 +12,7 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\AdminKelolaKaderController;
 use App\Http\Controllers\AdminKelolaJadwalController;
 use App\Http\Controllers\KMSController;
+use App\Http\Controllers\KehadiranKaderController;
 
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -73,7 +74,11 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
     // Route::get('/presensi_kader', function () {
     //     return view('admin.presensi_kader');
     // })->name('admin.presensi_kader');
-    Route::get('/presensi_kader', [KegiatanController::class, 'index'])->name('admin.presensi_kader');
+    //Route::get('/presensi_kader', [KegiatanController::class, 'index'])->name('admin.presensi_kader');
+    Route::get('/presensi_kader', [KehadiranKaderController::class, 'index'])->name('admin.presensi_kader');  
+    Route::get('/cek_presensi_kader/{id_kegiatan}', [KehadiranKaderController::class, 'cekPresensiKader'])->name('admin.cek_presensi_kader');
+    //Route::post('/cek_presensi_kader/search', [KehadiranKaderController::class, 'search'])->name('admin.cek_presensi_kader.search');
+    Route::post('/admin/cek-presensi-kader/save', [KehadiranKaderController::class, 'savePresensi'])->name('admin.cek_presensi_kader.save');
 
     Route::get('/admin/cek-presensi-bayi/{id}', [AdminPresensi::class, 'cekPresensiBayi'])->name('cek.presensi.bayi');
 
