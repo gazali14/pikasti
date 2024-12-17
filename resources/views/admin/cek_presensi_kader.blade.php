@@ -1,116 +1,143 @@
 <x-layout-admin>
-    <body class="bg-[#E8F6F3] font-poppins m-0 p-0">
-        <div class="flex items-center mb-2 mx-auto">
-            <button onclick="window.history.back()"
+    <!DOCTYPE html>
+    <html lang="id">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cek Presensi</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+
+    <body id="cek-presensi" class="bg-[#E8F6F3] font-poppins m-0 p-0">
+        <div class="flex items-center mb-2 mx-auto ">
+            <a href="/admin/presensi_kader"
                 class="flex items-center px-2 py-2 text-sm text-white bg-[#62BCB1] rounded-lg hover:bg-teal-600">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                    class="w-5 h-5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
-            </button>
+            </a>
             <h1 class="p-5 font-bold text-[#353535] font-poppins text-3xl">Presensi Kader</h1>
         </div>
 
         <div class="max-w-screen-xl mx-auto p-5">
-            <div class="flex flex-wrap justify-between items-center mb-3">
-                <div class="flex items-center w-full sm:w-auto mb-4">
-                    <label for="search-date" class="mr-4 text-lg text-gray-800">Tanggal:</label>
-                    <input type="date" id="search-date"
-                        class="block w-full sm:w-48 py-2 pl-5 pr-5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg">
+            <div class="flex flex-wrap items-center justify-between mb-4">
+                <!-- Kolom Tanggal -->
+                <div class="flex items-center gap-3">
+                    <label class="block text-left font-medium text-base text-black">Tanggal</label>
+                    <span id="tanggal-kegiatan" class="text-lg font-semibold">{{ $jadwal->tanggal }}</span>
                 </div>
-
-                <div class="relative w-full sm:w-auto items-center mb-4 flex">
-                    <input type="search" id="search" class="block w-full py-2 pl-5 pr-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
-                        placeholder="Cari Nama Kader" />
-                    <button type="submit"
-                        class="ml-3 bg-[#41a99dac] text-white border-none p-3 rounded-md transition-colors duration-300 hover:bg-[#3a928d]">
-                        Cari
-                    </button>
+ 
+                 <!-- Kolom Pencarian -->
+                <div class="flex justify-end mb-4">
+                    <input type="text" id="search" class="w-1/8 p-3 border border-gray-300 rounded-lg"
+                        placeholder="Cari nama kader..." oninput="filterKaders()" />
                 </div>
             </div>
+            
 
-            <!-- Tabel Kehadiran -->
-            <table class="w-full border-collapse mb-5 table-auto">
-                <thead class="bg-teal-500">
-                    <tr>
-                        <th class="text-black text-center py-3 px-4">NIK</th>
-                        <th class="text-black text-center py-3 px-4">Nama Kader</th>
-                        <th class="text-black text-center py-3 px-4">Jenis Kelamin</th>
-                        <th class="text-black text-center py-3 px-4">Kehadiran</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white text-sm text-gray-900 font-light border-collapse border border-[#62BCB1]" id="table-body">
-                    @foreach($kaders as $kader)
-                    <tr class="hover:bg-teal-100 transition-colors duration-200">
-                        <td class="border px-4 py-3 text-center text-gray-700 font-semibold">{{ $kader->nik }}</td>
-                        <td class="border px-4 py-3 text-center text-gray-700 font-semibold">{{ $kader->nama }}</td>
-                        <td class="border px-4 py-3 text-center text-gray-700 font-semibold">{{ $kader->jenis_kelamin }}</td>
-                        <td class="border px-4 py-3 text-center">
-                            <input type="checkbox" class="presence-checkbox rounded-lg border-teal-500 focus:ring-2 focus:ring-teal-400"
-                                data-id="{{ $kader->id }}"
-                                data-nik="{{ $kader->nik }}"
-                                data-nama="{{ $kader->nama }}"
-                                data-jenis_kelamin="{{ $kader->jenis_kelamin }}" />
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <form action="{{ route('admin.cek_presensi_kader.save') }}" method="POST" id="presensi-form">
+                @csrf
+                <!-- Hidden input untuk ID kegiatan -->
+                <input type="hidden" name="id_kegiatan" value="{{ $jadwal->id }}">
 
-            <!-- Tombol Simpan -->
-            <button id="save-button"
-                class="px-4 py-2 bg-teal-500 text-white rounded shadow hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-300">
-                Simpan
-            </button>
+                <!-- Tabel Kehadiran -->
+                <table class="w-full border-collapse mb-5">
+                    <thead class="bg-[#41a99d]">
+                        <tr>
+                            <th class="text-white text-center py-2 px-4">NIK</th>
+                            <th class="text-white text-center py-2 px-4">Nama Kader</th>
+                            <th class="text-white text-center py-2 px-4">Kehadiran</th>
+                        </tr>
+                    </thead>
+                    <tbody id="kader-list">
+                        @foreach ($kaders as $kader)
+                        <tr class="kader-item">
+                            <td class="border px-4 py-2">{{ $kader->nik }}</td>
+                            <td class="border px-4 py-2">{{ $kader->nama }}</td>
+                            <td class="border px-4 py-2 text-center">
+                                <!-- Hidden input untuk nilai default jika tidak diceklis -->
+                                <input type="hidden" name="kehadiran[{{ $kader->nik }}]" value="0">
+                                <!-- Tambahkan nilai 1 untuk checkbox yang dicentang -->
+                                <input type="checkbox" name="kehadiran[{{ $kader->nik }}]" value="1" class="w-4 h-4 cursor-pointer"
+                                    {{ isset($kehadiran[$kader->nik]) && $kehadiran[$kader->nik] == 1 ? 'checked' : '' }}>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+                <div id="no-results" class="text-center text-red-500 font-semibold mt-3" style="display: none;">
+                    <span id="no-results-text"></span>
+                </div>                               
+
+                <div class="flex justify-end gap-3 mt-5">
+                    <!-- Tombol Simpan -->
+                    <button id="save-button"
+                        class="px-4 py-2 bg-teal-500 text-white rounded shadow hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-300">
+                        Simpan
+                    </button>
+                </div>
+            </form>
         </div>
 
         <script>
-            document.getElementById('save-button').addEventListener('click', function () {
-                const searchDate = document.getElementById('search-date').value; // Ambil tanggal yang dipilih
-                const checkedCheckboxes = document.querySelectorAll('.presence-checkbox:checked');
-                const presensiData = [];
-                const waktu = new Date().toLocaleTimeString(); // Ambil waktu saat ini
+            let isFormModified = false; // Flag untuk melacak perubahan pada form
 
-                if (!searchDate) {
-                    alert('Harap pilih tanggal terlebih dahulu!');
-                    return; // Pastikan tanggal dipilih sebelum menyimpan
-                }
+            // Fungsi untuk mendeteksi perubahan pada checkbox
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    isFormModified = true; // Tandai bahwa ada perubahan
+                });
+            });
 
-                checkedCheckboxes.forEach(checkbox => {
-                    const data = {
-                        nik: checkbox.getAttribute('data-nik'),
-                        nama_kader: checkbox.getAttribute('data-nama'),
-                        kehadiran: true,
-                        jenis_kelamin: checkbox.getAttribute('data-jenis_kelamin'),
-                        tanggal: searchDate,
-                        waktu: waktu,
-                        id_kegiatan: checkbox.getAttribute('data-id') // Jika id_kegiatan adalah ID kader atau yang relevan
-                    };
-                    presensiData.push(data);
+            function filterKaders() {
+                const searchValue = document.getElementById("search").value.toLowerCase();
+                const kaderItems = document.querySelectorAll(".kader-item");
+                let hasResults = false; // Untuk mengecek hasil pencarian
+
+                kaderItems.forEach(item => {
+                    const nik = item.querySelector("td:nth-child(1)").textContent.toLowerCase();
+                    const nama = item.querySelector("td:nth-child(2)").textContent.toLowerCase();
+
+                    if (nik.includes(searchValue) || nama.includes(searchValue)) {
+                        item.style.display = ""; // Tampilkan baris yang cocok
+                        hasResults = true; // Set hasil pencarian menjadi true
+                    } else {
+                        item.style.display = "none"; // Sembunyikan baris yang tidak cocok
+                    }
                 });
 
-                // Cek jika tidak ada kader yang dipilih
-                if (presensiData.length === 0) {
-                    alert('Harap pilih kader yang hadir!');
-                    return;
-                }
+                // Tampilkan atau sembunyikan pesan 'Tidak ada hasil'
+                const noResultsMessage = document.getElementById("no-results");
+                const noResultsText = document.getElementById("no-results-text");
 
-                fetch('{{ route("presensi.store") }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        presensi: presensiData
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message); // Tampilkan pesan dari server
-                })
-                .catch(error => console.error('Error:', error));
+                if (!hasResults && searchValue !== "") {
+                    // Mengubah teks menjadi dinamis dengan nama pencarian
+                    noResultsText.textContent = `Mohon Maaf, Nama " ${searchValue} " tidak ada`;
+                    noResultsMessage.style.display = "block";
+                } else {
+                    noResultsMessage.style.display = "none";
+                }
+            }
+
+            // Event listener untuk mencegah berpindah halaman jika ada perubahan yang belum disimpan
+            window.addEventListener('beforeunload', function (event) {
+                if (isFormModified) {
+                    const confirmationMessage = 'Anda memiliki perubahan yang belum disimpan. Apakah Anda yakin ingin meninggalkan halaman ini?';
+                    event.returnValue = confirmationMessage; // Untuk browser yang mendukung
+                    return confirmationMessage; // Untuk browser yang lebih lama
+                }
+            });
+
+            // Fungsi untuk menangani simpan perubahan
+            document.getElementById('presensi-form').addEventListener('submit', function () {
+                isFormModified = false; // Reset flag saat form disubmit
             });
         </script>
     </body>
+
+    </html>
 </x-layout-admin>
