@@ -13,7 +13,9 @@
             <i class="fas fa-user mr-3"></i>
             Kelola Kader
         </a>
-        <a href="/admin/presensi_kader" class="{{ request()->is('admin/presensi_kader') ? 'active-nav-link text-white' : 'text-white opacity-75 hover:opacity-100'}} flex items-center py-4 pl-6 nav-item">
+        <a href="/admin/presensi_kader" 
+            class="{{ request()->is('admin/presensi_kader') || request()->is('admin/cek_presensi_kader*') ? 'active-nav-link text-white' : 'text-white opacity-75 hover:opacity-100'}} 
+                flex items-center py-4 pl-6 nav-item">
             <i class="fas fa-check-square mr-3"></i>
             Presensi Kader
         </a>
