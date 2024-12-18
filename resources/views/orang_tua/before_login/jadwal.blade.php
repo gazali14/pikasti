@@ -30,10 +30,6 @@
 
 
 {{-- FOOTER --}}
-<x-footer-home />
-
-
-{{-- FOOTER --}}
 <x-footer-home></x-footer-home>
 
 {{-- JavaScript --}}
