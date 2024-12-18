@@ -26,7 +26,9 @@
                 <!-- Kolom Tanggal -->
                 <div class="flex items-center gap-3">
                     <label class="block text-left font-medium text-base text-black">Tanggal</label>
-                    <span id="tanggal-kegiatan" class="text-lg font-semibold">{{ $jadwal->tanggal }}</span>
+                    <span id="tanggal-kegiatan" class="text-lg font-semibold">
+                        {{ \Carbon\Carbon::parse($jadwal->tanggal)->format('d F Y') }}
+                    </span>
                 </div>
  
                  <!-- Kolom Pencarian -->
