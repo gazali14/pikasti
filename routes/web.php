@@ -116,7 +116,7 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
 
     Route::get('/presensi_bayi', [KaderController::class, 'index'])->name('kader.presensi_bayi');
     Route::get('/cek_presensi/{id_kegiatan}', [KaderController::class, 'cekPresensi'])->name('kader.cek_presensi');
-    Route::post('/cek_presensi/search', [KaderController::class, 'search'])->name('kader.cek_presensi.search');
+    //Route::post('/cek_presensi/search', [KaderController::class, 'search'])->name('kader.cek_presensi.search');
     Route::post('/kader/cek-presensi/save', [KaderController::class, 'savePresensi'])->name('kader.cek_presensi.save');
     Route::get('/kader/presensi-bayi', [KaderController::class, 'presensiBayi'])->name('kader.presensi_bayi');
 
