@@ -65,7 +65,7 @@
                         {
                             label: 'Berat Badan -3 SD',
                             data: Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 6)), // Rentang 2 sampai 8
-                            borderColor: 'rgba(255, 206, 86, 1)', // Kuning
+                            borderColor: '#d90f0f', // Kuning
                             fill: false,
                             pointRadius: 0 // Menghilangkan titik data
                         },
@@ -155,7 +155,7 @@
                         {
                             label: 'Tinggi Badan -3 SD',
                             data: Array(60).fill(8).map((v, i) => v + (i * (4 / 59))), // Rentang 8 sampai 12
-                            borderColor: 'rgba(255, 206, 86, 1)', // Kuning
+                            borderColor: '#d90f0f0f', // Kuning
                             fill: false,
                             pointRadius: 0 // Menghilangkan titik data
                         },
@@ -247,7 +247,7 @@
                         {
                             label: 'Berat Badan -3 SD',
                             data: Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 6.9)), // Rentang 2 sampai 8.9
-                            borderColor: 'rgba(255, 206, 86, 1)', // Kuning
+                            borderColor: '#d90f0f', // Kuning
                             fill: false,
                             pointRadius: 0 // Menghilangkan titik data
                         },
@@ -337,7 +337,7 @@
                         {
                             label: 'Tinggi Badan -3 SD',
                             data: Array(60).fill(8.5).map((v, i) => v + (i * (3.7 / 59))), // Rentang 8.5 sampai 12.2
-                            borderColor: 'rgba(255, 206, 86, 1)', // Kuning
+                            borderColor: '#d90f0f', // Kuning
                             fill: false,
                             pointRadius: 0 // Menghilangkan titik data
                         },
