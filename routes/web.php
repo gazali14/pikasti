@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\AdminPresensi;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminPresensi;
+use App\Http\Controllers\KMSController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KaderController;
-use App\Http\Controllers\HalamanJadwalController;
-use App\Http\Controllers\ProfilKaderController;
-use App\Http\Controllers\HalamanDokumentasiController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\ProfilKaderController;
+use App\Http\Controllers\HalamanJadwalController;
+use App\Http\Controllers\KehadiranKaderController;
 use App\Http\Controllers\AdminKelolaKaderController;
 use App\Http\Controllers\AdminKelolaJadwalController;
-use App\Http\Controllers\KMSController;
-use App\Http\Controllers\KehadiranKaderController;
+use App\Http\Controllers\HalamanDokumentasiController;
+use App\Http\Controllers\AdminKelolaDokumentasiController;
 
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -23,14 +24,14 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::prefix('orang_tua/before_login')->group(function () {
     // Arahkan Home ke HomeController
     Route::get('/home', [HomeController::class, 'index'])->name('orang_tua.before_login.home');
-    
+
     // Route untuk Jadwal
     Route::get('/jadwal', [HalamanJadwalController::class, 'index'])->name('jadwal');
     Route::get('/jadwal/filter', [HalamanJadwalController::class, 'filter'])->name('jadwal.filter');
 
     // Route untuk Profil Kader
     Route::get('/profil_kader', [ProfilKaderController::class, 'index'])->name('profil_kader');
-    
+
     // Route untuk Dokumentasi
     Route::get('/dokumentasi', [HalamanDokumentasiController::class, 'index'])->name('dokumentasi');
 
@@ -58,13 +59,9 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
     Route::post('/jadwal', [AdminKelolaJadwalController::class, 'store'])->name("jadwal.store");
     Route::delete('/jadwal/{jadwal}', [AdminKelolaJadwalController::class, 'destroy'])->name("jadwal.destroy");
 
-
-
     // Route::get('/kelola_kader', function () {
     //     return view('admin.kelola_kader');
     // })->name('admin.kelola_kader');
-
-  
 
     Route::get('/kelola_kader', [AdminKelolaKaderController::class, 'index'])->name('admin.kelola_kader.index');
     Route::post('/kelola_kader', [AdminKelolaKaderController::class, 'store'])->name('admin.kelola_kader.store');
@@ -75,16 +72,17 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
     //     return view('admin.presensi_kader');
     // })->name('admin.presensi_kader');
     //Route::get('/presensi_kader', [KegiatanController::class, 'index'])->name('admin.presensi_kader');
-    Route::get('/presensi_kader', [KehadiranKaderController::class, 'index'])->name('admin.presensi_kader');  
+    Route::get('/presensi_kader', [KehadiranKaderController::class, 'index'])->name('admin.presensi_kader');
     Route::get('/cek_presensi_kader/{id_kegiatan}', [KehadiranKaderController::class, 'cekPresensiKader'])->name('admin.cek_presensi_kader');
     //Route::post('/cek_presensi_kader/search', [KehadiranKaderController::class, 'search'])->name('admin.cek_presensi_kader.search');
     Route::post('/admin/cek-presensi-kader/save', [KehadiranKaderController::class, 'savePresensi'])->name('admin.cek_presensi_kader.save');
 
     Route::get('/admin/cek-presensi-bayi/{id}', [AdminPresensi::class, 'cekPresensiBayi'])->name('cek.presensi.bayi');
 
-    Route::get('/dokumentasi', function () {
-        return view('admin.dokumentasi');
-    })->name('admin.dokumentasi');
+    // Semua route RESTful sudah didefinisikan oleh Route::resource
+    Route::resource('dokumentasi', AdminKelolaDokumentasiController::class);
+    Route::get('/dokumentasi/search', [AdminKelolaDokumentasiController::class, 'search'])->name('dokumentasi.search');
+
 
     // Route::post();
     // Route untuk menyimpan data presensi
@@ -140,7 +138,7 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
 // Routes for orang_tua after login (Authenticated)
 Route::middleware('auth:bayi')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('orang_tua.before_login.home');
-    
+
     Route::get('/dashboard', function () {
         return view('orang_tua.dashboard');
     })->name('orang_tua.dashboard');
