@@ -4,10 +4,20 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Bayi extends Authenticatable
 {
     use Notifiable;
+    use HasFactory;
+
+    protected $table = 'bayis';
+
+    public function kms()
+    {
+        return $this->hasMany(KMS::class, 'nik_bayi');
+    }
 
     protected $fillable = [
         'nik', 'nama', 'nama_ibu', 'jenis_kelamin', 'tanggal_lahir', 'berat_badan_lahir', 'tinggi_badan_lahir', 'alamat', 'no_telpon', 'password',

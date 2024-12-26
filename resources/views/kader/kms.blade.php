@@ -5,10 +5,9 @@
             <h1 class="text-2xl font-bold text-[#353535] font-poppins">Pendataan Kondisi Bayi</h1>
         </div>
 
-
         <!-- Tabel KMS -->
         <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded shadow">
-            <x-tabel-kms />
+            <x-tabel-kms :bayiList="$bayiList" :kmsData="$kmsData" :selectedBayiNik="$selectedBayiNik" />
         </div>
 
         <!-- Grafik KMS -->

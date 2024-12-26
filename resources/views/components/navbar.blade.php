@@ -3,7 +3,7 @@
     <div class="flex h-16 items-center justify-between">
       <div class="flex items-center">
         <div class="shrink-0">
-          <img class="size-12" src="{{ asset('img/White.png') }}" alt="">
+          <img class="size-12" src="{{ asset('img/logo.png') }}" alt="">
         </div>
       </div>
       <div class="hidden md:flex justify-center flex-grow">

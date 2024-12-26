@@ -13,6 +13,9 @@ use App\Http\Controllers\AdminKelolaKaderController;
 use App\Http\Controllers\AdminKelolaJadwalController;
 use App\Http\Controllers\KMSController;
 use App\Http\Controllers\KehadiranKaderController;
+use App\Models\Bayi;
+
+
 
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -109,6 +112,21 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
     Route::get('/kms', function () {
         return view('kader.kms');
     })->name('kader.kms');
+
+    Route::get('/bayi', function () {
+        return response()->json(Bayi::all());
+    });
+
+
+
+    // Route untuk dropdown nama bayi
+    Route::get('/bayi', [KMSController::class, 'getBayi']);
+    Route::get('/kms', [KMSController::class, 'index'])->name('kms.index'); // Halaman utama
+    Route::get('/kms/{nik}', [KMSController::class, 'show'])->name('kms.show'); // Tampilkan data berdasarkan NIK
+    Route::post('/kms', [KMSController::class, 'store'])->name('kms.store'); // Simpan data
+    Route::delete('/kms/{id}', [KMSController::class, 'destroy'])->name('kms.destroy'); // Hapus data
+    Route::put('/kms/{id}', [KMSController::class, 'update'])->name('kms.update');
+
 
     Route::get('/presensi_bayi', function () {
         return view('kader.presensi_bayi');
