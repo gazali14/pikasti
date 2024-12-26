@@ -6,8 +6,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Kader;
 
-class KaderSeeder extends Seeder
+class KaderSeederPresensi extends Seeder
 {
     /**
      * Run the database seeds.
