@@ -12,10 +12,10 @@ class AdminKelolaKaderController extends Controller
     {
         $search = $request->input('search');
         $kaders = Kader::query()
-            ->where('is_admin', 0)
             ->when($search, function ($query) use ($search) {
                 $query->where('nama', 'LIKE', "%{$search}%")
-                    ->orWhere('alamat', 'LIKE', "%{$search}%");
+                    ->orWhere('alamat', 'LIKE', "%{$search}%")
+                    ->orWhere('jabatan', 'LIKE', "%{$search}%");
             })
             ->get();
 
@@ -30,7 +30,7 @@ class AdminKelolaKaderController extends Controller
             'alamat' => 'required|string|max:255',
             'jabatan' => 'required|string|max:50',
             'password' => 'required|string|min:8',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
     
         if ($request->id) {
@@ -58,7 +58,7 @@ class AdminKelolaKaderController extends Controller
             Kader::create($validated);
         }
     
-        return redirect()->route('admin.kelola_kader.index')->with('success', 'Data kader berhasil disimpan.');
+        return redirect()->route('admin.kelola_kader.index')->with('success', 'Data kader berhasil disimpan!');
     }
     
 

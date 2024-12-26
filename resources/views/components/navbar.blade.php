@@ -34,10 +34,10 @@
         <div class="ml-4 flex items-center md:ml-6">
           <div class="relative ml-3">
             <div>
-              <button type="button" @click="isOpen = !isOpen" class="relative flex max-w-xs items-center rounded-full bg-[#62BCB1] text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#62BCB1]" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+              <button type="button" @click="isOpen = !isOpen" class="relative flex max-w-xs items-center rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#62BCB1]" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                 <span class="sr-only">Open user menu</span>
                 <!-- Gambar profil (opsional) -->
-                <img class="size-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                <img class="size-8 rounded-full" src="{{  asset('img/Profile.png') }}" alt="profile">
               </button>
             </div>
             <div x-show="isOpen" 
@@ -53,7 +53,7 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" 
-                        class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100" 
+                        class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-[#ff5c5c] hover:text-white" 
                         role="menuitem" tabindex="-1">Logout</button>
                 </form>
             </div>

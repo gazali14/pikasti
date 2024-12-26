@@ -105,7 +105,7 @@
                     <div class="w-full md:w-2/3 space-y-4">
                         <div>
                             <label for="nik" class="block text-gray-700 font-medium">NIK</label>
-                            <input type="text" name="nik" id="nik" value="{{ old('nik') }}"
+                            <input type="text" name="nik" id="nik" value="{{ old('nik') }}" required
                                 class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
                                 placeholder="Masukkan NIK">
                             @error('nik')
@@ -115,7 +115,7 @@
 
                         <div>
                             <label for="nama" class="block text-gray-700 font-medium">Nama</label>
-                            <input type="text" name="nama" id="nama" value="{{ old('nama') }}"
+                            <input type="text" name="nama" id="nama" value="{{ old('nama') }}" required
                                 class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
                                 placeholder="Masukkan Nama">
                             @error('nama')
@@ -125,7 +125,7 @@
 
                         <div>
                             <label for="alamat" class="block text-gray-700 font-medium">Alamat</label>
-                            <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}"
+                            <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}" required
                                 class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
                                 placeholder="Masukkan Alamat">
                             @error('alamat')
@@ -135,7 +135,7 @@
 
                         <div>
                             <label for="jabatan" class="block text-gray-700 font-medium">Jabatan</label>
-                            <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan') }}"
+                            <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan') }}" required
                                 class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
                                 placeholder="Masukkan Jabatan">
                             @error('jabatan')
@@ -146,7 +146,7 @@
                         <div class="relative">
                             <label for="password" class="block text-gray-700 font-medium">Password</label>
                             <div class="relative">
-                                <input type="password" name="password" id="password"
+                                <input type="password" name="password" id="password" required
                                     class="w-full mt-1 p-2 pr-10 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
                                     placeholder="Masukkan Password">
                                 <button type="button" id="togglePassword"

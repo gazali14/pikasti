@@ -6,6 +6,10 @@ use App\Models\Jadwal; // Import model Jadwal
 use Illuminate\Http\Request;
 use App\Models\KehadiranKader;
 use App\Models\Kader;
+use Carbon\Carbon;
+
+// Set locale ke Indonesia
+Carbon::setLocale('id');
 
 class KehadiranKaderController extends Controller
 {
@@ -25,8 +29,12 @@ class KehadiranKaderController extends Controller
 
         $kaders = $kaders->get();
 
-        // Ambil semua jadwal kegiatan dari tabel Jadwal
-        $jadwal = Jadwal::all(); // Ambil semua data jadwal
+        // Ambil semua jadwal kegiatan dari tabel Jadwal, urutkan berdasarkan tanggal terdekat dengan hari ini
+        $jadwal = Jadwal::orderBy('tanggal', 'asc')->get(); // Urutkan berdasarkan tanggal dari yang terdekat
+        $jadwal->each(function ($item) {
+            $item->tanggal = Carbon::parse($item->tanggal)->format('Y-m-d');
+        });
+
         return view('admin.presensi_kader', compact('jadwal'));
     }
 

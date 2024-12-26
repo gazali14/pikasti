@@ -1,5 +1,181 @@
 <x-layout-admin>
     <div class="p-2 min-h-screen max-h-96">
-        <x-tabel-dokumentasi-kegiatan />
+        <div class="container mx-auto p-5">
+            <h1 class="text-3xl font-bold mb-4">Daftar Dokumentasi</h1>
+
+            <!-- Search bar dan tombol tambah -->
+            <div class="flex items-center justify-between mb-4">
+                <form class="flex items-center w-1/2" method="GET" action="{{ route('dokumentasi.search') }}">
+                    <input type="text" id="search" name='search' placeholder="Cari Dokumentasi"
+                        class="border border-gray-300 rounded-md px-3 py-2 w-full focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm" />
+                </form>
+
+                <button id="tambahButton"
+                    class="ml-4 bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition"
+                    onclick="showPopup('Tambah Dokumentasi')">
+                    Tambah
+                </button>
+            </div>
+
+            <!-- Tabel -->
+            <table id="dokumentasiTable" class="w-full border-collapse border border-[#62BCB1]">
+                <thead>
+                    <tr>
+                        <th class="text-white border bg-[#62BCB1] py-2 px-4">Nama Kegiatan</th>
+                        <th class="text-white border bg-[#62BCB1] py-2 px-4">Tanggal</th>
+                        <th class="text-white border bg-[#62BCB1] py-2 px-4">Edit</th>
+                        <th class="text-white border bg-[#62BCB1] py-2 px-4">Hapus</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                    @foreach ($dokumentasis as $dokumentasi)
+                        <tr class="text-center">
+                            <td class="border border-[#62BCB1] py-2 px-4">{{ $dokumentasi->nama_kegiatan }}</td>
+                            <td class="border border-[#62BCB1] py-2 px-4">{{ $dokumentasi->tanggal->format('d-m-Y') }}
+                            </td>
+                            <td class="border border-[#62BCB1] py-2 px-4">
+                                <button
+                                    class="editButton bg-teal-500 text-white px-3 py-1 rounded-md hover:bg-teal-600 transition"
+                                    onclick="showPopup('Edit Jadwal Posyandu', '{{ $dokumentasi->id }}', '{{ $dokumentasi->nama_kegiatan }}', '{{ $dokumentasi->deskripsi }}','{{ $dokumentasi->tanggal->format('Y-m-d') }}')">
+                                    Edit
+                                </button>
+                            </td>
+                            <td class="border border-[#62BCB1] py-2 px-4">
+                                <!-- Tombol Hapus dengan SweetAlert -->
+                                <form action="{{ route('dokumentasi.destroy', $dokumentasi->id) }}" method="POST"
+                                    class="delete-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Popup form -->
+        <div id="popupForm" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-md w-2/4 shadow-lg">
+                <h2 id="popupTitle" class="text-xl text-center font-bold mb-4"></h2>
+                <form id="popupInputForm" action="{{ route('dokumentasi.store') }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-black-700" for="namaKegiatan">Nama
+                            Kegiatan</label>
+                        <input type="text" id="namaKegiatan" name="nama_kegiatan" required
+                            class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-black-700" for="namaKegiatan">Deskripsi</label>
+                        <input type="text" id="deskripsiKegiatan" name="deskripsi" required
+                            class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-black-700" for="tanggal">Tanggal</label>
+                        <input type="date" id="tanggalKegiatan" name="tanggal" required
+                            class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-black-700" for="foto">Upload Foto</label>
+                        <input type="file" id="foto" name="foto[]" multiple
+                            class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button"
+                            class="mr-2 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition"
+                            onclick="hidePopup()">Batal</button>
+                        <button type="submit"
+                            class="bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600 transition">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (session('error'))
+        <script>
+            alert("{{ session('error') }}");
+        </script>
+    @endif
+
+    <!-- Javascript -->
+    <script>
+        function showPopup(title, id = '', nama_kegiatan = '', deskripsi = '', tanggal = '') {
+            document.getElementById('popupTitle').textContent = title;
+            document.getElementById('namaKegiatan').value = nama_kegiatan;
+            document.getElementById('deskripsiKegiatan').value = deskripsi;
+            document.getElementById('tanggalKegiatan').value = tanggal;
+
+            let form = document.getElementById('popupInputForm');
+            if (id) {
+                // Mode Edit
+                form.action = `/admin/dokumentasi/${id}`;
+                form.method = 'POST';
+                let methodInput = document.createElement('input');
+                methodInput.type = 'hidden';
+                methodInput.name = '_method';
+                methodInput.value = 'PUT';
+                form.appendChild(methodInput);
+            } else {
+                form.action = '{{ route("dokumentasi.store") }}';
+                form.method = 'POST';
+            }
+
+            document.getElementById('popupForm').classList.remove('hidden');
+        }
+
+        function hidePopup() {
+            document.getElementById('popupForm').classList.add('hidden');
+        }
+
+        // SweetAlert Konfirmasi Hapus
+        document.querySelectorAll('.delete-form').forEach((form) => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda tidak dapat membatalkan ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit(); // Kirim form jika dikonfirmasi
+                    }
+                });
+            });
+        });
+
+        document.getElementById('search').addEventListener('input', function() {
+            let searchQuery = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#dokumentasiTable tbody tr');
+
+            rows.forEach((row) => {
+                let namaKegiatan = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                let tanggal = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+
+                if (namaKegiatan.includes(searchQuery) || tanggal.includes(searchQuery)) {
+                    row.style.display = ''; // Tampilkan baris
+                } else {
+                    row.style.display = 'none'; // Sembunyikan baris yang tidak sesuai
+                }
+            });
+        });
+    </script>
 </x-layout-admin>

@@ -9,6 +9,8 @@ use App\Models\Kehadiran;
 use App\Models\Kader;
 use Carbon\Carbon;
 
+// Set locale ke Indonesia
+Carbon::setLocale('id');
 
 class KaderController extends Controller
 {
@@ -28,42 +30,49 @@ class KaderController extends Controller
 
         $bayis = $bayis->get();
 
-        // Ambil semua jadwal kegiatan dari tabel Jadwal
-        $jadwal = Jadwal::all(); // Ambil semua data jadwal
+        // Ambil semua jadwal kegiatan dari tabel Jadwal, urutkan berdasarkan tanggal terdekat dengan hari ini
+        $jadwal = Jadwal::orderBy('tanggal', 'asc')->get(); // Urutkan berdasarkan tanggal dari yang terdekat
+
+        // Format tanggal jadwal agar hanya menampilkan tanggal (tanpa waktu)
+        $jadwal->each(function ($item) {
+            $item->tanggal = Carbon::parse($item->tanggal)->format('Y-m-d');
+        });
+
+        // Kirim data ke view
         return view('kader.presensi_bayi', compact('jadwal'));
     }
 
-    /**
-     * Handle search functionality for bayi by name.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
-     */
-    public function search(Request $request)
-    {
-        // Ambil data bayi berdasarkan pencarian nama
-        $bayis = Bayi::query();
+    // /**
+    //  * Handle search functionality for bayi by name.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\View\View
+    //  */
+    // public function search(Request $request)
+    // {
+    //     // Ambil data bayi berdasarkan pencarian nama
+    //     $bayis = Bayi::query();
 
-        if ($request->has('search') && $request->search != '') {
-            $bayis->where('nama', 'LIKE', '%' . $request->search . '%');
-        }
+    //     if ($request->has('search') && $request->search != '') {
+    //         $bayis->where('nama', 'LIKE', '%' . $request->search . '%');
+    //     }
 
-        // Ambil kehadiran bayi berdasarkan pencarian dan ID kegiatan terbaru
-        $bayis = $bayis->get();
+    //     // Ambil kehadiran bayi berdasarkan pencarian dan ID kegiatan terbaru
+    //     $bayis = $bayis->get();
 
-        // Ambil ID kegiatan terakhirz
-        $jadwal = Jadwal::latest('tanggal')->first();
+    //     // Ambil ID kegiatan terakhirz
+    //     $jadwal = Jadwal::latest('tanggal')->first();
 
-        // Ambil kehadiran berdasarkan ID kegiatan
-        $kehadiran = Kehadiran::where('id_kegiatan', $jadwal->id)
-                            ->pluck('kehadiran', 'nik');
+    //     // Ambil kehadiran berdasarkan ID kegiatan
+    //     $kehadiran = Kehadiran::where('id_kegiatan', $jadwal->id)
+    //                         ->pluck('kehadiran', 'nik');
 
-        // Jika hasil pencarian kosong, kirim pesan ke view
-        $message = $bayis->isEmpty() ? "Nama '" . $request->search . "' tidak ditemukan" : null;
+    //     // Jika hasil pencarian kosong, kirim pesan ke view
+    //     $message = $bayis->isEmpty() ? "Nama '" . $request->search . "' tidak ditemukan" : null;
 
-        // Return the view with search results
-        return view('kader.cek_presensi', compact('bayis', 'jadwal', 'kehadiran', 'message'));
-    }
+    //     // Return the view with search results
+    //     return view('kader.cek_presensi', compact('bayis', 'jadwal', 'kehadiran', 'message'));
+    // }
 
 
     public function cekPresensi(Request $request, $id_kegiatan)
@@ -159,14 +168,6 @@ class KaderController extends Controller
         return redirect()->back()->with('success', 'Data presensi berhasil disimpan.');
     }
 
-    public function presensiBayi()
-    {
-        // Ambil data jadwal dari database
-        $jadwal = Jadwal::all(); // Sesuaikan query jika perlu (contoh: filter tanggal mendatang)
-
-        // Kembalikan ke view presensi_bayi dengan data jadwal
-        return view('kader.presensi_bayi', compact('jadwal'));
-    }
 
 
 }
