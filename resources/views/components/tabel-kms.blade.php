@@ -46,12 +46,43 @@
             </div>
         </div>
 
+        <!-- Informasi Bayi -->
+        @if($selectedBayiNik)
+            @php
+                $selectedBayi = $bayiList->firstWhere('nik', $selectedBayiNik);
+                $tanggalLahir = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir);
+                $usiaBulan = floor($tanggalLahir->diffInMonths(now()));
+            @endphp
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-black mb-2">Informasi Data Bayi</h3>
+                <table class="table-auto text-sm text-black">
+                    <tr>
+                        <td class="pr-4 font-semibold">Nama</td>
+                        <td class="px-2">:</td>
+                        <td>{{ $selectedBayi->nama }}</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-4 font-semibold">Jenis Kelamin</td>
+                        <td class="px-2">:</td>
+                        <td>{{ $selectedBayi->jenis_kelamin }}</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-4 font-semibold">Tanggal Lahir</td>
+                        <td class="px-2">:</td>
+                        <td>{{ $selectedBayi->tanggal_lahir }}</td>
+                    </tr>
+                </table>
+            </div>
+        @endif
+
+
         <!-- Tabel Data KMS -->
         <div class="rounded shadow-sm overflow-x-auto">
             <table id="TableKMS" class="min-w-full border-collapse border border-[#62BCB1]">
                 <thead>
                     <tr>
                         <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Tanggal</th>
+                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Umur (Bulan)</th>
                         <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Tinggi Badan (cm)</th>
                         <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Berat Badan (kg)</th>
                         <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Kategori</th>
@@ -60,12 +91,16 @@
                 </thead>
                 <tbody class= "bg-white text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
                     @forelse ($kmsData as $kms)
-                        <tr class="border border-[#62BCB1] py-2 px-4">
-                            <td class="text-center py-2 px-4">{{ $kms->tanggal }}</td>
-                            <td class="text-center py-2 px-4">{{ $kms->tinggi_badan }}</td>
-                            <td class="text-center py-2 px-4">{{ $kms->berat_badan }}</td>
-                            <td class="text-center py-2 px-4">{{ $kms->kategori }}</td>
-                            <td class="text-center py-2 px-4">
+                         @php
+                            $umurBulan = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir)->diffInMonths(\Carbon\Carbon::parse($kms->tanggal));
+                        @endphp
+                        <tr>
+                            <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->tanggal }}</td>
+                            <td class="border-collapse border border-[#62BCB1] text-center">{{ floor($umurBulan) }} bulan</td> <!-- Tambahkan usia bulan jika dibutuhkan -->
+                            <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->tinggi_badan }}</td>
+                            <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->berat_badan }}</td>
+                            <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->kategori }}</td>
+                            <td class="border-collapse border border-[#62BCB1] text-center py-2 px-4">
                                 <!-- Tombol Edit -->
                                 <button type="button" onclick="openEditModal('{{ $kms->id }}', '{{ $kms->tanggal }}', '{{ $kms->tinggi_badan }}', '{{ $kms->berat_badan }}', '{{ $kms->kategori }}')"
                                         class="bg-teal-500 text-white px-3 py-1 rounded-md hover:bg-teal-600 transition">Edit</button>
@@ -91,7 +126,7 @@
 
     <!-- Modal Tambah -->
     <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg w-1/3">
+        <div class="bg-white p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 mx-4">
             <h2 id="modal-title" class="text-lg font-bold mb-4">Tambah Data</h2>
             <form id="form-data" action="{{ route('kms.store') }}" method="POST">
                 @csrf
@@ -103,15 +138,15 @@
                 </div>
                 <div class="mb-4">
                     <label for="tinggi_badan" class="block text-sm font-medium">Tinggi Badan (cm)</label>
-                    <input type="number" name="tinggi_badan" id="tinggi_badan" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="text" name="tinggi_badan" id="tinggi_badan" class="block w-full px-3 py-2 border rounded-md" required>
                 </div>
                 <div class="mb-4">
                     <label for="berat_badan" class="block text-sm font-medium">Berat Badan (kg)</label>
-                    <input type="number" name="berat_badan" id="berat_badan" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="text" name="berat_badan" id="berat_badan" class="block w-full px-3 py-2 border rounded-md" required>
                 </div>
                 <div class="mb-4">
                     <label for="kategori" class="block text-sm font-medium">Kategori</label>
-                    <input type="text" name="kategori" id="kategori" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="text" name="kategori" id="kategori" class="block w-full px-3 py-2 border rounded-md bg-gray-200" readonly placeholder="Terisi otomatis">
                 </div>
                 <div class="flex justify-end">
                     <button type="button" id="cancel-button" class="px-4 py-2 bg-gray-500 text-white rounded-md mr-2">Batal</button>
@@ -121,9 +156,10 @@
         </div>
     </div>
 
+
     <!-- Modal Edit -->
     <div id="modal-edit" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg w-1/3">
+        <div class="bg-white p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 mx-4">
             <h2 class="text-lg font-bold mb-4">Edit Data</h2>
             <form id="form-edit" method="POST">
                 @csrf
@@ -135,15 +171,15 @@
                 </div>
                 <div class="mb-4">
                     <label for="edit-tinggi_badan" class="block text-sm font-medium">Tinggi Badan (cm)</label>
-                    <input type="number" name="tinggi_badan" id="edit-tinggi_badan" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="text" name="tinggi_badan" id="edit-tinggi_badan" class="block w-full px-3 py-2 border rounded-md" required>
                 </div>
                 <div class="mb-4">
                     <label for="edit-berat_badan" class="block text-sm font-medium">Berat Badan (kg)</label>
-                    <input type="number" name="berat_badan" id="edit-berat_badan" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="twxt" name="berat_badan" id="edit-berat_badan" class="block w-full px-3 py-2 border rounded-md" required>
                 </div>
                 <div class="mb-4">
                     <label for="edit-kategori" class="block text-sm font-medium">Kategori</label>
-                    <input type="text" name="kategori" id="edit-kategori" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="text" name="kategori" id="edit-kategori" class="block w-full px-3 py-2 border rounded-md bg-gray-200" readonly placeholder="Terisi otomatis">
                 </div>
                 <div class="flex justify-end">
                     <button type="button" id="edit-cancel-button" class="px-4 py-2 bg-gray-500 text-white rounded-md mr-2">Batal</button>
@@ -152,6 +188,7 @@
             </form>
         </div>
     </div>
+
 
 
     <script>

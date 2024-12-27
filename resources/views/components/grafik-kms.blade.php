@@ -5,111 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafik KMS Posyandu</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        .container {
-            width: 95%;
-            max-width: 1200px;
-            margin: 20px auto;
-        }
-        .chart-container {
-            position: relative;
-            margin-bottom: 30px;
-            height: 400px;
-        }
-        @media (max-width: 768px) {
-            .chart-container {
-                height: 300px;
-            }
-        }
-        #beratBadanChart {
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-        }
-        #tinggiBadanChart{
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-        }
-
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <div class="chart-container">
-            <canvas id="beratBadanChart"></canvas>
+<body class="bg-gray-100">
+    @php
+        $selectedBayi = $bayiList->firstWhere('nik', $selectedBayiNik);
+    @endphp
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Grafik KMS Posyandu</h1>
+
+        <!-- Grafik Berat Badan -->
+        <div class="bg-white shadow-md rounded-lg p-4 mb-8">
+            <div class="chart-container relative h-96">
+                <canvas id="beratBadanChart"></canvas>
+            </div>
         </div>
-        <div class="chart-container">
-            <canvas id="tinggiBadanChart"></canvas>
+
+        <!-- Grafik Tinggi Badan -->
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <div class="chart-container relative h-96">
+                <canvas id="tinggiBadanChart"></canvas>
+            </div>
         </div>
     </div>
 
-    <script>
-        //KMS PEREMPUAN
-        // Data untuk grafik berat badan
-        /*keterangan:
-            -3 SD: Ini adalah batas bawah yang menunjukkan anak dengan pertumbuhan yang sangat lambat, mungkin mengalami kekurangan gizi atau masalah kesehatan.
-            -2 SD: Ini adalah batas bawah yang lebih ringan, anak mungkin mengalami pertumbuhan lebih lambat dari rata-rata tetapi tidak seberat -3 SD.
-            -1 SD: Ini menunjukkan anak yang sedikit di bawah rata-rata, tetapi masih dalam batas normal untuk pertumbuhan.
-            Median (0 SD): Ini adalah rata-rata pertumbuhan anak dalam kelompok usia tersebut. Ini dianggap sebagai standar "normal" untuk pertumbuhan.
-            +1 SD: Ini menunjukkan anak yang sedikit lebih tinggi dari rata-rata.
-            +2 SD dan +3 SD: Ini menunjukkan anak dengan pertumbuhan yang sangat baik, lebih tinggi dari rata-rata.
-        */
-        const beratBadanChart = new Chart(
-            document.getElementById('beratBadanChart'),
-            {
+    @if($selectedBayi)
+        <script>
+            const bayiData = @json($kmsData); // Data KMS bayi dalam format JSON
+            const selectedBayi = @json($selectedBayi); // Informasi bayi yang dipilih
+            const bayiPointColor = 'rgba(0, 0, 255, 1)'; // Warna untuk titik data bayi
+
+            const referensiKMS = {
+            Perempuan: {
+                beratBadan: {
+                    '-3SD': Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 6.5)),
+                    '-2SD': Array.from({ length: 60 }, (_, i) => 2.2 + (Math.sqrt(i / 59) * 7.5)),
+                    '-1SD': Array.from({ length: 60 }, (_, i) => 2.5 + (Math.sqrt(i / 59) * 9)),
+                    'Median': Array.from({ length: 60 }, (_, i) => 3 + (Math.sqrt(i / 59) * 11.5)),
+                    '+1SD': Array.from({ length: 60 }, (_, i) => 3.5 + (Math.sqrt(i / 59) * 15)),
+                    '+2SD': Array.from({ length: 60 }, (_, i) => 4 + (Math.sqrt(i / 59) * 18.5)),
+                    '+3SD': Array.from({ length: 60 }, (_, i) => 4.5 + (Math.sqrt(i / 59) * 23))
+                },
+                tinggiBadan: {
+                    '-3SD': Array.from({ length: 60 }, (_, i) => 45 + (Math.sqrt(i / 59) * 49)),
+                    '-2SD': Array.from({ length: 60 }, (_, i) => 47 + (Math.sqrt(i / 59) * 53)),
+                    '-1SD': Array.from({ length: 60 }, (_, i) => 49 + (Math.sqrt(i / 59) * 56)),
+                    'Median': Array.from({ length: 60 }, (_, i) => 51 + (Math.sqrt(i / 59) * 59)),
+                    '+1SD': Array.from({ length: 60 }, (_, i) => 53 + (Math.sqrt(i / 59) * 62)),
+                    '+2SD': Array.from({ length: 60 }, (_, i) => 54 + (Math.sqrt(i / 59) * 66)),
+                    '+3SD': Array.from({ length: 60 }, (_, i) => 56 + (Math.sqrt(i / 59) * 70))
+                }
+            },
+            LakiLaki: {
+                beratBadan: {
+                    '-3SD': Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 7.5)),
+                    '-2SD': Array.from({ length: 60 }, (_, i) => 2.5 + (Math.sqrt(i / 59) * 8.5)),
+                    '-1SD': Array.from({ length: 60 }, (_, i) => 3 + (Math.sqrt(i / 59) * 10)),
+                    'Median': Array.from({ length: 60 }, (_, i) => 3.5 + (Math.sqrt(i / 59) * 12.5)),
+                    '+1SD': Array.from({ length: 60 }, (_, i) => 4 + (Math.sqrt(i / 59) * 16)),
+                    '+2SD': Array.from({ length: 60 }, (_, i) => 4.5 + (Math.sqrt(i / 59) * 19.5)),
+                    '+3SD': Array.from({ length: 60 }, (_, i) => 5 + (Math.sqrt(i / 59) * 24))
+                },
+                tinggiBadan: {
+                    '-3SD': Array.from({ length: 60 }, (_, i) => 47 + (Math.sqrt(i / 59) * 50)),
+                    '-2SD': Array.from({ length: 60 }, (_, i) => 49 + (Math.sqrt(i / 59) * 54)),
+                    '-1SD': Array.from({ length: 60 }, (_, i) => 51 + (Math.sqrt(i / 59) * 57)),
+                    'Median': Array.from({ length: 60 }, (_, i) => 53 + (Math.sqrt(i / 59) * 60)),
+                    '+1SD': Array.from({ length: 60 }, (_, i) => 54 + (Math.sqrt(i / 59) * 63)),
+                    '+2SD': Array.from({ length: 60 }, (_, i) => 56 + (Math.sqrt(i / 59) *67)),
+                    '+3SD': Array.from({ length: 60 }, (_, i) => 58 + (Math.sqrt(i / 59) * 71))
+                }
+            }
+        };
+
+
+            const referensi = selectedBayi.jenis_kelamin === 'Perempuan' ? referensiKMS.Perempuan : referensiKMS.LakiLaki;
+
+            const chartConfig = (canvasId, title, datasets, yLabel, yMin, yMax) => ({
                 type: 'line',
                 data: {
-                    labels: Array.from({ length: 60 }, (_, i) => i + 1), // Umur bayi sampai 60 bulan
+                    labels: Array.from({ length: 60 }, (_, i) => i + 1),
+                    datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: { display: true, text: title }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Umur (bulan)' }, min: 1, max: 60 },
+                        y: { title: { display: true, text: yLabel }, min: yMin, max: yMax }
+                    }
+                }
+            });
+
+            // Data Berat Badan
+            const beratBadanChart = new Chart(document.getElementById('beratBadanChart'), {
+                type: 'line',
+                data: {
+                    labels: Array.from({ length: 60 }, (_, i) => i + 1),
                     datasets: [
-                        {
-                            label: 'Berat Badan -3 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 6)), // Rentang 2 sampai 8
-                            borderColor: '#d90f0f', // Kuning
+                        ...Object.entries(referensi.beratBadan).map(([label, data]) => ({
+                            label: `Berat Badan ${label}`,
+                            data,
+                            borderColor: label === '-3SD' ? '#d90f0f' :
+                                        label === '-2SD' ? 'rgba(144, 238, 144, 1)' :
+                                        label === '-1SD' ? 'rgba(0, 128, 0, 1)' :
+                                        label === 'Median' ? '#00FF00' :
+                                        label === '+1SD' ? '#008000' :
+                                        label === '+2SD' ? '#90EE90' : '#FFC107',
                             fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
+                            pointRadius: 0
+                        })),
                         {
-                            label: 'Berat Badan -2 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 2.2 + (Math.sqrt(i / 59) * 6.8)), // Rentang 2.2 sampai 9
-                            borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Berat Badan -1 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 2.5 + (Math.sqrt(i / 59) * 7.6)), // Rentang 2.5 sampai 10.1
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Berat Badan Median',
-                            data: Array.from({ length: 60 }, (_, i) => 3 + (Math.sqrt(i / 59) * 8.5)), // Rentang 3 sampai 11.5
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Berat Badan +1 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 3.5 + (Math.sqrt(i / 59) * 9.5)), // Rentang 3.5 sampai 13
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Berat Badan +2 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 4 + (Math.sqrt(i / 59) * 11)), // Rentang 4 sampai 15
-                            borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Berat Badan +3 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 4.5 + (Math.sqrt(i / 59) * 12.4)), // Rentang 4.5 sampai 16.9
-                            borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
+                            label: 'Data Berat Badan Bayi',
+                            data: bayiData.map(kms => ({
+                                x: Math.floor(kms.umur_bulan), // Umur bayi dalam bulan
+                                y: kms.berat_badan // Berat badan bayi
+                            })),
+                            borderColor: bayiPointColor,
+                            backgroundColor: bayiPointColor,
+                            pointRadius: 5,
+                            showLine: false
                         }
                     ]
                 },
@@ -119,7 +137,7 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Grafik Berat Badan Bayi (Perempuan)'
+                            text: `Grafik Berat Badan Bayi (${selectedBayi.jenis_kelamin})`
                         }
                     },
                     scales: {
@@ -128,78 +146,49 @@
                                 display: true,
                                 text: 'Berat Badan (kg)'
                             },
-                            min: 2,  // Minimum berat badan
-                            max: 17  // Maximum berat badan
+                            min: 0,
+                            max: 30
                         },
                         x: {
                             title: {
                                 display: true,
                                 text: 'Umur (bulan)'
                             },
-                            min: 1,  // Umur dimulai dari 1 bulan
-                            max: 60  // Sampai 60 bulan
+                            min: 1,
+                            max: 60,
+                            type: 'linear' // Pastikan tipe sumbu adalah linear
                         }
                     }
                 }
-            }
-        );
+            });
 
-        // Data untuk grafik tinggi badan
-        const tinggiBadanChart = new Chart(
-            document.getElementById('tinggiBadanChart'),
-            {
+            const tinggiBadanChart = new Chart(document.getElementById('tinggiBadanChart'), {
                 type: 'line',
                 data: {
-                    labels: Array.from({length: 60}, (_, i) => i + 1), // Umur bayi sampai 60 bulan
+                    labels: Array.from({ length: 60 }, (_, i) => i + 1),
                     datasets: [
-                        {
-                            label: 'Tinggi Badan -3 SD',
-                            data: Array(60).fill(8).map((v, i) => v + (i * (4 / 59))), // Rentang 8 sampai 12
-                            borderColor: '#d90f0f0f', // Kuning
+                        ...Object.entries(referensi.tinggiBadan).map(([label, data]) => ({
+                            label: `Tinggi Badan ${label}`,
+                            data,
+                            borderColor: label === '-3SD' ? '#d90f0f' :
+                                        label === '-2SD' ? 'rgba(144, 238, 144, 1)' :
+                                        label === '-1SD' ? 'rgba(0, 128, 0, 1)' :
+                                        label === 'Median' ? '#00FF00' :
+                                        label === '+1SD' ? '#008000' :
+                                        label === '+2SD' ? '#90EE90' : '#FFC107',
                             fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
+                            pointRadius: 0
+                        })),
                         {
-                            label: 'Tinggi Badan -2 SD',
-                            data: Array(60).fill(9).map((v, i) => v + (i * (4.9 / 59))), // Rentang 9 sampai 13.9
-                            borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Tinggi Badan -1 SD',
-                            data: Array(60).fill(10).map((v, i) => v + (i * (5.9 / 59))), // Rentang 10 sampai 15.9
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Tinggi Badan Median',
-                            data: Array(60).fill(11.5).map((v, i) => v + (i * (6.9 / 59))), // Rentang 11.5 sampai 18.4
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Tinggi Badan +1 SD',
-                            data: Array(60).fill(13).map((v, i) => v + (i * (8.5 / 59))), // Rentang 13 sampai 21.5
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Tinggi Badan +2 SD',
-                            data: Array(60).fill(14.5).map((v, i) => v + (i * (10 / 59))), // Rentang 14.5 sampai 25
-                            borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Tinggi Badan +3 SD',
-                            data: Array(60).fill(16.5).map((v, i) => v + (i * (12.4 / 59))), // Rentang 16.5 sampai 28.9
-                            borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
+                            label: 'Data Tinggi Badan Bayi',
+                            data: bayiData.map(kms => ({
+                                x: Math.floor(kms.umur_bulan), // Umur bayi dalam bulan
+                                y: kms.tinggi_badan // Tinggi badan bayi
+                            })),
+                            borderColor: bayiPointColor,
+                            backgroundColor: bayiPointColor,
+                            pointRadius: 5,
+                            showLine: false
                         }
                     ]
                 },
@@ -209,7 +198,7 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Grafik Tinggi Badan Bayi (Perempuan)'
+                            text: `Grafik Tinggi Badan Bayi (${selectedBayi.jenis_kelamin})`
                         }
                     },
                     scales: {
@@ -218,211 +207,29 @@
                                 display: true,
                                 text: 'Tinggi Badan (cm)'
                             },
-                            min: 8,  // Minimum tinggi badan
-                            max: 30  // Maximum tinggi badan untuk rentang yang lebih luas
+                            min: 20,
+                            max: 130
                         },
                         x: {
                             title: {
                                 display: true,
                                 text: 'Umur (bulan)'
                             },
-                            min: 1,  // Umur dimulai dari 1 bulan
-                            max: 60  // Sampai 60 bulan
+                            min: 1,
+                            max: 60,
+                            type: 'linear' // Pastikan tipe sumbu adalah linear
                         }
                     }
                 }
-            }
-        );
-    
+            });
 
-        //KMS LAKI-LAKI
-        // Data untuk grafik berat badan
-        /*const beratBadanChart = new Chart(
-            document.getElementById('beratBadanChart'),
-            {
-                type: 'line',
-                data: {
-                    labels: Array.from({ length: 60 }, (_, i) => i + 1), // Umur bayi sampai 60 bulan
-                    datasets: [
-                        {
-                            label: 'Berat Badan -3 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 6.9)), // Rentang 2 sampai 8.9
-                            borderColor: '#d90f0f', // Kuning
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Berat Badan -2 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 2.2 + (Math.sqrt(i / 59) * 7.7)), // Rentang 2.2 sampai 9.9
-                            borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Berat Badan -1 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 2.5 + (Math.sqrt(i / 59) * 8.5)), // Rentang 2.5 sampai 11
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Berat Badan Median',
-                            data: Array.from({ length: 60 }, (_, i) => 3 + (Math.sqrt(i / 59) * 9.1)), // Rentang 3 sampai 12.1
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Berat Badan +1 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 3.5 + (Math.sqrt(i / 59) * 10.3)), // Rentang 3.5 sampai 13.8
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Berat Badan +2 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 4 + (Math.sqrt(i / 59) * 11.2)), // Rentang 4 sampai 15.2
-                            borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Berat Badan +3 SD',
-                            data: Array.from({ length: 60 }, (_, i) => 4.5 + (Math.sqrt(i / 59) * 12.5)), // Rentang 4.5 sampai 17
-                            borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Grafik Berat Badan Bayi (Laki-laki)'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Berat Badan (kg)'
-                            },
-                            min: 2,  // Minimum berat badan
-                            max: 17  // Maximum berat badan
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Umur (bulan)'
-                            },
-                            min: 1,  // Umur dimulai dari 1 bulan
-                            max: 60  // Sampai 60 bulan
-                        }
-                    }
-                }
-            }
-        );
 
-        // Data untuk grafik tinggi badan
-        const tinggiBadanChart = new Chart(
-            document.getElementById('tinggiBadanChart'),
-            {
-                type: 'line',
-                data: {
-                    labels: Array.from({length: 60}, (_, i) => i + 1), // Umur bayi sampai 60 bulan
-                    datasets: [
-                        {
-                            label: 'Tinggi Badan -3 SD',
-                            data: Array(60).fill(8.5).map((v, i) => v + (i * (3.7 / 59))), // Rentang 8.5 sampai 12.2
-                            borderColor: '#d90f0f', // Kuning
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Tinggi Badan -2 SD',
-                            data: Array(60).fill(9.5).map((v, i) => v + (i * (4.5 / 59))), // Rentang 9.5 sampai 14
-                            borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Tinggi Badan -1 SD',
-                            data: Array(60).fill(10.8).map((v, i) => v + (i * (5.2 / 59))), // Rentang 10.8 sampai 16
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Tinggi Badan Median',
-                            data: Array(60).fill(12).map((v, i) => v + (i * (6.9 / 59))), // Rentang 12 sampai 18.4
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Tinggi Badan +1 SD',
-                            data: Array(60).fill(13.5).map((v, i) => v + (i * (7.5 / 59))), // Rentang 13.5 sampai 21
-                            borderColor: 'rgba(0, 128, 0, 1)', // Hijau Tua
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Tinggi Badan +2 SD',
-                            data: Array(60).fill(15).map((v, i) => v + (i * (9 / 59))), // Rentang 15 sampai 24
-                            borderColor: 'rgba(144, 238, 144, 1)', // Hijau Muda
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        },
-                        {
-                            label: 'Tinggi Badan +3 SD',
-                            data: Array(60).fill(16.9).map((v, i) => v + (i * (10.3 / 59))), // Rentang 16.5 sampai 28.9
-                            borderColor: 'rgba(255, 206, 86, 1)', // Kuning
-                            fill: false,
-                            pointRadius: 0 // Menghilangkan titik data
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Grafik Tinggi Badan Bayi (Laki-laki)'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Tinggi Badan (cm)'
-                            },
-                            min: 8,  // Minimum tinggi badan
-                            max: 30  // Maximum tinggi badan untuk rentang yang lebih luas
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Umur (bulan)'
-                            },
-                            min: 1,  // Umur dimulai dari 1 bulan
-                            max: 60  // Sampai 60 bulan
-                        }
-                    }
-                }
-            }
-        );*/
-
-    </script>
-
-    <div style="display: flex; justify-content: flex-end; margin-right: 30px;">
-        <button type="submit"
-            class="px-4 py-2 bg-teal-500 text-white rounded shadow hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-300">
-            Simpan
-        </button>
-    </div>
+            // Render Charts
+            new Chart(document.getElementById('beratBadanChart'), chartConfig('beratBadanChart', `Grafik Berat Badan Bayi (${selectedBayi.jenis_kelamin})`, beratBadanDatasets, 'Berat Badan (kg)', 2, 30));
+            new Chart(document.getElementById('tinggiBadanChart'), chartConfig('tinggiBadanChart', `Grafik Tinggi Badan Bayi (${selectedBayi.jenis_kelamin})`, tinggiBadanDatasets, 'Tinggi Badan (cm)', 50, 150));
+        </script>
+    @else
+        <p class="text-center text-red-500">Bayi tidak ditemukan.</p>
+    @endif
 </body>
 </html>
