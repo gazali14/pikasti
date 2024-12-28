@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Bayi;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminPresensi;
+use App\Http\Controllers\KMSController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KaderController;
 use App\Http\Controllers\LoginController;
@@ -11,10 +13,9 @@ use App\Http\Controllers\HalamanJadwalController;
 use App\Http\Controllers\KehadiranKaderController;
 use App\Http\Controllers\AdminKelolaKaderController;
 use App\Http\Controllers\AdminKelolaJadwalController;
-use App\Http\Controllers\KMSController;
-use App\Models\Bayi;
 use App\Http\Controllers\HalamanDokumentasiController;
 use App\Http\Controllers\AdminKelolaDokumentasiController;
+use App\Http\Controllers\HalamanDashboardOrangTuaController;
 
 
 
@@ -159,6 +160,8 @@ Route::middleware('auth:bayi')->group(function () {
     Route::get('/dashboard', function () {
         return view('orang_tua.dashboard');
     })->name('orang_tua.dashboard');
+
+    Route::get('/dashboard', [HalamanDashboardOrangTuaController::class, 'index'])->name('orang_tua.dashboard');
 
     Route::get('/dokumentasi', [HalamanDokumentasiController::class, 'index'])->name('orang_tua.before_login.dokumentasi');
 
