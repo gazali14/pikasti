@@ -15,7 +15,7 @@ class BayiSeeder extends Seeder
     public function run(): void
     {
         Bayi::create([
-            'nik' => '747202150801413',
+            'nik' => '747202150801411',
             'nama' => 'Bima',
             'nama_ibu' => 'Lina',
             'jenis_kelamin' => 'laki-laki',
@@ -28,7 +28,7 @@ class BayiSeeder extends Seeder
         ]);
 
         Bayi::create([
-            'nik' => '747202160801514',
+            'nik' => '747202160801519',
             'nama' => 'Citra',
             'nama_ibu' => 'Maya',
             'jenis_kelamin' => 'perempuan',
@@ -41,7 +41,7 @@ class BayiSeeder extends Seeder
         ]);
 
         Bayi::create([
-            'nik' => '747202170801615',
+            'nik' => '747202170801611',
             'nama' => 'Daffa',
             'nama_ibu' => 'Siti',
             'jenis_kelamin' => 'laki-laki',
@@ -54,7 +54,7 @@ class BayiSeeder extends Seeder
         ]);
 
         Bayi::create([
-            'nik' => '747202180801716',
+            'nik' => '747202180801710',
             'nama' => 'Eka',
             'nama_ibu' => 'Rina',
             'jenis_kelamin' => 'perempuan',
@@ -67,7 +67,7 @@ class BayiSeeder extends Seeder
         ]);
 
         Bayi::create([
-            'nik' => '747202190801817',
+            'nik' => '747202190801812',
             'nama' => 'Fikri',
             'nama_ibu' => 'Dewi',
             'jenis_kelamin' => 'laki-laki',
