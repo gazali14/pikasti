@@ -37,4 +37,12 @@ class Bayi extends Authenticatable
     {
         return 'nik';
     }
+
+    /**
+     * Relasi ke model Vitamin
+     */
+    public function vitamins()
+    {
+        return $this->hasMany(Vitamin::class, 'id_bayi');
+    }
 }
