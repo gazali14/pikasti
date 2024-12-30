@@ -18,9 +18,9 @@ class HomeController extends Controller
         $kader = Kader::take(3)->get();
 
         // Ambil 3 dokumentasi terbaru
-        $dokumentasi = Dokumentasi::orderBy('tanggal', 'desc')->take(3)->get();
+        $dokumentasis = Dokumentasi::orderBy('tanggal', 'desc')->take(3)->get();
 
         // Kirim data ke view
-        return view('orang_tua.before_login.home', compact('jadwal', 'kader', 'dokumentasi'));
+        return view('orang_tua.before_login.home', compact('jadwal', 'kader', 'dokumentasis'));
     }
 }
