@@ -16,6 +16,7 @@ use App\Http\Controllers\AdminKelolaJadwalController;
 use App\Http\Controllers\HalamanDokumentasiController;
 use App\Http\Controllers\AdminKelolaDokumentasiController;
 use App\Http\Controllers\HalamanDashboardOrangTuaController;
+use App\Http\Controllers\KohortController;
 
 
 
@@ -91,9 +92,17 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
     // Route untuk menyimpan data presensi
     Route::post('/save-presensi', [AdminPresensi::class, 'savePresensi'])->name('presensi.store');
 
-    Route::get('/kohort', function () {
-        return view('admin.kohort');
-    })->name('admin.kohort');
+    // Route::get('/kohort', function () {
+    //     return view('admin.kohort');
+    // })->name('admin.kohort');
+
+     // KohortRoute::get('/admin/kohort', [KohortController::class, 'index'])->name('admin.kohort.index');
+    
+    Route::get('/kohort', [KohortController::class, 'index'])->name('admin.kohort.index');
+    Route::post('/kohort/search', [KohortController::class, 'search'])->name('admin.kohort.search');
+    Route::post('/kohort', [KohortController::class, 'store'])->name('admin.kohort.store');
+    Route::get('/kohort/{nik}/edit', [KohortController::class, 'edit'])->name('admin.kohort.edit');
+    Route::put('/kohort/{nik}', [KohortController::class, 'update'])->name('admin.kohort.update');
 });
 
 // Routes for kader

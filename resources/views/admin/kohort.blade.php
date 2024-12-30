@@ -1,227 +1,211 @@
 <x-layout-admin>
     <h1 class="text-3xl font-bold mb-4">Registrasi Kohort Bayi</h1>
     <div class="p-2 min-h-screen max-h-96">
-        <!-- Tabel Daftar Kader dengan Scroll -->
+        <!-- Tabel Daftar Bayi -->
         <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded-2xl shadow">
-            <div class="">
-                <div class="mx-auto mt-1 mb-10 px-10">
-                    <form class="mb-2 flex justify-start items-center">
-                        <label for="default-search"
-                            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                        <div class="relative w-1/4">
-                            <!-- Ikon di awal input -->
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                </svg>
-                            </div>
-                            <!-- Input Box -->
-                            <input type="search" id="default-search"
-                                class="block w-full py-2 pl-5 pr-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-gray-300 focus:ring-1 focus:ring-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Cari Nama Bayi" style="outline: none;" required />
-                        </div>
-                    </form>
-
-                    <div class="overflow-x-auto">
-                        <table id="bayiTable" class="min-w-full table-fixed border-collapse border border-[#62BCB1]">
-                            <thead>
-                                <tr>
-                                    <th
-                                        class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
-                                        Nama Bayi</th>
-                                    <th
-                                        class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
-                                        Nama Ibu Kandung</th>
-                                    <th
-                                        class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
-                                        Tanggal Lahir</th>
-                                    <th
-                                        class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
-                                        Jenis Kelamin</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white ">
-                                <!-- Contoh Data -->
-                                <tr class="border-b bayi-row" data-id="1">
-                                    <td
-                                        class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                                        Acha Putri</td>
-                                    <td
-                                        class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                                        Rosalina</td>
-                                    <td
-                                        class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                                        20-03-2023</td>
-                                    <td
-                                        class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                                        Perempuan</td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="mx-auto mt-1 mb-10 px-10">
+                <!-- Search dan Tombol Tambah -->
+                <div class="flex justify-between items-center mb-4">
+                    <div class="relative w-1/4">
+                        <input 
+                            type="text" 
+                            id="default-search" 
+                            placeholder="Cari Nama Bayi" 
+                            class="block w-full py-2 pl-5 pr-10 text-sm text-gray-900 border border-gray-300 rounded-lg"
+                        />
                     </div>
+                    <button class="inline-block px-6 py-2.5 bg-teal-500 text-white rounded" onclick="openAddModal()">Tambah Bayi</button>
                 </div>
 
-                <!-- Tombol Edit dan Hapus di bawah tabel -->
-                <div class="flex justify-end mt-4" id="actionButtons" style="display: none;">
-                    <button
-                        class="inline-block px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-600 transition duration-150 ease-in-out"
-                        id="editBtn">Edit</button>
-                    <button
-                        class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 transition duration-150 ease-in-out ml-2"
-                        id="deleteBtn">Hapus</button>
+                <!-- Tabel Data Bayi -->
+                <div class="overflow-x-auto">
+                    <table id="kohortTable" class="min-w-full table-fixed border-collapse border border-[#62BCB1]">
+                        <thead>
+                            <tr>
+                                <th class="text-sm font-medium text-white bg-[#62BCB1] px-5 py-4 text-center">NIK</th>
+                                <th class="text-sm font-medium text-white bg-[#62BCB1] px-5 py-4 text-center">Nama Bayi</th>
+                                <th class="text-sm font-medium text-white bg-[#62BCB1] px-5 py-4 text-center">Nama Ibu</th>
+                                <th class="text-sm font-medium text-white bg-[#62BCB1] px-5 py-4 text-center">Tanggal Lahir</th>
+                                <th class="text-sm font-medium text-white bg-[#62BCB1] px-5 py-4 text-center">Alamat</th>
+                                <th class="text-sm font-medium text-white bg-[#62BCB1] px-5 py-4 text-center">No Telp</th>
+                                <th class="text-sm font-medium text-white bg-[#62BCB1] px-5 py-4 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                            @foreach ($bayis as $bayi)
+                            <tr class="border-b">
+                                <td class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">{{ $bayi->nik }}</td>
+                                <td class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">{{ $bayi->nama }}</td>
+                                <td class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">{{ $bayi->nama_ibu }}</td>
+                                <td class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">{{ $bayi->tanggal_lahir }}</td>
+                                <td class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">{{ $bayi->alamat }}</td>
+                                <td class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">{{ $bayi->no_telpon }}</td>
+                                <td class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                                    <button class="px-2 py-1 bg-blue-500 text-white rounded" onclick="openEditModal('{{ $bayi->nik }}')">Edit</button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Form Tambah Bayi -->
-        <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 mb-10">
-            <h1 class="text-2xl font-bold mb-6 text-gray-800">Tambah Bayi</h1>
 
-            <form class="space-y-6 w-full">
+    <!-- Modal Tambah Bayi -->
+    <div id="addModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-4 rounded-lg shadow-lg max-w-lg w-full max-h-[80vh] overflow-y-auto">
+            <h2 class="text-xl font-bold mb-4">Tambah Bayi</h2>
+            <form method="POST" action="{{ route('admin.kohort.store') }}">
+                @csrf
+                <div class="space-y-4">
+                    <label for="addNik" class="block text-sm font-medium text-gray-700">NIK</label>
+                    <input type="text" id="addNik" name="nik" maxlength="16" pattern="\d{16}"  class="w-full border p-2 rounded" placeholder="NIK harus terdiri dari 16 Digit" required />
+                    
+                    <label for="addNama" class="block text-sm font-medium text-gray-700">Nama Bayi</label>
+                    <input type="text" id="addNama" name="nama" class="w-full border p-2 rounded" required />
+                    
+                    <label for="addIbu" class="block text-sm font-medium text-gray-700">Nama Ibu Kandung</label>
+                    <input type="text" id="addIbu" name="nama_ibu" class="w-full border p-2 rounded" required />
 
-                <!-- Kolom Kiri: Form -->
-                <div class="w-full space-y-4">
-                    <div>
-                        <label for="nikBayi" class="block text-gray-700 font-medium">NIK Bayi</label>
-                        <input type="text" name="nikBayi" id="nikBayi"
-                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
-                            placeholder="Masukkan NIK Bayi">
-                    </div>
+                    <label for="addTanggal" class="block text-sm font-medium text-gray-700">Tanggal Lahir</label>
+                    <input type="date" id="addTanggal" name="tanggal_lahir" class="w-full border p-2 rounded" required />
 
-                    <div>
-                        <label for="namaBayi" class="block text-gray-700 font-medium">Nama Bayi</label>
-                        <input type="text" name="namaBayi" id="namaBayi"
-                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
-                            placeholder="Masukkan Nama Bayi">
-                    </div>
+                    <label for="addKelamin" class="block text-sm font-medium text-gray-700">Jenis Kelamin</label>
+                    <select id="addKelamin" name="jenis_kelamin" class="w-full border p-2 rounded" required>
+                        <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                        <option value="Perempuan">Perempuan</option>
+                        <option value="Laki-Laki">Laki-Laki</option>
+                    </select>
 
-                    <div>
-                        <label for="namaIbuKandung" class="block text-gray-700 font-medium">Nama Ibu
-                            Kandung</label>
-                        <input type="text" name="namaIbuKandung" id="namaIbuKandung"
-                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
-                            placeholder="Masukkan Nama Ibu Kandung">
-                    </div>
+                    <label for="addAlamat" class="block text-sm font-medium text-gray-700">Alamat</label>
+                    <input type="text" id="addAlamat" name="alamat" class="w-full border p-2 rounded" required />
 
-                    <div>
-                        <label for="jenisKelamin" class="block text-gray-700 font-medium">Jenis Kelamin</label>
-                        <input type="text" name="jenisKelamin" id="jenisKelamin"
-                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
-                            placeholder="">
-                    </div>
+                    <label for="addNoTelpon" class="block text-sm font-medium text-gray-700">No Telepon</label>
+                    <input type="text" id="addNoTelpon" name="no_telpon" class="w-full border p-2 rounded" required />
 
-                    <div>
-                        <label for="tanggalLahir" class="block text-gray-700 font-medium">Tanggal Lahir</label>
-                        <input type="date" id="tanggalLahir" name="tanggalLahir"
-                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
-                            required placeholder="Masukkan Tanggal Lahir">
-                    </div>
+                    <label for="addBerat" class="block text-sm font-medium text-gray-700">Berat Lahir (kg)</label>
+                    <input type="text" id="addBerat" name="berat_badan_lahir" class="w-full border p-2 rounded" required />
 
-                    <div>
-                        <label for="alamat" class="block text-gray-700 font-medium">Alamat</label>
-                        <input type="text" name="alamat" id="alamat"
-                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
-                            placeholder="Masukkan Alamat">
-                    </div>
+                    <label for="addTinggi" class="block text-sm font-medium text-gray-700">Tinggi Lahir (cm)</label>
+                    <input type="text" id="addTinggi" name="tinggi_badan_lahir" class="w-full border p-2 rounded" required />
 
-                    <div>
-                        <label for="beratLahir" class="block text-gray-700 font-medium">Berat Lahir (kg)</label>
-                        <input type="number" name="beratLahir" id="beratLahir" min="0" max="100"
-                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
-                            placeholder="0" required>
-                    </div>
-
-                    <div>
-                        <label for="panjangLahir" class="block text-gray-700 font-medium">Panjang Lahir (cm)</label>
-                        <input type="number" name="panjangLahir" id="panjangLahir" min="0" max="1000"
-                            class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
-                            placeholder="0" required>
-                    </div>
-
-                    <div class="relative">
-                        <label for="password" class="block text-gray-700 font-medium">Password</label>
-                        <div class="relative">
-                            <input type="password" name="password" id="password"
-                                class="w-full mt-1 p-2 pr-10 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
-                                placeholder="Masukkan Password">
-                            <button type="button" id="togglePassword"
-                                class="absolute inset-y-0 right-3 flex items-center justify-center text-gray-500 focus:outline-none">
-                                <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d=" M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+                    <label for="addPassword" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="addPassword" name="password" class="w-full border p-2 rounded" required />
                 </div>
-
-                <!-- Tombol -->
-                <div class="flex justify-center gap-4 mt-6">
-                    <button type="reset"
-                        class="px-4 py-2 bg-red-500 text-white rounded shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
-                        Reset
-                    </button>
-                    <button type="submit"
-                        class="px-4 py-2 bg-teal-500 text-white rounded shadow hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-300">
-                        Simpan
-                    </button>
+                <div class="mt-4 flex justify-end gap-2">
+                    <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded" onclick="closeAddModal()">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-teal-500 text-white rounded">Simpan</button>
                 </div>
             </form>
         </div>
+    </div>
 
+    <!-- Modal Edit Bayi -->
+    <div id="editModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-4 rounded-lg shadow-lg max-w-lg w-full max-h-[80vh] overflow-y-auto">
+            <h2 class="text-xl font-bold mb-4">Edit Bayi</h2>
+            <form method="POST" id="editForm">
+                @csrf
+                @method('PUT')
+                <div class="space-y-4">
+                    <label for="editNik" class="block text-sm font-medium text-gray-700">NIK</label>
+                    <input type="text" id="editNik" name="nik" maxlength="16" pattern="\d{16}"  class="w-full border p-2 rounded" required />
+                    
+                    <label for="editNama" class="block text-sm font-medium text-gray-700">Nama Bayi</label>
+                    <input type="text" id="editNama" name="nama" class="w-full border p-2 rounded" required />
+                    
+                    <label for="editIbu" class="block text-sm font-medium text-gray-700">Nama Ibu Kandung</label>
+                    <input type="text" id="editIbu" name="nama_ibu" class="w-full border p-2 rounded" required />
+
+                    <label for="editTanggal" class="block text-sm font-medium text-gray-700">Tanggal Lahir</label>
+                    <input type="date" id="editTanggal" name="tanggal_lahir" class="w-full border p-2 rounded" required />
+
+                    <label for="editKelamin" class="block text-sm font-medium text-gray-700">Jenis Kelamin</label>
+                    <select id="editKelamin" name="jenis_kelamin" class="w-full border p-2 rounded" required>
+                        <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                        <option value="Perempuan">Perempuan</option>
+                        <option value="Laki-Laki">Laki-Laki</option>
+                    </select>
+
+                    <label for="editAlamat" class="block text-sm font-medium text-gray-700">Alamat</label>
+                    <input type="text" id="editAlamat" name="alamat" class="w-full border p-2 rounded" required />
+
+                    <label for="editNoTelpon" class="block text-sm font-medium text-gray-700">No Telepon</label>
+                    <input type="text" id="editNoTelpon" name="no_telpon" class="w-full border p-2 rounded" required />
+
+                    <label for="editBerat" class="block text-sm font-medium text-gray-700">Berat Lahir (kg)</label>
+                    <input type="text" id="editBerat" name="berat_badan_lahir" class="w-full border p-2 rounded" required />
+
+                    <label for="editTinggi" class="block text-sm font-medium text-gray-700">Tinggi Lahir (cm)</label>
+                    <input type="text" id="editTinggi" name="tinggi_badan_lahir" class="w-full border p-2 rounded" required />
+
+                    <label for="editPassword" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="editPassword" name="password" class="w-full border p-2 rounded" />
+                </div>
+                <div class="mt-4 flex justify-end gap-2">
+                    <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded" onclick="closeEditModal()">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-teal-500 text-white rounded">Simpan</button>
+                </div>
+            </form>
+        </div>
     </div>
 </x-layout-admin>
 
 <script>
-    let selectedRow = null;
+        document.getElementById('default-search').addEventListener('input', function() {
+            const searchQuery = this.value.toLowerCase(); // Ambil input pencarian
+            const rows = document.querySelectorAll('#kohortTable tbody tr'); // Pilih semua baris tabel
 
-    // Fungsi untuk menambahkan event listener ke baris tabel
-    function attachRowEventListeners() {
-        const rows = document.querySelectorAll('.bayi-row');
-        rows.forEach(row => {
-            row.addEventListener('click', function(event) {
-                event.stopPropagation(); // Mencegah event keluar dari baris
-                if (selectedRow === row) {
-                    // Jika baris sudah dipilih, batalkan pemilihan
-                    selectedRow.classList.remove('bg-blue-100');
-                    selectedRow = null;
-                    hideActionButtons();
+            rows.forEach((row) => {
+                const namaBayi = row.querySelector('td:nth-child(2)').textContent.toLowerCase(); // Ambil kolom Nama Bayi
+                
+                if (namaBayi.includes(searchQuery)) {
+                    row.style.display = ''; // Tampilkan baris jika sesuai
                 } else {
-                    // Pilih baris baru
-                    if (selectedRow) selectedRow.classList.remove('bg-blue-100');
-                    selectedRow = row;
-                    row.classList.add('bg-blue-100');
-                    showActionButtons();
+                    row.style.display = 'none'; // Sembunyikan baris jika tidak sesuai
                 }
             });
         });
-    }
 
-    // Menampilkan tombol aksi
-    function showActionButtons() {
-        document.getElementById('actionButtons').style.display = 'flex';
-    }
-
-    // Menyembunyikan tombol aksi
-    function hideActionButtons() {
-        document.getElementById('actionButtons').style.display = 'none';
-    }
-
-    // Reset pilihan baris ketika klik di luar tabel
-    document.addEventListener('click', function(event) {
-        if (!event.target.closest('#bayiTable')) {
-            if (selectedRow) {
-                selectedRow.classList.remove('bg-blue-100');
-                selectedRow = null;
-                hideActionButtons();
-            }
+        function openAddModal() {
+            document.getElementById('addModal').classList.remove('hidden');
         }
-    });
 
-    attachRowEventListeners();
+        function closeAddModal() {
+            document.getElementById('addModal').classList.add('hidden');
+        }
+
+        function openEditModal(nik) {
+            const form = document.getElementById('editForm');
+            form.action = `{{ url('admin/kohort') }}/${nik}`;
+            document.getElementById('editModal').classList.remove('hidden');
+
+            fetch(`{{ url('admin/kohort') }}/${nik}/edit`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Gagal mengambil data');
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('editNik').value = data.nik;
+                    document.getElementById('editNama').value = data.nama;
+                    document.getElementById('editIbu').value = data.nama_ibu;
+                    document.getElementById('editTanggal').value = data.tanggal_lahir;
+                    document.getElementById('editKelamin').value = data.jenis_kelamin;
+                    document.getElementById('editAlamat').value = data.alamat;
+                    document.getElementById('editNoTelpon').value = data.no_telpon;
+                    document.getElementById('editBerat').value = data.berat_badan_lahir;
+                    document.getElementById('editTinggi').value = data.tinggi_badan_lahir;
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+
+
 </script>

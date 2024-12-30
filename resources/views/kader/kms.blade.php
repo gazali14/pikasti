@@ -14,8 +14,5 @@
         <x-grafik-kms :bayiList="$bayiList" :kmsData="$kmsData" :selectedBayiNik="$selectedBayiNik" />
         
     </div>
-    <div>
-        <x-footer-home></x-footer-home>      
-    </div>  
 </x-layout-kader>
 
