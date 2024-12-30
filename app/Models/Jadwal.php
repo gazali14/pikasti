@@ -29,4 +29,13 @@ class Jadwal extends Model
     protected $casts = [
         'tanggal' => 'date',
     ];
+
+
+    /**
+     * Relasi ke model Vitamin
+     */
+    public function vitamins()
+    {
+        return $this->hasMany(Vitamin::class, 'id_kegiatan');
+    }
 }
