@@ -20,7 +20,7 @@ class KehadiranKaderController extends Controller
      */
     public function index(Request $request)
     {
-        // Ambil semua bayi atau hasil pencarian berdasarkan nama
+        // Ambil semua kader atau hasil pencarian berdasarkan nama
         $kaders = Kader::query();
 
         if ($request->has('search') && $request->search != '') {
