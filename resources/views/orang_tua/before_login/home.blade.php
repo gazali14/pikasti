@@ -196,7 +196,7 @@
   </div>
 </a>
 
-</x-layout>
+  {{-- FOOTER --}}
 
-{{-- FOOTER --}}
+</x-layout>
 <x-footer-home></x-footer-home>
