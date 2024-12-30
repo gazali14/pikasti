@@ -166,6 +166,11 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
     Route::get('/vitamin-pmt', function () {
         return view('kader.vitamin-pmt');
     })->name('kader.vitamin-pmt');
+
+    Route::get('/kader/vitamin', function () {
+        return view('kader.vitamin');
+    })->name('kader.vitamin');
+    
 });
 
 // Routes for orang_tua after login (Authenticated)
