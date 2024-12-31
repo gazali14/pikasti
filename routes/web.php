@@ -17,6 +17,7 @@ use App\Http\Controllers\HalamanDokumentasiController;
 use App\Http\Controllers\AdminKelolaDokumentasiController;
 use App\Http\Controllers\HalamanDashboardOrangTuaController;
 use App\Http\Controllers\KohortController;
+use App\Http\Controllers\VitaminController;
 
 
 
@@ -157,9 +158,19 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
         return view('kader.vitamin');
     })->name('kader.vitamin');
 
+
+    Route::get('/vitamin', [VitaminController::class, 'index'])->name('kader.vitamin.index');
+    Route::post('/vitamin', [VitaminController::class, 'store'])->name('kader.vitamin.store');
+    Route::delete('/vitamin', [VitaminController::class, 'destroy'])->name('kader.vitamin.destroy');
+
     Route::get('/vitamin-pmt', function () {
         return view('kader.vitamin-pmt');
     })->name('kader.vitamin-pmt');
+
+    Route::get('/kader/vitamin', function () {
+        return view('kader.vitamin');
+    })->name('kader.vitamin');
+    
 });
 
 // Routes for orang_tua after login (Authenticated)
