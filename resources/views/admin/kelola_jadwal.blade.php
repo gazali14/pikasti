@@ -15,9 +15,10 @@
 
                 <!-- Tombol tambah -->
                 <button id="tambahButton"
-                    class="ml-4 bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition"
+                    class="inline-block px-6 py-2.5 bg-teal-500 text-white rounded"
                     onclick="showPopup('Tambah Jadwal Posyandu')">
-                    Tambah
+                    <i class="fas fa-folder-plus"></i>
+                    <span>Tambah Jadwal</span>
                 </button>
             </div>
 
@@ -28,8 +29,7 @@
                         <th class="text-white border bg-[#62BCB1] py-2 px-4">Nama Kegiatan</th>
                         <th class="text-white border bg-[#62BCB1] py-2 px-4">Tanggal</th>
                         <th class="text-white border bg-[#62BCB1] py-2 px-4">Jam Pelayanan</th>
-                        <th class="text-white border bg-[#62BCB1] py-2 px-4">Edit</th>
-                        <th class="text-white border bg-[#62BCB1] py-2 px-4">Hapus</th>
+                        <th class="text-white border bg-[#62BCB1] py-2 px-4">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white">
@@ -39,22 +39,25 @@
                         <td class="border border-[#62BCB1] py-2 px-4">{{ $jadwal->tanggal->format('d-m-Y') }}</td>
                         <td class="border border-[#62BCB1] py-2 px-4">{{ $jadwal->waktu }}</td>
                         <td class="border border-[#62BCB1] py-2 px-4">
-                            <!-- Tombol Edit -->
-                            <button class="editButton bg-teal-500 text-white px-3 py-1 rounded-md hover:bg-teal-600 transition"
-                                onclick="showPopup('Edit Jadwal Posyandu', '{{ $jadwal->id }}', '{{ $jadwal->nama_kegiatan }}', '{{ $jadwal->tanggal->format('Y-m-d') }}', '{{ $jadwal->waktu }}')">
-                                Edit
-                            </button>
-                        </td>
-                        <td class="border border-[#62BCB1] py-2 px-4">
-                            <!-- Tombol Hapus dengan SweetAlert -->
-                            <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST" class="delete-form">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">
-                                    Hapus
+                            <div class="flex justify-center items-center space-x-2">
+                                <!-- Tombol Edit -->
+                                <button class="editButton bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition"
+                                    onclick="showPopup('Edit Jadwal Posyandu', '{{ $jadwal->id }}', '{{ $jadwal->nama_kegiatan }}', '{{ $jadwal->tanggal->format('Y-m-d') }}', '{{ $jadwal->waktu }}')">
+                                    <i class="fas fa-edit"></i>
+                                    <span>Edit</span>
                                 </button>
-                            </form>
+                                <!-- Tombol Hapus dengan SweetAlert -->
+                                <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST" class="delete-form inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">
+                                        <i class="fas fa-trash-alt"></i>
+                                        <span>Hapus</span>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
+
                     </tr>
                     @endforeach
                 </tbody>

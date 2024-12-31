@@ -14,7 +14,10 @@
                             class="block w-full py-2 pl-5 pr-10 text-sm text-gray-900 border border-gray-300 rounded-lg"
                         />
                     </div>
-                    <button class="inline-block px-6 py-2.5 bg-teal-500 text-white rounded" onclick="openAddModal()">Tambah Bayi</button>
+                    <button class="inline-block px-6 py-2.5 bg-teal-500 text-white rounded" onclick="openAddModal()">
+                        <i class="fas fa-folder-plus"></i>
+                        <span>Tambah Bayi</span>
+                    </button>
                 </div>
 
                 <!-- Tabel Data Bayi -->
@@ -41,7 +44,10 @@
                                 <td class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">{{ $bayi->alamat }}</td>
                                 <td class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">{{ $bayi->no_telpon }}</td>
                                 <td class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                                    <button class="px-2 py-1 bg-blue-500 text-white rounded" onclick="openEditModal('{{ $bayi->nik }}')">Edit</button>
+                                    <button class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition" onclick="openEditModal('{{ $bayi->nik }}')">
+                                        <i class="fas fa-edit"></i>
+                                        <span>Edit</span>
+                                    </button>
                                 </td>
                             </tr>
                             @endforeach

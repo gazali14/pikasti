@@ -26,7 +26,7 @@
 
             <!-- Tombol tambah -->
             <button id="tambahButton"
-                class="ml-4 bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition">
+                class="inline-block px-6 py-2.5 bg-teal-500 text-white rounded">
                 Tambah
             </button>
         </div>

@@ -8,6 +8,7 @@
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
     <link rel="icon" type="image/png" href="{{ asset('img/logo2.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>

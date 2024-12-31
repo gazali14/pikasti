@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabel KMS</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -40,8 +42,9 @@
 
             <!-- Tombol Tambah -->
             <div>
-                <button id="add-button" class="px-6 py-2.5 bg-black text-white font-medium text-sm leading-tight uppercase rounded-md shadow-md hover:bg-green-600 transition duration-150 ease-in-out">
-                    Tambah
+                <button id="add-button" class="inline-block px-6 py-2.5 bg-teal-500 text-white rounded">
+                    <i class="fas fa-folder-plus"></i>
+                    <span>Tambah Data Bayi</span>
                 </button>
             </div>
         </div>
@@ -85,6 +88,7 @@
                         <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Umur (Bulan)</th>
                         <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Tinggi Badan (cm)</th>
                         <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Berat Badan (kg)</th>
+                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Imunisasi</th>
                         <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Kategori</th>
                         <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Aksi</th>
                     </tr>
@@ -99,23 +103,30 @@
                             <td class="border-collapse border border-[#62BCB1] text-center">{{ floor($umurBulan) }} bulan</td> <!-- Tambahkan usia bulan jika dibutuhkan -->
                             <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->tinggi_badan }}</td>
                             <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->berat_badan }}</td>
+                            <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->imunisasi }}</td>
                             <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->kategori }}</td>
                             <td class="border-collapse border border-[#62BCB1] text-center py-2 px-4">
                                 <!-- Tombol Edit -->
-                                <button type="button" onclick="openEditModal('{{ $kms->id }}', '{{ $kms->tanggal }}', '{{ $kms->tinggi_badan }}', '{{ $kms->berat_badan }}', '{{ $kms->kategori }}')"
-                                        class="bg-teal-500 text-white px-3 py-1 rounded-md hover:bg-teal-600 transition">Edit</button>
+                                <button type="button" onclick="openEditModal('{{ $kms->id }}', '{{ $kms->tanggal }}', '{{ $kms->tinggi_badan }}', '{{ $kms->berat_badan }}', '{{ $kms->imunisasi }}', '{{ $kms->kategori }}')"
+                                        class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-teal-600 transition">
+                                    <i class="fas fa-edit"></i>
+                                    <span>Edit</span>
+                                </button>
 
                                 <!-- Tombol Hapus -->
                                 <form id="delete-form-{{ $kms->id }}" action="{{ route('kms.destroy', $kms->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete({{ $kms->id }})" class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">Hapus</button>
+                                    <button type="button" onclick="confirmDelete({{ $kms->id }})" class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">
+                                        <i class="fas fa-trash-alt"></i>
+                                        <span>Hapus</span>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center text-gray-500">Belum ada data KMS untuk bayi ini.</td>
+                            <td colspan="7" class="text-center text-gray-500">Belum ada data KMS untuk bayi ini.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -143,6 +154,23 @@
                 <div class="mb-4">
                     <label for="berat_badan" class="block text-sm font-medium">Berat Badan (kg)</label>
                     <input type="text" name="berat_badan" id="berat_badan" class="block w-full px-3 py-2 border rounded-md" required>
+                </div>
+                <div class="mb-4">
+                    <label for="imunisasi" class="block text-sm font-medium">Imunisasi</label>
+                    <select id="imunisasi" name="imunisasi" class="w-full border p-2 rounded" required>
+                        <option value="" disabled selected>Pilih Jenis Imunisasi</option>
+                        <option value="BCG">BCG</option>
+                        <option value="Polio I">Polio I</option>
+                        <option value="Polio II">Polio II</option>
+                        <option value="Polio III">Polio III</option>
+                        <option value="Polio IV">Polio IV</option>
+                        <option value="Campak">Campak</option>
+                        <option value="TT BUMIL">TT BUMIL</option>
+                        <option value="TT WUS">TT WUS</option>
+                        <option value="DPT, Hb Com1">DPT, Hb Com1</option>
+                        <option value="DPT, Hb Com2">DPT, Hb Com2</option>
+                        <option value="DPT, Hb Com3">DPT, Hb Com3</option>
+                    </select>
                 </div>
                 <div class="mb-4">
                     <label for="kategori" class="block text-sm font-medium">Kategori</label>
@@ -176,6 +204,23 @@
                 <div class="mb-4">
                     <label for="edit-berat_badan" class="block text-sm font-medium">Berat Badan (kg)</label>
                     <input type="twxt" name="berat_badan" id="edit-berat_badan" class="block w-full px-3 py-2 border rounded-md" required>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-imunisasi" class="block text-sm font-medium">Imunisasi</label>
+                    <select id="edit-imunisasi" name="imunisasi" class="w-full border p-2 rounded" required>
+                        <option value="" disabled selected>Pilih Jenis Imunisasi</option>
+                        <option value="BCG">BCG</option>
+                        <option value="Polio I">Polio I</option>
+                        <option value="Polio II">Polio II</option>
+                        <option value="Polio III">Polio III</option>
+                        <option value="Polio IV">Polio IV</option>
+                        <option value="Campak">Campak</option>
+                        <option value="TT BUMIL">TT BUMIL</option>
+                        <option value="TT WUS">TT WUS</option>
+                        <option value="DPT, Hb Com1">DPT, Hb Com1</option>
+                        <option value="DPT, Hb Com2">DPT, Hb Com2</option>
+                        <option value="DPT, Hb Com3">DPT, Hb Com3</option>
+                    </select>
                 </div>
                 <div class="mb-4">
                     <label for="edit-kategori" class="block text-sm font-medium">Kategori</label>
@@ -257,20 +302,26 @@
         document.getElementById('cancel-button').onclick = closeModal;
 
         // Fungsi untuk membuka modal edit
-        const openEditModal = (nik, tanggal, tinggi_badan, berat_badan, kategori) => {
-            const modal = document.getElementById('modal-edit');
-            modal.classList.remove('hidden');
+        const openEditModal = (id, tanggal, tinggi_badan, berat_badan, imunisasi, kategori) => {
+        const modal = document.getElementById('modal-edit');
+        modal.classList.remove('hidden');
 
-            // Isi nilai input dalam form
-            document.getElementById('edit-tanggal').value = tanggal;
-            document.getElementById('edit-tinggi_badan').value = tinggi_badan;
-            document.getElementById('edit-berat_badan').value = berat_badan;
-            document.getElementById('edit-kategori').value = kategori;
+        // Isi nilai input dalam form
+        document.getElementById('edit-tanggal').value = tanggal;
+        document.getElementById('edit-tinggi_badan').value = tinggi_badan;
+        document.getElementById('edit-berat_badan').value = berat_badan;
 
-            // Update action form untuk route update
-            const form = document.getElementById('form-edit');
-            form.action = `/kader/kms/${nik}`;
-        };
+        // Set selected value for dropdown
+        const imunisasiDropdown = document.getElementById('edit-imunisasi');
+        imunisasiDropdown.value = imunisasi; // Pastikan 'imunisasi' cocok dengan value dropdown
+
+        document.getElementById('edit-kategori').value = kategori;
+
+        // Update action form untuk route update
+        const form = document.getElementById('form-edit');
+        form.action = `/kader/kms/${id}`;
+    };
+
 
         // Fungsi untuk menutup modal edit
         const closeEditModal = () => {
@@ -284,14 +335,24 @@
 
         // Fungsi untuk menampilkan popup konfirmasi sebelum menghapus
         function confirmDelete(id) {
-            // Tampilkan dialog konfirmasi
-            const confirmation = confirm('Apakah Anda yakin ingin menghapus data ini?');
-
-            // Jika pengguna mengklik "OK", kirim form penghapusan
-            if (confirmation) {
-                document.getElementById(`delete-form-${id}`).submit();
-            }
+            // Tampilkan SweetAlert untuk konfirmasi
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengklik "Ya, Hapus!", kirim form penghapusan
+                    document.getElementById(`delete-form-${id}`).submit();
+                }
+            });
         }
+
     </script>
 </body>
 

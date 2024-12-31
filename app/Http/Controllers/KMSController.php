@@ -55,6 +55,7 @@ class KMSController extends Controller
             'tanggal' => 'required|date',
             'tinggi_badan' => 'required|numeric',
             'berat_badan' => 'required|numeric',
+            'imunisasi' => 'required|string',
         ]);
 
         $bayi = Bayi::where('nik', $request->nik_bayi)->first();
@@ -84,6 +85,7 @@ class KMSController extends Controller
             'tanggal' => $request->tanggal,
             'tinggi_badan' => $request->tinggi_badan,
             'berat_badan' => $request->berat_badan,
+            'imunisasi' => $request->imunisasi,
             'kategori' => $kategori,
         ]);
 
@@ -96,6 +98,7 @@ class KMSController extends Controller
             'tanggal' => 'required|date',
             'tinggi_badan' => 'required|numeric',
             'berat_badan' => 'required|numeric',
+            'imunisasi' => 'required|string',
         ]);
 
         $kms = KMS::findOrFail($id);
@@ -129,6 +132,7 @@ class KMSController extends Controller
             'tanggal' => $request->tanggal,
             'tinggi_badan' => $request->tinggi_badan,
             'berat_badan' => $request->berat_badan,
+            'imunisasi' => $request->imunisasi,
             'kategori' => $kategori,
         ]);
 

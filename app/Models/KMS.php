@@ -17,7 +17,7 @@ class KMS extends Model
         'tanggal',
         'tinggi_badan',
         'berat_badan',
-        'jenis_vitamin',
+        'imunisasi',
         'kategori',
     ];
 }
