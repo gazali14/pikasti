@@ -4,7 +4,7 @@
             @forelse ($kaders as $kader)
                 <!-- Card Kader -->
                 <div class="bg-[#f3f3f3] shadow-md rounded-t-xl overflow-hidden w-full max-w-xs mx-auto">
-                    <img src="{{ asset('storage/' . $kader->foto) }}" alt="Foto {{ $kader->nama }}"
+                    <img src="{{ $kader->foto ? asset('storage/' . $kader->foto) : asset('img/Profile.png') }}" alt="Foto {{ $kader->nama }}"
                         class="h-64 w-full object-cover rounded-t-xl">
                     <div class="px-4 py-3 w-full">
                         <p class="text-lg font-bold block truncate">{{ $kader->nama }}</p>

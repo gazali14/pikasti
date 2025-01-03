@@ -20,8 +20,8 @@
                             <!-- Input Box -->
                             <input type="search" id="default-search"
                                 class="block w-full py-2 pl-5 pr-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-gray-300 focus:ring-1 focus:ring-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Cari Nama Kader" style="outline: none;" required />
-                            <!-- Tombol Cari -->
+                                placeholder="Cari Kader" style="outline: none;" required />
+                            <!-- Ikon Cari -->
                             <div class="absolute right-2.5 top-1/2 -translate-y-1/2">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnifying_glass_icon.svg/2048px-Magnifying_glass_icon.svg.png"
                                     alt="Cari" class="w-5 h-5">
@@ -89,10 +89,6 @@
         <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
             <h1 class="text-2xl font-bold mb-6 text-gray-800">Tambah Kader</h1>
 
-            @if (session('success'))
-                <p class="text-green-500">{{ session('success') }}</p>
-            @endif
-
             <form action="{{ route('admin.kelola_kader.store') }}" method="POST" enctype="multipart/form-data"
                 class="space-y-6">
                 @csrf
@@ -151,8 +147,8 @@
                                     placeholder="Masukkan Password">
                                 <button type="button" id="togglePassword"
                                     class="absolute inset-y-0 right-3 flex items-center justify-center text-gray-500 focus:outline-none">
-                                    <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
+                                    <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -163,7 +159,7 @@
                             @error('password')
                                 <span class="text-red-500 text-sm">* {{ $message }}</span>
                             @enderror
-                        </div>                        
+                        </div>
 
                     </div>
 
@@ -178,12 +174,12 @@
                             <span class="text-red-500 text-sm">* {{ $message }}</span>
                         @enderror
                     </div>
-                    
+
                 </div>
 
                 <!-- Tombol -->
                 <div class="flex justify-center gap-4">
-                    <button type="reset"
+                    <button type="reset" id="resetBtn"
                         class="px-4 py-2 bg-red-500 text-white rounded shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
                         Reset
                     </button>
@@ -197,7 +193,6 @@
 
     </div>
 </x-layout-admin>
-
 
 <script>
     // Pencarian dengan AJAX
@@ -275,20 +270,26 @@
     document.getElementById('deleteBtn').addEventListener('click', function() {
         if (selectedRow) {
             const kaderId = selectedRow.getAttribute('data-id');
-            const confirmDelete = confirm('Apakah Anda yakin ingin menghapus kader ini?');
-            if (confirmDelete) {
-                fetch(`{{ url('admin/kelola_kader') }}/${kaderId}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        },
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        alert(data.success);
-                        location.reload();
-                    });
-            }
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak dapat membatalkan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`{{ url('admin/kelola_kader') }}/${kaderId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            },
+                        })
+                        .then(data => {
+                            location.reload();
+                        });
+                }
+            });
         }
     });
 
@@ -301,6 +302,32 @@
                 hideActionButtons();
             }
         }
+    });
+
+    // Tambahkan event listener ke tombol Edit
+    document.getElementById('resetBtn').addEventListener('click', function() {
+        // Hapus isi form
+        document.getElementById('nik').value = "";
+        document.getElementById('nama').value = "";
+        document.getElementById('alamat').value = "";
+        document.getElementById('jabatan').value = "";
+        document.getElementById('password').value = ''; // Kosongkan password untuk keamanan
+        document.getElementById('kader-id').value = ""; // Hidden input untuk ID
+    });
+
+    // Notifikasi sukses menambahkan data kader
+    document.addEventListener('DOMContentLoaded', function() {
+        @if (session('success'))
+            Swal.fire({
+                toast: true,
+                position: 'top-end', // Lokasi di kanan atas
+                icon: 'success',
+                title: "{{ session('success') }}",
+                showConfirmButton: false, // Tidak ada tombol
+                timer: 3000, // Menghilang setelah 3 detik
+                timerProgressBar: true, // Menampilkan progress bar
+            });
+        @endif
     });
 
     // Jalankan fungsi untuk menambahkan event listener ke baris tabel pada saat pertama kali halaman dimuat
@@ -321,7 +348,7 @@
             passwordInput.setAttribute('type', 'text');
             eyeIcon.setAttribute('d',
                 'M13 16a4 4 0 01-6 0M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z'
-                );
+            );
         } else {
             passwordInput.setAttribute('type', 'password');
         }
@@ -347,5 +374,4 @@
             preview.src = '{{ asset('images/placeholder.jpg') }}';
         }
     }
-
 </script>

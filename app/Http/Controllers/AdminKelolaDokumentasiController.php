@@ -22,7 +22,7 @@ class AdminKelolaDokumentasiController extends Controller
             'nama_kegiatan' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|date',
-            'foto.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $fotoPaths = [];
