@@ -19,6 +19,7 @@ use App\Http\Controllers\HalamanDashboardOrangTuaController;
 use App\Http\Controllers\KohortController;
 use App\Http\Controllers\VitaminController;
 use App\Http\Controllers\KonsultasiController;
+use App\Http\Controllers\PMTController;
 
 
 
@@ -163,6 +164,15 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
         return view('kader.pmt');
     })->name('kader.pmt');
 
+    // Route untuk dropdown nama bayi
+   Route::get('/bayi', [PMTController::class, 'getBayi']);
+   Route::get('/pmt', [PMTController::class, 'index'])->name('pmt.index'); // Halaman utama
+   Route::get('/pmt/{nik}', [PMTController::class, 'show'])->name('pmt.show'); // Tampilkan data berdasarkan NIK
+   Route::post('/pmt', [PMTController::class, 'store'])->name('pmt.store'); // Simpan data
+   Route::delete('/pmt/{id}', [PMTController::class, 'destroy'])->name('pmt.destroy'); // Hapus data
+   Route::put('/pmt/{id}', [PMTController::class, 'update'])->name('pmt.update');
+    
+
     Route::get('/vitamin', function () {
         return view('kader.vitamin');
     })->name('kader.vitamin');
@@ -180,9 +190,6 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
         return view('kader.vitamin-pmt');
     })->name('kader.vitamin-pmt');
 
-    Route::get('/kader/vitamin', function () {
-        return view('kader.vitamin');
-    })->name('kader.vitamin');
     
 });
 
