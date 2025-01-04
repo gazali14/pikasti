@@ -119,12 +119,13 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
     })->name('kader.konsultasi');
     
    // Rute untuk menampilkan halaman konsultasi
-   Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('kader.konsultasi.index');
-   Route::get('/konsultasi/create', [KonsultasiController::class, 'create'])->name('konsultasi.create');
-   Route::post('/konsultasi/store', [KonsultasiController::class, 'store'])->name('konsultasi.store');
-   Route::get('/konsultasi/edit/{id}', [KonsultasiController::class, 'edit'])->name('konsultasi.edit');
-   Route::post('/konsultasi/update/{id}', [KonsultasiController::class, 'update'])->name('konsultasi.update');
-   Route::delete('/konsultasi/delete/{id}', [KonsultasiController::class, 'destroy'])->name('konsultasi.destroy');
+     // Route untuk dropdown nama bayi
+     Route::get('/bayi', [KonsultasiController::class, 'getBayi']);
+     Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi.index'); // Halaman utama
+     Route::get('/konsultasi/{nik}', [KonsultasiController::class, 'show'])->name('konsultasi.show'); // Tampilkan data berdasarkan NIK
+     Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsultasi.store'); // Simpan data
+     Route::delete('/konsultasi/{id}', [KonsultasiController::class, 'destroy'])->name('konsultasi.destroy'); // Hapus data
+     Route::put('/konsultasi/{id}', [KonsultasiController::class, 'update'])->name('konsultasi.update');
    
 
     Route::get('/kms', function () {
