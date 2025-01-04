@@ -4,8 +4,8 @@
             <h1 class="text-2xl font-bold text-[#353535] font-poppins">Pemberian Vitamin</h1>
         </div>
         <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded shadow">
-            <x-tabel-vitamin :bayis="$bayis" />
+            <x-tabel-vitamin :bayiList="$bayiList" :vitaminData="$vitaminData" :selectedBayiNik="$selectedBayiNik" />
+
         </div>
-            <x-form-tambah-vitamin :jadwals="$jadwals"></x-form-tambah-vitamin>
     </div>
 </x-layout-kader>
