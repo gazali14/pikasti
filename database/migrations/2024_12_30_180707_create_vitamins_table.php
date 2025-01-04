@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('vitamins', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_bayi',100);
+            $table->string('nik_bayi');
+            $table->date('tanggal'); // Kolom tanggal
             $table->string('vitamin',100);
-            $table->unsignedBigInteger('id_bayi');
-            $table->unsignedBigInteger('id_kegiatan');
             $table->timestamps();
 
+             
+            // Relasi ke tabel bayi
+            $table->foreign('nik_bayi')->references('nik')->on('bayis')->onDelete('cascade');
         });
     }
 
