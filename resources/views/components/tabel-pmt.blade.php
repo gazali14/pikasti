@@ -44,7 +44,7 @@
             <div>
                 <button id="add-button" class="inline-block px-6 py-2.5 bg-teal-500 text-white rounded">
                     <i class="fas fa-folder-plus"></i>
-                    <span>Tambah Data Bayi</span>
+                    <span>Tambah Data PMT</span>
                 </button>
             </div>
         </div>
