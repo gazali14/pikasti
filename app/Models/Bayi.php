@@ -43,6 +43,18 @@ class Bayi extends Authenticatable
      */
     public function vitamins()
     {
-        return $this->hasMany(Vitamin::class, 'id_bayi');
+        return $this->hasMany(Vitamin::class, 'nik_bayi');
+    }
+
+    public function pmts()
+    {
+        return $this->hasMany(PMT::class, 'nik_bayi');
+    }
+
+    public function konsultasis()
+    {
+        return $this->hasMany(Konsultasi::class, 'id_bayi');
     }
 }
+
+

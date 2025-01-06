@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vitamins', function (Blueprint $table) {
+        Schema::create('konsultasis', function (Blueprint $table) {
             $table->id();
             $table->string('nik_bayi');
-            $table->date('tanggal'); // Kolom tanggal
-            $table->string('vitamin',100);
+            $table->date('tanggal');
+            $table->string('konsultasi');
             $table->timestamps();
 
-             
-            // Relasi ke tabel bayi
-            $table->foreign('nik_bayi')->references('nik')->on('bayis')->onDelete('cascade');
+             // Relasi ke tabel bayi
+             $table->foreign('nik_bayi')->references('nik')->on('bayis')->onDelete('cascade');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vitamins');
+        Schema::dropIfExists('konsultasis');
     }
 };

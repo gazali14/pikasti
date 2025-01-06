@@ -10,8 +10,7 @@
                         class="border border-gray-300 rounded-md px-3 py-2 w-full focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm" />
                 </form>
 
-                <button id="tambahButton"
-                    class="inline-block px-6 py-2.5 bg-teal-500 text-white rounded"
+                <button id="tambahButton" class="inline-block px-6 py-2.5 bg-teal-500 text-white rounded"
                     onclick="showPopup('Tambah Dokumentasi')">
                     <i class="fas fa-folder-plus"></i>
                     <span>Tambah Dokumumentasi</span>
@@ -74,24 +73,36 @@
                         <input type="text" id="namaKegiatan" name="nama_kegiatan" required
                             class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
                     </div>
+                    @error('nama_kegiatan')
+                        <span class="text-red-500 text-sm">* {{ $message }}</span>
+                    @enderror
 
                     <div class="mb-4">
                         <label class="block mb-2 text-sm font-bold text-black-700" for="namaKegiatan">Deskripsi</label>
-                        <input type="text" id="deskripsiKegiatan" name="deskripsi" required
+                        <input type="text" id="deskripsiKegiatan" name="deskripsi"
                             class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
                     </div>
+                    @error('deskripsi')
+                        <span class="text-red-500 text-sm">* {{ $message }}</span>
+                    @enderror
 
                     <div class="mb-4">
                         <label class="block mb-2 text-sm font-bold text-black-700" for="tanggal">Tanggal</label>
                         <input type="date" id="tanggalKegiatan" name="tanggal" required
                             class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
                     </div>
+                    @error('tanggal')
+                        <span class="text-red-500 text-sm">* {{ $message }}</span>
+                    @enderror
 
                     <div class="mb-4">
                         <label class="block mb-2 text-sm font-bold text-black-700" for="foto">Upload Foto</label>
-                        <input type="file" id="foto" name="foto[]" multiple
+                        <input type="file" id="foto" name="foto.*" multiple
                             class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
                     </div>
+                    @error('foto.*')
+                        <span class="text-red-500 text-sm">* {{ $message }}</span>
+                    @enderror
 
                     <div class="flex justify-end">
                         <button type="button"
@@ -133,7 +144,7 @@
                 methodInput.value = 'PUT';
                 form.appendChild(methodInput);
             } else {
-                form.action = '{{ route("dokumentasi.store") }}';
+                form.action = '{{ route('dokumentasi.store') }}';
                 form.method = 'POST';
             }
 
@@ -162,6 +173,21 @@
                     }
                 });
             });
+        });
+
+        // Notifikasi sukses menambahkan data kader
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end', // Lokasi di kanan atas
+                    icon: 'success',
+                    title: "{{ session('success') }}",
+                    showConfirmButton: false, // Tidak ada tombol
+                    timer: 3000, // Menghilang setelah 3 detik
+                    timerProgressBar: true, // Menampilkan progress bar
+                });
+            @endif
         });
 
         document.getElementById('search').addEventListener('input', function() {

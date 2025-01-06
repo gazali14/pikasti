@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vitamin;
+use App\Models\PMT;
 use App\Models\Bayi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon; 
 
-class VitaminController extends Controller
+class PMTController extends Controller
 {
     // Menampilkan halaman utama
     public function index()
     {
         $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
-        $vitaminData = []; // Data vitamin kosong di awal
+        $pmtData = []; // Data PMT kosong di awal
         $selectedBayiNik = null;
 
-        return view('kader.vitamin', compact('bayiList', 'vitaminData', 'selectedBayiNik'));
+        return view('kader.pmt', compact('bayiList', 'pmtData', 'selectedBayiNik'));
     }
 
-    // Menampilkan data vitamin berdasarkan NIK bayi
+    // Menampilkan data PMT berdasarkan NIK bayi
     public function show($nik)
     {
         $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
@@ -28,22 +28,22 @@ class VitaminController extends Controller
 
         // Jika bayi tidak ditemukan, alihkan kembali
         if (!$selectedBayi) {
-            return redirect()->route('vitamin.index')->with('error', 'Bayi tidak ditemukan.');
+            return redirect()->route('pmt.index')->with('error', 'Bayi tidak ditemukan.');
         }
 
-        $vitaminData = Vitamin::where('nik_bayi', $nik)
+        $pmtData = PMT::where('nik_bayi', $nik)
             ->orderBy('tanggal', 'asc')
             ->get()
             ->map(function ($item) use ($selectedBayi) {
                 $tanggalLahir = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir);
-                $tanggalVitamin = \Carbon\Carbon::parse($item->tanggal);
-                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalVitamin); // Hitung usia bulan
+                $tanggalPmt = \Carbon\Carbon::parse($item->tanggal);
+                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalPmt); // Hitung usia bulan
                 return $item;
             });
 
 
         $selectedBayiNik = $nik;
-        return view('kader.vitamin', compact('bayiList', 'vitaminData','selectedBayi', 'selectedBayiNik'));
+        return view('kader.pmt', compact('bayiList', 'pmtData','selectedBayi', 'selectedBayiNik'));
     }
 
 
@@ -53,43 +53,43 @@ class VitaminController extends Controller
         $validated = $request->validate([
             'nik_bayi' => 'required|exists:bayis,nik', // Pastikan bayi ada di database
             'tanggal' => 'required|date',
-            'vitamin' => 'required|string',
+            'pmt' => 'required|string',
         ]);
 
         $bayi = Bayi::where('nik', $request->nik_bayi)->first();
-        Vitamin::create([
+        PMT::create([
             'nik_bayi' => $request->nik_bayi,
             'tanggal' => $request->tanggal,
-            'vitamin' => $request->vitamin,
+            'pmt' => $request->pmt,
         ]);
 
-        return redirect()->back()->with('success', 'Data Vitamin berhasil ditambahkan!');
+        return redirect()->back()->with('success', 'Data PMT berhasil ditambahkan!');
     }
     public function update(Request $request, $id)
     {
         // Validasi input
         $validated = $request->validate([
             'tanggal' => 'required|date',
-            'vitamin' => 'required|string',
+            'pmt' => 'required|string',
         ]);
 
-        $vitamin = Vitamin::findOrFail($id);
+        $pmt = PMT::findOrFail($id);
 
-        // Update data Vitamin dengan kategori baru
-        $vitamin->update([
+        // Update data PMT dengan kategori baru
+        $pmt->update([
             'tanggal' => $request->tanggal,
-            'vitamin' => $request->vitamin,
+            'pmt' => $request->pmt,
         ]);
 
-        return redirect()->back()->with('success', 'Data Vitamin berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Data PMT berhasil diperbarui!');
     }
 
-    // Menghapus data Vitamin
+    // Menghapus data PMT
     public function destroy($id)
     {
-        $vitamin = Vitamin::findOrFail($id);
-        $vitamin->delete();
+        $pmt = PMT::findOrFail($id);
+        $pmt->delete();
 
-        return redirect()->back()->with('success', 'Data Vitamin berhasil dihapus!');
+        return redirect()->back()->with('success', 'Data PMT berhasil dihapus!');
     }
 }

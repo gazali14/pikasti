@@ -6,15 +6,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vitamin extends Model
+class PMT extends Model
 {
     use HasFactory;
 
-    protected $table = 'vitamins';
+    protected $table = 'pmts'; //nama tabel di database
 
     protected $fillable = [
         'nik_bayi',
         'tanggal',
-        'vitamin',
+        'pmt',
     ];
 }

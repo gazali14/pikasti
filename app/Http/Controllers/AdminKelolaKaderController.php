@@ -24,19 +24,19 @@ class AdminKelolaKaderController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nik' => 'required|min:16|max:16|unique:kaders,nik,' . $request->id,
-            'nama' => 'required|string|max:100',
-            'alamat' => 'required|string|max:255',
-            'jabatan' => 'required|string|max:50',
-            'password' => 'required|string|min:8',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-    
         if ($request->id) {
+            $validated = $request->validate([
+                'nama' => 'required|string|max:100',
+                'alamat' => 'required|string|max:255',
+                'jabatan' => 'required|string|max:50',
+                'password' => 'required|string|min:8',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+
             $kader = Kader::findOrFail($request->id);
+            $validated['password'] = bcrypt($validated['password']);
             $kader->update($validated);
-    
+
             // Update foto jika ada file baru diupload
             if ($request->hasFile('foto')) {
                 // Hapus foto lama jika ada
@@ -47,20 +47,29 @@ class AdminKelolaKaderController extends Controller
                 $kader->save();
             }
         } else {
+            $validated = $request->validate([
+                'nik' => 'required|min:16|max:16|unique:kaders,nik,' . $request->id,
+                'nama' => 'required|string|max:100',
+                'alamat' => 'required|string|max:255',
+                'jabatan' => 'required|string|max:50',
+                'password' => 'required|string|min:8',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+
             // Jika data baru, hash password
             $validated['password'] = bcrypt($validated['password']);
-    
+
             // Simpan foto jika ada
-            $validated['foto'] = $request->file('foto') 
-                ? $request->file('foto')->store('img', 'public') 
+            $validated['foto'] = $request->file('foto')
+                ? $request->file('foto')->store('img', 'public')
                 : null;
-    
+
             Kader::create($validated);
         }
-    
+
         return redirect()->route('admin.kelola_kader.index')->with('success', 'Data kader berhasil disimpan!');
     }
-    
+
 
     public function edit($id)
     {
@@ -79,6 +88,6 @@ class AdminKelolaKaderController extends Controller
 
         $kader->delete();
 
-        return response()->json(['success' => 'Kader berhasil dihapus.']);
+        return redirect()->route('admin.kelola_kader.index')->with('success', 'Kader berhasil dihapus.');
     }
 }

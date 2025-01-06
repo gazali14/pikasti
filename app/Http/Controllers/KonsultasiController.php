@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vitamin;
+use App\Models\Konsultasi;
 use App\Models\Bayi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon; 
 
-class VitaminController extends Controller
+class KonsultasiController extends Controller
 {
     // Menampilkan halaman utama
     public function index()
     {
         $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
-        $vitaminData = []; // Data vitamin kosong di awal
+        $konsultasiData = []; // Data Konsultasi kosong di awal
         $selectedBayiNik = null;
 
-        return view('kader.vitamin', compact('bayiList', 'vitaminData', 'selectedBayiNik'));
+        return view('kader.konsultasi', compact('bayiList', 'konsultasiData', 'selectedBayiNik'));
     }
 
-    // Menampilkan data vitamin berdasarkan NIK bayi
+    // Menampilkan data konsultasi berdasarkan NIK bayi
     public function show($nik)
     {
         $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
@@ -28,22 +28,22 @@ class VitaminController extends Controller
 
         // Jika bayi tidak ditemukan, alihkan kembali
         if (!$selectedBayi) {
-            return redirect()->route('vitamin.index')->with('error', 'Bayi tidak ditemukan.');
+            return redirect()->route('konsultasi.index')->with('error', 'Bayi tidak ditemukan.');
         }
 
-        $vitaminData = Vitamin::where('nik_bayi', $nik)
+        $konsultasiData = Konsultasi::where('nik_bayi', $nik)
             ->orderBy('tanggal', 'asc')
             ->get()
             ->map(function ($item) use ($selectedBayi) {
                 $tanggalLahir = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir);
-                $tanggalVitamin = \Carbon\Carbon::parse($item->tanggal);
-                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalVitamin); // Hitung usia bulan
+                $tanggalKonsultasi = \Carbon\Carbon::parse($item->tanggal);
+                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalKonsultasi); // Hitung usia bulan
                 return $item;
             });
 
 
         $selectedBayiNik = $nik;
-        return view('kader.vitamin', compact('bayiList', 'vitaminData','selectedBayi', 'selectedBayiNik'));
+        return view('kader.konsultasi', compact('bayiList', 'konsultasiData','selectedBayi', 'selectedBayiNik'));
     }
 
 
@@ -53,43 +53,43 @@ class VitaminController extends Controller
         $validated = $request->validate([
             'nik_bayi' => 'required|exists:bayis,nik', // Pastikan bayi ada di database
             'tanggal' => 'required|date',
-            'vitamin' => 'required|string',
+            'konsultasi' => 'required|string',
         ]);
 
         $bayi = Bayi::where('nik', $request->nik_bayi)->first();
-        Vitamin::create([
+        Konsultasi::create([
             'nik_bayi' => $request->nik_bayi,
             'tanggal' => $request->tanggal,
-            'vitamin' => $request->vitamin,
+            'konsultasi' => $request->konsultasi,
         ]);
 
-        return redirect()->back()->with('success', 'Data Vitamin berhasil ditambahkan!');
+        return redirect()->back()->with('success', 'Data Konsultasi berhasil ditambahkan!');
     }
     public function update(Request $request, $id)
     {
         // Validasi input
         $validated = $request->validate([
             'tanggal' => 'required|date',
-            'vitamin' => 'required|string',
+            'konsultasi' => 'required|string',
         ]);
 
-        $vitamin = Vitamin::findOrFail($id);
+        $konsultasi = Konsultasi::findOrFail($id);
 
-        // Update data Vitamin dengan kategori baru
-        $vitamin->update([
+        // Update data konsultasi dengan kategori baru
+        $konsultasi->update([
             'tanggal' => $request->tanggal,
-            'vitamin' => $request->vitamin,
+            'konsultasi' => $request->konsultasi,
         ]);
 
-        return redirect()->back()->with('success', 'Data Vitamin berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Data Konsultasi berhasil diperbarui!');
     }
 
-    // Menghapus data Vitamin
+    // Menghapus data konsultasi
     public function destroy($id)
     {
-        $vitamin = Vitamin::findOrFail($id);
-        $vitamin->delete();
+        $konsultasi = Konsultasi::findOrFail($id);
+        $konsultasi->delete();
 
-        return redirect()->back()->with('success', 'Data Vitamin berhasil dihapus!');
+        return redirect()->back()->with('success', 'Data Konsultasi berhasil dihapus!');
     }
 }

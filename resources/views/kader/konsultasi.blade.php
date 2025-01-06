@@ -8,10 +8,9 @@
 
         <!-- Tabel Daftar Konsultasi dengan Scroll -->
         <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded shadow">
-            <x-tabel-konsultasi />
+            <x-tabel-konsultasi :bayiList="$bayiList" :konsultasiData="$konsultasiData" :selectedBayiNik="$selectedBayiNik" />
         </div>
 
-        <!-- Form Tambah Konsultasi -->
-        <x-form-konsultasi></x-form-konsultasi>
+        
     </div>
 </x-layout-kader>

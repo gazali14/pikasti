@@ -18,6 +18,8 @@ use App\Http\Controllers\AdminKelolaDokumentasiController;
 use App\Http\Controllers\HalamanDashboardOrangTuaController;
 use App\Http\Controllers\KohortController;
 use App\Http\Controllers\VitaminController;
+use App\Http\Controllers\KonsultasiController;
+use App\Http\Controllers\PMTController;
 
 
 
@@ -115,7 +117,16 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
     Route::get('/konsultasi', function () {
         return view('kader.konsultasi');
     })->name('kader.konsultasi');
-
+    
+   // Rute untuk menampilkan halaman konsultasi
+     // Route untuk dropdown nama bayi
+     Route::get('/bayi', [KonsultasiController::class, 'getBayi']);
+     Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi.index'); // Halaman utama
+     Route::get('/konsultasi/{nik}', [KonsultasiController::class, 'show'])->name('konsultasi.show'); // Tampilkan data berdasarkan NIK
+     Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsultasi.store'); // Simpan data
+     Route::delete('/konsultasi/{id}', [KonsultasiController::class, 'destroy'])->name('konsultasi.destroy'); // Hapus data
+     Route::put('/konsultasi/{id}', [KonsultasiController::class, 'update'])->name('konsultasi.update');
+   
 
     Route::get('/kms', function () {
         return view('kader.kms');
@@ -154,22 +165,32 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
         return view('kader.pmt');
     })->name('kader.pmt');
 
+    // Route untuk dropdown nama bayi
+   Route::get('/bayi', [PMTController::class, 'getBayi']);
+   Route::get('/pmt', [PMTController::class, 'index'])->name('pmt.index'); // Halaman utama
+   Route::get('/pmt/{nik}', [PMTController::class, 'show'])->name('pmt.show'); // Tampilkan data berdasarkan NIK
+   Route::post('/pmt', [PMTController::class, 'store'])->name('pmt.store'); // Simpan data
+   Route::delete('/pmt/{id}', [PMTController::class, 'destroy'])->name('pmt.destroy'); // Hapus data
+   Route::put('/pmt/{id}', [PMTController::class, 'update'])->name('pmt.update');
+    
+
     Route::get('/vitamin', function () {
         return view('kader.vitamin');
     })->name('kader.vitamin');
 
 
-    Route::get('/vitamin', [VitaminController::class, 'index'])->name('kader.vitamin.index');
-    Route::post('/vitamin', [VitaminController::class, 'store'])->name('kader.vitamin.store');
-    Route::delete('/vitamin', [VitaminController::class, 'destroy'])->name('kader.vitamin.destroy');
+   // Route untuk dropdown nama bayi
+   Route::get('/bayi', [VitaminController::class, 'getBayi']);
+   Route::get('/vitamin', [VitaminController::class, 'index'])->name('vitamin.index'); // Halaman utama
+   Route::get('/vitamin/{nik}', [VitaminController::class, 'show'])->name('vitamin.show'); // Tampilkan data berdasarkan NIK
+   Route::post('/vitamin', [VitaminController::class, 'store'])->name('vitamin.store'); // Simpan data
+   Route::delete('/vitamin/{id}', [VitaminController::class, 'destroy'])->name('vitamin.destroy'); // Hapus data
+   Route::put('/vitamin/{id}', [VitaminController::class, 'update'])->name('vitamin.update');
 
     Route::get('/vitamin-pmt', function () {
         return view('kader.vitamin-pmt');
     })->name('kader.vitamin-pmt');
 
-    Route::get('/kader/vitamin', function () {
-        return view('kader.vitamin');
-    })->name('kader.vitamin');
     
 });
 
