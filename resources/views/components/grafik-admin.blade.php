@@ -65,7 +65,7 @@
 
         // Fungsi untuk mengambil data jumlah kader dari backend
         function fetchData(year) {
-            axios.get(`/kader/count-by-month?year=${year}`)
+            axios.get(`/admin/count-by-month?year=${year}`)
                 .then(response => {
                     const result = response.data.data;
                     const labels = Object.keys(result); // Nama bulan
