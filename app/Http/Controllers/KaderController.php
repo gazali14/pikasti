@@ -6,7 +6,7 @@ use App\Models\Bayi;
 use App\Models\Jadwal; // Import model Jadwal
 use Illuminate\Http\Request;
 use App\Models\Kehadiran;
-use App\Models\Kader;
+use App\Models\KehadiranKader;
 use Carbon\Carbon;
 
 // Set locale ke Indonesia
@@ -101,33 +101,34 @@ class KaderController extends Controller
         return view('kader.cek_presensi', compact('bayis', 'jadwal', 'kehadiran', 'message'));
     }
 
-    public function countKaderByMonth(Request $request)
-    {
-        $year = $request->input('year') ?? date('Y'); // Default ke tahun sekarang jika tidak diberikan
+    // public function countKaderByMonth(Request $request)
+    // {
+    //     $year = $request->input('year') ?? date('Y'); // Default ke tahun sekarang jika tidak diberikan
 
-        // Validasi input tahun
-        $request->validate([
-            'year' => 'nullable|integer|min:1900|max:' . date('Y'),
-        ]);
+    //     // Validasi input tahun
+    //     $request->validate([
+    //         'year' => 'nullable|integer|min:1900|max:' . date('Y'),
+    //     ]);
 
-        // Mengambil jumlah kader per bulan
-        $kaderPerMonth = Kader::selectRaw('strftime("%m", created_at) as month, COUNT(*) as count')
-            ->whereRaw('strftime("%Y", created_at) = ?', [$year])
-            ->groupByRaw('strftime("%m", created_at)')
-            ->pluck('count', 'month');
+    //     // Mengambil jumlah kader per bulan
+    //     $kaderPerMonth = KehadiranKader::selectRaw('strftime("%m", created_at) as month, COUNT(*) as count')
+    //         ->whereRaw('strftime("%Y", created_at) = ?', [$year])
+    //         ->where('kehadiran', 1)
+    //         ->groupByRaw('strftime("%m", created_at)')
+    //         ->pluck('count', 'month');
 
-        // Konversi hasil menjadi array dengan nama bulan
-        $result = [];
-        for ($month = 1; $month <= 12; $month++) {
-            $monthKey = str_pad($month, 2, '0', STR_PAD_LEFT); // Format bulan menjadi "01", "02", ...
-            $result[Carbon::create()->month($month)->translatedFormat('F')] = $kaderPerMonth[$monthKey] ?? 0;
-        }
+    //     // Konversi hasil menjadi array dengan nama bulan
+    //     $result = [];
+    //     for ($month = 1; $month <= 12; $month++) {
+    //         $monthKey = str_pad($month, 2, '0', STR_PAD_LEFT); // Format bulan menjadi "01", "02", ...
+    //         $result[Carbon::create()->month($month)->translatedFormat('F')] = $kaderPerMonth[$monthKey] ?? 0;
+    //     }
 
-        return response()->json([
-            'year' => $year,
-            'data' => $result,
-        ]);
-    }
+    //     return response()->json([
+    //         'year' => $year,
+    //         'data' => $result,
+    //     ]);
+    // }
 
 
     public function savePresensi(Request $request)
