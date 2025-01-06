@@ -30,7 +30,7 @@ class KehadiranKaderController extends Controller
         $kaders = $kaders->get();
 
         // Ambil semua jadwal kegiatan dari tabel Jadwal, urutkan berdasarkan tanggal terdekat dengan hari ini
-        $jadwal = Jadwal::orderBy('tanggal', 'asc')->get(); // Urutkan berdasarkan tanggal dari yang terdekat
+        $jadwal = Jadwal::orderBy('tanggal', 'asc')->paginate(12);; // Urutkan berdasarkan tanggal dari yang terdekat
         $jadwal->each(function ($item) {
             $item->tanggal = Carbon::parse($item->tanggal)->format('Y-m-d');
         });
