@@ -5,7 +5,6 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Cek Presensi</title>
-      <script src="https://cdn.tailwindcss.com"></script>
     </head>
   
     <body id="cek-presensi" class="bg-[#E8F6F3] font-poppins m-0 p-0">
@@ -139,6 +138,21 @@
         // Reset flag perubahan saat form disubmit
         document.getElementById('presensi-form').addEventListener('submit', function () {
             isFormModified = false;
+        });
+
+         // Notifikasi sukses menambahkan data kader
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end', // Lokasi di kanan atas
+                    icon: 'success',
+                    title: "{{ session('success') }}",
+                    showConfirmButton: false, // Tidak ada tombol
+                    timer: 3000, // Menghilang setelah 3 detik
+                    timerProgressBar: true, // Menampilkan progress bar
+                });
+            @endif
         });
       </script>
     </body>
