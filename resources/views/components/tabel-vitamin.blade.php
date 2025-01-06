@@ -315,6 +315,21 @@
             });
         }
 
+         // Notifikasi sukses menambahkan data kader
+         document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end', // Lokasi di kanan atas
+                    icon: 'success',
+                    title: "{{ session('success') }}",
+                    showConfirmButton: false, // Tidak ada tombol
+                    timer: 3000, // Menghilang setelah 3 detik
+                    timerProgressBar: true, // Menampilkan progress bar
+                });
+            @endif
+        });
+
     </script>
 </body>
 
