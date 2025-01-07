@@ -18,26 +18,27 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
             </a>
-            <h1 class="p-5 font-bold text-[#353535] font-poppins text-3xl">Presensi Kader</h1>
+            <h1 class="mx-3 font-bold text-3xl">Presensi Kader</h1>
         </div>
 
-        <div class="max-w-screen-xl mx-auto p-5">
-            <div class="flex flex-wrap items-center justify-between mb-4">
+        <div class="max-w-screen-xl mx-5">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-5 mb-3">
                 <!-- Kolom Tanggal -->
-                <div class="flex items-center gap-3">
-                    <label class="block text-left font-medium text-base text-black">Tanggal</label>
-                    <span id="tanggal-kegiatan" class="text-lg font-semibold">
-                        {{ \Carbon\Carbon::parse($jadwal->tanggal)->format('d F Y') }}
+                <div class="flex items-center  bg-white border border-gray-300 rounded-lg p-2 w-80 shadow-md">
+                    <label class="block text-lg font-medium text-black mx-4">Tanggal:</label>
+                    <span id="tanggal-kegiatan"
+                        class="text-lg font-semibold">{{ \Carbon\Carbon::parse($jadwal->tanggal)->format('d F Y') }}
                     </span>
                 </div>
- 
-                 <!-- Kolom Pencarian -->
-                <div class="flex justify-end mb-4">
-                    <input type="text" id="search" class="w-1/8 p-3 border border-gray-300 rounded-lg"
+
+                <!-- Kolom Pencarian -->
+                <div>
+                    <input type="text" id="search"
+                        class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"
                         placeholder="Cari nama kader..." oninput="filterKaders()" />
                 </div>
             </div>
-            
+
 
             <form action="{{ route('admin.cek_presensi_kader.save') }}" method="POST" id="presensi-form">
                 @csrf
@@ -46,33 +47,34 @@
 
                 <!-- Tabel Kehadiran -->
                 <table class="w-full border-collapse mb-5">
-                    <thead class="bg-[#41a99d]">
+                    <thead>
                         <tr>
-                            <th class="text-white text-center py-2 px-4">NIK</th>
-                            <th class="text-white text-center py-2 px-4">Nama Kader</th>
-                            <th class="text-white text-center py-2 px-4">Kehadiran</th>
+                            <th class="text-white text-center bg-[#62BCB1] border py-2 px-4">NIK</th>
+                            <th class="text-white text-center bg-[#62BCB1] border py-2 px-4">Nama Kader</th>
+                            <th class="text-white text-center bg-[#62BCB1] border py-2 px-4">Kehadiran</th>
                         </tr>
                     </thead>
                     <tbody id="kader-list">
                         @foreach ($kaders as $kader)
-                        <tr class="kader-item">
-                            <td class="border px-4 py-2">{{ $kader->nik }}</td>
-                            <td class="border px-4 py-2">{{ $kader->nama }}</td>
-                            <td class="border px-4 py-2 text-center">
-                                <!-- Hidden input untuk nilai default jika tidak diceklis -->
-                                <input type="hidden" name="kehadiran[{{ $kader->nik }}]" value="0">
-                                <!-- Tambahkan nilai 1 untuk checkbox yang dicentang -->
-                                <input type="checkbox" name="kehadiran[{{ $kader->nik }}]" value="1" class="w-4 h-4 cursor-pointer"
-                                    {{ isset($kehadiran[$kader->nik]) && $kehadiran[$kader->nik] == 1 ? 'checked' : '' }}>
-                            </td>
-                        </tr>
+                            <tr class="kader-item">
+                                <td class="border px-4 py-2">{{ $kader->nik }}</td>
+                                <td class="border px-4 py-2">{{ $kader->nama }}</td>
+                                <td class="border px-4 py-2 text-center">
+                                    <!-- Hidden input untuk nilai default jika tidak diceklis -->
+                                    <input type="hidden" name="kehadiran[{{ $kader->nik }}]" value="0">
+                                    <!-- Tambahkan nilai 1 untuk checkbox yang dicentang -->
+                                    <input type="checkbox" name="kehadiran[{{ $kader->nik }}]" value="1"
+                                        class="w-4 h-4 cursor-pointer"
+                                        {{ isset($kehadiran[$kader->nik]) && $kehadiran[$kader->nik] == 1 ? 'checked' : '' }}>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
 
                 <div id="no-results" class="text-center text-red-500 font-semibold mt-3" style="display: none;">
                     <span id="no-results-text"></span>
-                </div>                               
+                </div>
 
                 <div class="flex justify-end gap-3 mt-5">
                     <!-- Tombol Simpan -->
@@ -126,17 +128,33 @@
             }
 
             // Event listener untuk mencegah berpindah halaman jika ada perubahan yang belum disimpan
-            window.addEventListener('beforeunload', function (event) {
+            window.addEventListener('beforeunload', function(event) {
                 if (isFormModified) {
-                    const confirmationMessage = 'Anda memiliki perubahan yang belum disimpan. Apakah Anda yakin ingin meninggalkan halaman ini?';
+                    const confirmationMessage =
+                        'Anda memiliki perubahan yang belum disimpan. Apakah Anda yakin ingin meninggalkan halaman ini?';
                     event.returnValue = confirmationMessage; // Untuk browser yang mendukung
                     return confirmationMessage; // Untuk browser yang lebih lama
                 }
             });
 
             // Fungsi untuk menangani simpan perubahan
-            document.getElementById('presensi-form').addEventListener('submit', function () {
+            document.getElementById('presensi-form').addEventListener('submit', function() {
                 isFormModified = false; // Reset flag saat form disubmit
+            });
+
+            // Notifikasi sukses menambahkan data kader
+            document.addEventListener('DOMContentLoaded', function() {
+                @if (session('success'))
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end', // Lokasi di kanan atas
+                        icon: 'success',
+                        title: "{{ session('success') }}",
+                        showConfirmButton: false, // Tidak ada tombol
+                        timer: 3000, // Menghilang setelah 3 detik
+                        timerProgressBar: true, // Menampilkan progress bar
+                    });
+                @endif
             });
         </script>
     </body>

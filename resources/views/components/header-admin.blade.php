@@ -71,7 +71,9 @@
             <i class="fas fa-user mr-3"></i>
             My Account
         </a>
-        <a href="{{ route('logout') }}" class="text-white opacity-75 rounded-md hover:opacity-100 flex items-center py-2 pl-4 nav-item" onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
+        <a href="{{ route('logout') }}"
+            class="text-white opacity-75 rounded-md hover:opacity-100 flex items-center py-2 pl-4 nav-item"
+            onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
             <i class="fas fa-sign-out-alt mr-3"></i>
             Logout
         </a>

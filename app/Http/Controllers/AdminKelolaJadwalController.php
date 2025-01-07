@@ -15,7 +15,7 @@ class AdminKelolaJadwalController extends Controller
     public function index()
     {
         // Ambil semua data jadwal dari database
-        $jadwals = Jadwal::all();
+        $jadwals = Jadwal::paginate(10);
         return view('admin.kelola_jadwal', compact('jadwals'));
     }
 
@@ -59,7 +59,7 @@ class AdminKelolaJadwalController extends Controller
         $jadwals = Jadwal::where('nama_kegiatan', 'like', "%$searchQuery%")
             ->orWhere('tanggal', 'like', "%$searchQuery%")
             ->orWhere('waktu', 'like', "%$searchQuery%")
-            ->get();
+            ->paginate(10);
 
         // Kembalikan hasil pencarian ke view
         return view('admin.kelola_jadwal', compact('jadwals'));
@@ -104,6 +104,4 @@ class AdminKelolaJadwalController extends Controller
         // Redirect kembali ke halaman kelola jadwal dengan pesan sukses
         return redirect()->route('jadwal.indeks')->with('success', 'Jadwal berhasil diperbarui!');
     }
-
-
 }

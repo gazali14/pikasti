@@ -51,7 +51,7 @@ Route::prefix('orang_tua/before_login')->group(function () {
     Route::post('/login', [LoginController::class, 'login_proses'])->name('login-proses');
 });
 
-Route::get('/kader/count-by-month', [KaderController::class, 'countKaderByMonth']);
+Route::get('/admin/count-by-month', [KehadiranKaderController::class, 'countKaderByMonth']);
 
 // Routes for admin
 Route::prefix('admin')->middleware('auth:kader')->group(function () {
