@@ -1,7 +1,7 @@
 <x-layout-admin>
+    <h1 class="text-3xl font-bold mx-5">Registrasi Kohort Bayi</h1>
     <div class="min-h-screen max-h-96">
         <div class="container mx-auto p-5">
-            <h1 class="text-3xl font-bold mb-4">Registrasi Kohort Bayi</h1>
             <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded-2xl shadow">
                 <div class="mx-auto mt-1 mb-10 p-5">
                     <div class="overflow-x-auto">
