@@ -78,6 +78,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div>
+                                {{ $jadwals->links('vendor.pagination.tailwind') }}
+                            </div>
                         </div>
                     </div>
                 </div>
