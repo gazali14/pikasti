@@ -20,6 +20,10 @@ use App\Http\Controllers\KohortController;
 use App\Http\Controllers\VitaminController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\PMTController;
+use App\Http\Controllers\LaporanController;
+use App\Exports\LaporanExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 
 
@@ -136,8 +140,6 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
         return response()->json(Bayi::all());
     });
 
-
-
     // Route untuk dropdown nama bayi
     Route::get('/bayi', [KMSController::class, 'getBayi']);
     Route::get('/kms', [KMSController::class, 'index'])->name('kms.index'); // Halaman utama
@@ -157,9 +159,7 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
     Route::post('/kader/cek-presensi/save', [KaderController::class, 'savePresensi'])->name('kader.cek_presensi.save');
     Route::get('/kader/presensi-bayi', [KaderController::class, 'presensiBayi'])->name('kader.presensi_bayi');
 
-    Route::get('/laporan', function () {
-        return view('kader.laporan');
-    })->name('kader.laporan');
+
 
     Route::get('/pmt', function () {
         return view('kader.pmt');
@@ -191,7 +191,13 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
         return view('kader.vitamin-pmt');
     })->name('kader.vitamin-pmt');
 
-    
+
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+    // Route::get('laporan/export', function () {
+    //     return Excel::download(new LaporanExport, 'laporan.xlsx');
+    // })->name('laporan.export');
+    Route::get('/laporan/export', [LaporanController::class, 'exportLaporan'])->name('laporan.export');
+
 });
 
 // Routes for orang_tua after login (Authenticated)

@@ -157,7 +157,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="imunisasi" class="block text-sm font-medium">Imunisasi</label>
-                    <select id="imunisasi" name="imunisasi" class="w-full border p-2 rounded" required>
+                    <select id="imunisasi" name="imunisasi" class="w-full border p-2 rounded">
                         <option value="" disabled selected>Pilih Jenis Imunisasi</option>
                         <option value="BCG">BCG</option>
                         <option value="Polio I">Polio I</option>
@@ -165,11 +165,9 @@
                         <option value="Polio III">Polio III</option>
                         <option value="Polio IV">Polio IV</option>
                         <option value="Campak">Campak</option>
-                        <option value="TT BUMIL">TT BUMIL</option>
-                        <option value="TT WUS">TT WUS</option>
-                        <option value="DPT, Hb Com1">DPT, Hb Com1</option>
-                        <option value="DPT, Hb Com2">DPT, Hb Com2</option>
-                        <option value="DPT, Hb Com3">DPT, Hb Com3</option>
+                        <option value="DPT Hb Com1">DPT, Hb Com1</option>
+                        <option value="DPT Hb Com2">DPT, Hb Com2</option>
+                        <option value="DPT Hb Com3">DPT, Hb Com3</option>
                     </select>
                 </div>
                 <div class="mb-4">
@@ -207,7 +205,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="edit-imunisasi" class="block text-sm font-medium">Imunisasi</label>
-                    <select id="edit-imunisasi" name="imunisasi" class="w-full border p-2 rounded" required>
+                    <select id="edit-imunisasi" name="imunisasi" class="w-full border p-2 rounded">
                         <option value="" disabled selected>Pilih Jenis Imunisasi</option>
                         <option value="BCG">BCG</option>
                         <option value="Polio I">Polio I</option>
@@ -215,11 +213,9 @@
                         <option value="Polio III">Polio III</option>
                         <option value="Polio IV">Polio IV</option>
                         <option value="Campak">Campak</option>
-                        <option value="TT BUMIL">TT BUMIL</option>
-                        <option value="TT WUS">TT WUS</option>
-                        <option value="DPT, Hb Com1">DPT, Hb Com1</option>
-                        <option value="DPT, Hb Com2">DPT, Hb Com2</option>
-                        <option value="DPT, Hb Com3">DPT, Hb Com3</option>
+                        <option value="DPT Hb Com1">DPT, Hb Com1</option>
+                        <option value="DPT Hb Com2">DPT, Hb Com2</option>
+                        <option value="DPT Hb Com3">DPT, Hb Com3</option>
                     </select>
                 </div>
                 <div class="mb-4">
