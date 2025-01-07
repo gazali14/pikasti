@@ -1,16 +1,16 @@
 <div class="bg-white p-2 shadow rounded-md">
     <div class="relative w-1/4">
-                <label for="year" class="block text-sm font-medium text-gray-700">Tahun:</label>
-                <div class="mt-2">
-                    <select name="year" id="year"
-                        class="w-full py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm">
-                    </select>
-                </div>
+        <label for="year" class="block text-sm font-medium text-gray-700">Tahun:</label>
+        <div class="mt-2">
+            <select name="year" id="year"
+                class="w-full py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm">
+            </select>
+        </div>
     </div>
 </div>
 
 
-<div class="chart bg-white p-4 rounded-lg shadow">
+<div class="chart bg-white p-4 rounded-lg shadow mt-5">
     <h3 class="font-semibold text-lg text-center">Jumlah Kader yang Hadir</h3>
     <canvas id="kaderBarChart"></canvas>
 </div>

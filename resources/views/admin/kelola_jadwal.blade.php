@@ -1,69 +1,87 @@
 <x-layout-admin>
-    <div class="p-2 min-h-screen max-h-96">
+    <div class="min-h-screen max-h-96">
         <div class="container mx-auto p-5">
             <h1 class="text-3xl font-bold mb-4">Daftar Jadwal Posyandu</h1>
+            <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded-2xl shadow">
+                <div class="mx-auto mt-1 mb-10 p-5">
+                    <div class="overflow-x-auto">
+                        <!-- Container untuk search box dan tombol tambah -->
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                            <!-- Form pencarian -->
+                            <form method="GET" action="{{ route('jadwal.search') }}">
+                                <input type="text" id="search" name="search"
+                                    class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"
+                                    placeholder="Cari Jadwal Posyandu" />
+                            </form>
 
-            <!-- Container untuk search box dan tombol tambah -->
-            <div class="flex items-center justify-between mb-4">
-                <!-- Form pencarian -->
-                <form class="flex" method="GET" action="{{ route('jadwal.search') }}">
-                    <input type="text" id="search" name="search"
-                        class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"
-                        placeholder="Cari Jadwal Posyandu" />
-                </form>
+                            <!-- Tombol tambah -->
+                            <button id="tambahButton"
+                                class="p-3 bg-teal-500 text-white rounded hover:bg-teal-600 min-w-[170px] max-w-[170px] whitespace-nowrap"
+                                onclick="showPopup('Tambah Jadwal Posyandu')">
+                                <i class="fas fa-folder-plus"></i>
+                                <span>Tambah Jadwal</span>
+                            </button>
+                        </div>
 
-                <!-- Tombol tambah -->
-                <button id="tambahButton"
-                    class="inline-block p-3 w-30 sm:w-48 bg-teal-500 text-white rounded whitespace-nowrap hover:bg-teal-600"
-                    onclick="showPopup('Tambah Jadwal Posyandu')">
-                    <i class="fas fa-folder-plus"></i>
-                    <span>Tambah Jadwal</span>
-                </button>
+                        <!-- Tabel -->
+                        <div class="mt-5">
+                            <table id="jadwalPosyanduTable" class="w-full table-auto border border-[#62BCB1">
+                                <thead>
+                                    <tr>
+                                        <th class="text-white border bg-[#62BCB1] text-sm sm:text-base py-2 px-4">Nama
+                                            Kegiatan</th>
+                                        <th class="text-white border bg-[#62BCB1] text-sm sm:text-base py-2 px-4">
+                                            Tanggal</th>
+                                        <th class="text-white border bg-[#62BCB1] text-sm sm:text-base py-2 px-4">Jam
+                                            Pelayanan</th>
+                                        <th class="text-white border bg-[#62BCB1] text-sm sm:text-base py-2 px-4">Aksi
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white">
+                                    @foreach ($jadwals as $jadwal)
+                                        <tr class="text-center">
+                                            <td
+                                                class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
+                                                {{ $jadwal->nama_kegiatan }}</td>
+                                            <td
+                                                class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
+                                                {{ $jadwal->tanggal->format('d-m-Y') }}</td>
+                                            <td
+                                                class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
+                                                {{ $jadwal->waktu }}</td>
+                                            <td
+                                                class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
+                                                <div class="flex justify-center items-center space-x-2">
+                                                    <!-- Tombol Edit -->
+                                                    <button
+                                                        class="editButton bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition text-sm sm:text-base"
+                                                        onclick="showPopup('Edit Jadwal Posyandu', '{{ $jadwal->id }}', '{{ $jadwal->nama_kegiatan }}', '{{ $jadwal->tanggal->format('Y-m-d') }}', '{{ $jadwal->waktu }}')">
+                                                        <i class="fas fa-edit"></i>
+                                                        <span>Edit</span>
+                                                    </button>
+                                                    <!-- Tombol Hapus dengan SweetAlert -->
+                                                    <form action="{{ route('jadwal.destroy', $jadwal->id) }}"
+                                                        method="POST" class="delete-form inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition text-sm sm:text-base">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                            <span>Hapus</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Tabel -->
-            <table id="jadwalPosyanduTable" class="w-full border-collapse border border-[#62BCB1]">
-                <thead>
-                    <tr>
-                        <th class="text-white border bg-[#62BCB1] py-2 px-4">Nama Kegiatan</th>
-                        <th class="text-white border bg-[#62BCB1] py-2 px-4">Tanggal</th>
-                        <th class="text-white border bg-[#62BCB1] py-2 px-4">Jam Pelayanan</th>
-                        <th class="text-white border bg-[#62BCB1] py-2 px-4">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white">
-                    @foreach ($jadwals as $jadwal)
-                        <tr class="text-center">
-                            <td class="border border-[#62BCB1] py-2 px-4">{{ $jadwal->nama_kegiatan }}</td>
-                            <td class="border border-[#62BCB1] py-2 px-4">{{ $jadwal->tanggal->format('d-m-Y') }}</td>
-                            <td class="border border-[#62BCB1] py-2 px-4">{{ $jadwal->waktu }}</td>
-                            <td class="border border-[#62BCB1] py-2 px-4">
-                                <div class="flex justify-center items-center space-x-2">
-                                    <!-- Tombol Edit -->
-                                    <button
-                                        class="editButton bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition"
-                                        onclick="showPopup('Edit Jadwal Posyandu', '{{ $jadwal->id }}', '{{ $jadwal->nama_kegiatan }}', '{{ $jadwal->tanggal->format('Y-m-d') }}', '{{ $jadwal->waktu }}')">
-                                        <i class="fas fa-edit"></i>
-                                        <span>Edit</span>
-                                    </button>
-                                    <!-- Tombol Hapus dengan SweetAlert -->
-                                    <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST"
-                                        class="delete-form inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">
-                                            <i class="fas fa-trash-alt"></i>
-                                            <span>Hapus</span>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
         </div>
 
         <!-- Pop-up Modal -->
