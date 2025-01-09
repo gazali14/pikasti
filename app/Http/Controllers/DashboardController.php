@@ -11,32 +11,34 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        // Pastikan format tanggal yang diterima valid
+        $startDate = $request->has('tanggal_mulai') ? Carbon::parse($request->input('tanggal_mulai'))->format('Y-m-d') : '2000-01-01';
+        $endDate = $request->has('tanggal_akhir') ? Carbon::parse($request->input('tanggal_akhir'))->format('Y-m-d') : now()->toDateString();
+
         // Mengambil data jumlah pengunjung berdasarkan jenis kelamin dan rentang tanggal
         $lakiLaki = Kehadiran::whereHas('bayis', function($query) {
             $query->where('jenis_kelamin', 'Laki-Laki');
         })
-        ->whereDate('tanggal', '>=', request('tanggal_mulai') ?? '2000-01-01')  // Gunakan whereDate untuk membandingkan hanya tanggal
-        ->whereDate('tanggal', '<=', request('tanggal_akhir') ?? now()->toDateString()) // Begitu juga untuk tanggal akhir
+        ->whereDate('tanggal', '>=', $startDate)  // Gunakan whereDate untuk membandingkan hanya tanggal
+        ->whereDate('tanggal', '<=', $endDate) // Begitu juga untuk tanggal akhir
         ->count();
 
         $perempuan = Kehadiran::whereHas('bayis', function($query) {
                     $query->where('jenis_kelamin', 'Perempuan');
                 })
-                ->whereDate('tanggal', '>=', request('tanggal_mulai') ?? '2000-01-01')  // Sama untuk perbandingan tanggal
-                ->whereDate('tanggal', '<=', request('tanggal_akhir') ?? now()->toDateString()) // Perbandingan dengan tanggal akhir
+                ->whereDate('tanggal', '>=', $startDate)  // Sama untuk perbandingan tanggal
+                ->whereDate('tanggal', '<=', $endDate) // Perbandingan dengan tanggal akhir
                 ->count();
 
+        // Pastikan tanggal referensi menggunakan format yang benar
+        $tanggalReferensi = Carbon::createFromFormat('Y-m-d', $endDate);
 
-        $tanggalReferensi = Carbon::createFromFormat('Y-m-d', $request->input('tanggal_akhir'));
-
-        
         // Ambil data bayi dengan KMS menggunakan join
         $bayis = Bayi::join('kms', 'bayis.nik', '=', 'kms.nik_bayi') // Menggabungkan tabel bayi dan kms
-        ->whereDate('tanggal', '>=', request('tanggal_mulai') ?? '2000-01-01')  // Gunakan whereDate untuk membandingkan hanya tanggal
-        ->whereDate('tanggal', '<=', request('tanggal_akhir') ?? now()->toDateString()) // Begitu juga untuk tanggal akhir
-        ->select('bayis.*', 'kms.tinggi_badan', 'kms.berat_badan', 'kms.tanggal') // Memilih kolom yang diperlukan
-        ->get();
-
+            ->whereDate('kms.tanggal', '>=', $startDate)  // Gunakan whereDate untuk membandingkan hanya tanggal
+            ->whereDate('kms.tanggal', '<=', $endDate) // Begitu juga untuk tanggal akhir
+            ->select('bayis.*', 'kms.tinggi_badan', 'kms.berat_badan', 'kms.tanggal') // Memilih kolom yang diperlukan
+            ->get();
 
         // Mengelompokkan bayi berdasarkan umur dalam bulan
         $umurKelompok = [];
