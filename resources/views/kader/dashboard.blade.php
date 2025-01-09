@@ -49,6 +49,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        console.log(@json($bayi));
         // Grafik Jumlah Kehadiran Berdasarkan Jenis Kelamin
         var ctx = document.getElementById('kehadiranChart').getContext('2d');
         var kehadiranChart = new Chart(ctx, {

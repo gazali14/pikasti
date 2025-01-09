@@ -27,14 +27,16 @@ class DashboardController extends Controller
                 ->count();
 
 
-        $tanggalReferensi = Carbon::createFromFormat('Y-m-d', $request->input('tahun_akhir', now()->toDateString()));
+        $tanggalReferensi = Carbon::createFromFormat('Y-m-d', $request->input('tanggal_akhir'));
 
         
         // Ambil data bayi dengan KMS menggunakan join
         $bayis = Bayi::join('kms', 'bayis.nik', '=', 'kms.nik_bayi') // Menggabungkan tabel bayi dan kms
-            ->where('kms.tanggal', '<=', $tanggalReferensi) // Mengambil data KMS sesuai tanggal referensi
-            ->select('bayis.*', 'kms.tinggi_badan', 'kms.berat_badan', 'kms.tanggal') // Memilih kolom yang diperlukan
-            ->get();
+        ->whereDate('tanggal', '>=', request('tanggal_mulai') ?? '2000-01-01')  // Gunakan whereDate untuk membandingkan hanya tanggal
+        ->whereDate('tanggal', '<=', request('tanggal_akhir') ?? now()->toDateString()) // Begitu juga untuk tanggal akhir
+        ->select('bayis.*', 'kms.tinggi_badan', 'kms.berat_badan', 'kms.tanggal') // Memilih kolom yang diperlukan
+        ->get();
+
 
         // Mengelompokkan bayi berdasarkan umur dalam bulan
         $umurKelompok = [];
