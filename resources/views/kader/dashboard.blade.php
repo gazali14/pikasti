@@ -17,6 +17,7 @@
                     :weightFemaleAverage="$weightFemaleAverage"
                     :ageGroups="$ageGroups"
                 />
+
             </div>
         </div>
     </div>
