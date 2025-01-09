@@ -20,14 +20,24 @@ class Bayi extends Authenticatable
     }
 
     protected $fillable = [
-        'nik', 'nama', 'nama_ibu', 'jenis_kelamin', 'tanggal_lahir', 'berat_badan_lahir', 'tinggi_badan_lahir', 'alamat', 'no_telpon', 'password',
+        'nik',
+        'nama',
+        'nama_ibu',
+        'jenis_kelamin',
+        'tanggal_lahir',
+        'berat_badan_lahir',
+        'tinggi_badan_lahir',
+        'alamat',
+        'no_telpon',
+        'password',
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
-        // Tambahkan properti ini untuk mengganti default 'email' dengan 'nik'
+    // Tambahkan properti ini untuk mengganti default 'email' dengan 'nik'
     public function getAuthIdentifierName()
     {
         return 'nik'; // Gunakan kolom 'nik' untuk autentikasi
@@ -55,6 +65,11 @@ class Bayi extends Authenticatable
     {
         return $this->hasMany(Konsultasi::class, 'id_bayi');
     }
+
+    public function kehadiran()
+    {
+        return $this->hasMany(Kehadiran::class, 'nik_bayi');
+    }
+
+
 }
-
-

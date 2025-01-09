@@ -1,17 +1,140 @@
 <x-layout-kader>
-    <div class="p-6 bg-[#EEFFF8] min-h-screen">
-        <!-- Filter Section -->
-        <x-filters />
+    <div class="container">
+        <h1 class="mb-4">Dashboard Kader</h1>
 
-        <!-- Content Section -->
-        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Diagram Lingkaran -->
-            <x-diagram-lingkaran />
+        <!-- Filter Tahun -->
+        <form action="{{ route('dashboard') }}" method="GET" class="mb-4">
+            <div class="form-group">
+                <label for="tahun">Pilih Tahun</label>
+                <select name="tahun" id="tahun" class="form-control" onchange="this.form.submit()">
+                    <option value="">-- Pilih Tahun --</option>
+                    @foreach(range(now()->year, 2000) as $year)
+                        <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>{{ $year }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </form>
 
-            <!-- Grafik Tinggi Badan dan Berat Badan -->
-            <div class="sm:col-span-2 lg:col-span-2">
-                <x-grafik />
+        <!-- Grafik Jumlah Kehadiran Berdasarkan Jenis Kelamin -->
+        <div class="mb-4">
+            <h3>Jumlah Kehadiran Berdasarkan Jenis Kelamin</h3>
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <canvas id="kehadiranChart" class="w-100"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grafik Rata-Rata Tinggi Badan Bayi Menurut Umur (Bulan) -->
+        <div class="mb-4">
+            <h3>Rata-Rata Tinggi Badan Bayi Menurut Umur (Bulan)</h3>
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <canvas id="tinggiBadanChart" class="w-100"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grafik Rata-Rata Berat Badan Bayi Menurut Umur (Bulan) -->
+        <div class="mb-4">
+            <h3>Rata-Rata Berat Badan Bayi Menurut Umur (Bulan)</h3>
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <canvas id="beratBadanChart" class="w-100"></canvas>
+                </div>
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Grafik Jumlah Kehadiran Berdasarkan Jenis Kelamin
+        var ctx = document.getElementById('kehadiranChart').getContext('2d');
+        var kehadiranChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Laki-Laki', 'Perempuan'],
+                datasets: [{
+                    label: 'Jumlah Kehadiran',
+                    data: [{{ $lakiLaki }}, {{ $perempuan }}],
+                    backgroundColor: ['#4e73df', '#e74a3b'],
+                    borderColor: ['#4e73df', '#e74a3b'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Grafik Rata-Rata Tinggi Badan Bayi Menurut Umur (Bulan)
+        var ctxTinggiBadan = document.getElementById('tinggiBadanChart').getContext('2d');
+        var tinggiBadanChart = new Chart(ctxTinggiBadan, {
+            type: 'bar',
+            data: {
+                labels: @json($umurKelompok), // Kelompok umur berdasarkan bulan
+                datasets: [{
+                    label: 'Tinggi Badan Laki-Laki (cm)',
+                    data: @json($rataRataTinggiLaki),
+                    backgroundColor: '#4e73df',
+                    borderColor: '#4e73df',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Tinggi Badan Perempuan (cm)',
+                    data: @json($rataRataTinggiPerempuan),
+                    backgroundColor: '#e74a3b',
+                    borderColor: '#e74a3b',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Grafik Rata-Rata Berat Badan Bayi Menurut Umur (Bulan)
+        var ctxBeratBadan = document.getElementById('beratBadanChart').getContext('2d');
+        var beratBadanChart = new Chart(ctxBeratBadan, {
+            type: 'bar',
+            data: {
+                labels: @json($umurKelompok), // Kelompok umur berdasarkan bulan
+                datasets: [{
+                    label: 'Berat Badan Laki-Laki (kg)',
+                    data: @json($rataRataBeratLaki),
+                    backgroundColor: '#4e73df',
+                    borderColor: '#4e73df',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Berat Badan Perempuan (kg)',
+                    data: @json($rataRataBeratPerempuan),
+                    backgroundColor: '#e74a3b',
+                    borderColor: '#e74a3b',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </x-layout-kader>

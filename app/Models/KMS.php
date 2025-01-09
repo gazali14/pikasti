@@ -20,4 +20,10 @@ class KMS extends Model
         'imunisasi',
         'kategori',
     ];
+
+    public function bayi()
+    {
+        return $this->belongsTo(Bayi::class); // Asumsi bahwa KMS memiliki relasi ke bayi
+    }
+
 }
