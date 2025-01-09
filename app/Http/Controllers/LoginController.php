@@ -43,7 +43,7 @@ class LoginController extends Controller
             }
 
             // Jika bukan admin, diarahkan ke dashboard kader
-            return redirect()->route('kader.dashboard')->with('success', 'Selamat datang, Kader!');
+            return redirect()->route('dashboard')->with('success', 'Selamat datang, Kader!');
         }
 
         // Jika login gagal, kembalikan ke halaman login dengan pesan error
