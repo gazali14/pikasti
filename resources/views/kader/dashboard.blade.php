@@ -5,15 +5,16 @@
         <!-- Filter Tahun -->
         <form action="{{ route('dashboard') }}" method="GET" class="mb-4">
             <div class="form-group">
-                <label for="tahun">Pilih Tahun</label>
-                <select name="tahun" id="tahun" class="form-control" onchange="this.form.submit()">
-                    <option value="">-- Pilih Tahun --</option>
-                    @foreach(range(now()->year, 2000) as $year)
-                        <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>{{ $year }}</option>
-                    @endforeach
-                </select>
+                <label for="tanggal_mulai">Pilih Tanggal Mulai</label>
+                <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control" onchange="this.form.submit()" value="{{ request('tanggal_mulai') }}">
+            </div>
+            <div class="form-group">
+                <label for="tanggal_akhir">Pilih Tanggal Akhir</label>
+                <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control" onchange="this.form.submit()" value="{{ request('tanggal_akhir') }}">
             </div>
         </form>
+
+
 
         <!-- Grafik Jumlah Kehadiran Berdasarkan Jenis Kelamin -->
         <div class="mb-4">
