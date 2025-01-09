@@ -4,15 +4,8 @@
 
         <!-- Filter Tahun -->
         <form action="{{ route('dashboard') }}" method="GET" class="mb-4">
-            <div class="form-group">
-                <label for="tanggal_mulai">Pilih Tanggal Mulai</label>
-                <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control" onchange="this.form.submit()" value="{{ request('tanggal_mulai') }}">
-            </div>
-            <div class="form-group">
-                <label for="tanggal_akhir">Pilih Tanggal Akhir</label>
-                <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control" onchange="this.form.submit()" value="{{ request('tanggal_akhir') }}">
-            </div>
-        </form>
+            
+
 
 
 
