@@ -14,6 +14,7 @@
     </div>
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
@@ -36,8 +37,8 @@
                 ]
             },
             options: {
-                responsive: true, // Aktifkan responsivitas
-                maintainAspectRatio: false, // Biarkan rasio berubah sesuai lebar/tinggi elemen
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: true,
@@ -58,16 +59,16 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-        const dummyLabels = ['0-5', '6-10', '11-15', '16-20', '21-25', '26-30'];
-        const heightMaleData = [45, 50, 55, 60, 65, 70];
-        const heightFemaleData = [43, 48, 53, 58, 63, 68];
-        const weightMaleData = [3, 5, 7, 9, 11, 13];
-        const weightFemaleData = [3.2, 4.8, 6.8, 8.8, 10.8, 12.8];
+        const ageGroups = @json($ageGroups); // Ambil data kelompok umur dari controller
+        const heightMaleData = @json($heightMaleAverage);
+        const heightFemaleData = @json($heightFemaleAverage);
+        const weightMaleData = @json($weightMaleAverage);
+        const weightFemaleData = @json($weightFemaleAverage);
 
         // Load height chart
-        loadBarChart('heightBarChart', dummyLabels, heightMaleData, heightFemaleData, 'Tinggi (cm)');
+        loadBarChart('heightBarChart', ageGroups, heightMaleData, heightFemaleData, 'Tinggi (cm)');
 
         // Load weight chart
-        loadBarChart('weightBarChart', dummyLabels, weightMaleData, weightFemaleData, 'Berat (kg)');
+        loadBarChart('weightBarChart', ageGroups, weightMaleData, weightFemaleData, 'Berat (kg)');
     });
 </script>

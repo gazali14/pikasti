@@ -12,6 +12,7 @@ use App\Models\PMT;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\LaporanExport;
+use App\Models\Jadwal;
 
 class LaporanController extends Controller
 {
@@ -19,6 +20,10 @@ class LaporanController extends Controller
     {
         // Ambil tanggal dari input, default ke hari ini jika tidak ada
         $tanggal = $request->input('tanggal', Carbon::today()->toDateString());
+
+        // Ambil nama_kegiatan dari tabel Jadwal yang tanggalnya sama dengan $tanggal
+        $jadwal = Jadwal::whereDate('tanggal', $tanggal)->first(); // Mengambil satu data berdasarkan tanggal
+
 
         // Statistik Kehadiran Kader
         $jumlahKaderHadir = KehadiranKader::whereDate('tanggal', $tanggal)
@@ -311,6 +316,7 @@ class LaporanController extends Controller
         // Kirim data ke view
         return view('kader.laporan', [
             'tanggal' => $tanggal,
+            'namaKegiatan' => $jadwal ? $jadwal->nama_kegiatan : 'Tidak ada kegiatan',
             'jumlahKaderHadir' => $jumlahKaderHadir,
             'adaPMT' => $adaPMT, 
             'keteranganPMT' => $keteranganPMT,
