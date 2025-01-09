@@ -112,11 +112,7 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
 
 // Routes for kader
 Route::prefix('kader')->middleware('auth:kader')->group(function () {
-<<<<<<< HEAD
     Route::get('/dashboard', [DashboardKaderController::class, 'index'])->name('dashboard.index');
-=======
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
->>>>>>> dd94aa6cef011a4086846bffa49eb79239ebcacf
 
     Route::get('/konsultasi', function () {
         return view('kader.konsultasi');
