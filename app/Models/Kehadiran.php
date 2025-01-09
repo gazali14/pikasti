@@ -23,6 +23,11 @@ class Kehadiran extends Model
         'id_kegiatan'
     ];
 
+    public function bayis()
+    {
+        return $this->belongsTo(Bayi::class, 'nik', 'nik');
+    }
+
     /**
      * Relasi ke model Kegiatan
      */
@@ -30,4 +35,6 @@ class Kehadiran extends Model
     {
         return $this->belongsTo(Jadwal::class, 'id_kegiatan');
     }
+
+    
 }

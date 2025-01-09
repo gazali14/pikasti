@@ -21,9 +21,17 @@ class KMS extends Model
         'kategori',
     ];
 
+<<<<<<< HEAD
      // Define the relationship between KMS and Bayi
     public function bayi()
     {
         return $this->belongsTo(Bayi::class, 'nik_bayi', 'nik');
     }
+=======
+    public function bayi()
+    {
+        return $this->belongsTo(Bayi::class); // Asumsi bahwa KMS memiliki relasi ke bayi
+    }
+
+>>>>>>> dd94aa6cef011a4086846bffa49eb79239ebcacf
 }

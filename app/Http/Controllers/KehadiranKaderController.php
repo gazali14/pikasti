@@ -145,10 +145,10 @@ class KehadiranKaderController extends Controller
         ]);
 
         // Mengambil jumlah kader per bulan
-        $kaderPerMonth = KehadiranKader::selectRaw('strftime("%m", created_at) as month, COUNT(*) as count') //data jumlah kehadiran diambil dari cretated_at
-            ->whereRaw('strftime("%Y", created_at) = ?', [$year])
+        $kaderPerMonth = KehadiranKader::selectRaw('strftime("%m", tanggal) as month, COUNT(*) as count') //data jumlah kehadiran diambil dari cretated_at
+            ->whereRaw('strftime("%Y", tanggal) = ?', [$year])
             ->where('kehadiran', 1)
-            ->groupByRaw('strftime("%m", created_at)')
+            ->groupByRaw('strftime("%m", tanggal)')
             ->pluck('count', 'month');
 
         // Konversi hasil menjadi array dengan nama bulan
