@@ -84,14 +84,14 @@ class DashboardController extends Controller
         }
 
         return view('kader.dashboard', [
-            'bayi'=> $bayis,
+            'bayi' => $bayis,
             'lakiLaki' => $lakiLaki,
             'perempuan' => $perempuan,
             'rataRataTinggiLaki' => $rataRataTinggiLaki,
             'rataRataTinggiPerempuan' => $rataRataTinggiPerempuan,
             'rataRataBeratLaki' => $rataRataBeratLaki,
             'rataRataBeratPerempuan' => $rataRataBeratPerempuan,
-            'umurKelompok' => $umurKelompok, // Pastikan variabel ini dikirim ke view
+            'umurKelompok' => $umurKelompok,
             'tahun' => $request->input('tahun_akhir', now()->year),
         ]);
     }

@@ -259,10 +259,4 @@
     </div>
 
     @endif
-
-    <script>
-
-    </script>
-
-
 </x-layout-kader>

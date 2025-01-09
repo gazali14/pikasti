@@ -4,10 +4,17 @@
 
         <!-- Filter Tahun -->
         <form action="{{ route('dashboard') }}" method="GET" class="mb-4">
-            
-
-
-
+            <div class="form-group">
+                <label for="tanggal_mulai">Pilih Tanggal Mulai</label>
+                <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control" onchange="this.form.submit()" 
+                    value="{{ request('tanggal_mulai') ?: '2000-01-01' }}">
+            </div>
+            <div class="form-group">
+                <label for="tanggal_akhir">Pilih Tanggal Akhir</label>
+                <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control" onchange="this.form.submit()" 
+                    value="{{ request('tanggal_akhir') ?: now()->toDateString() }}">
+            </div>
+        </form>
 
         <!-- Grafik Jumlah Kehadiran Berdasarkan Jenis Kelamin -->
         <div class="mb-4">
@@ -42,7 +49,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        console.log(@json($bayi));
         // Grafik Jumlah Kehadiran Berdasarkan Jenis Kelamin
         var ctx = document.getElementById('kehadiranChart').getContext('2d');
         var kehadiranChart = new Chart(ctx, {

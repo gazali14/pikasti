@@ -28,7 +28,12 @@ class JadwalController extends Controller
             'waktu' => 'required',
         ]);
 
+        // Mengonversi tanggal menjadi format Y-m-d tanpa waktu
+        $validated['tanggal'] = \Carbon\Carbon::parse($validated['tanggal'])->toDateString();
+
         Jadwal::create($validated);
+        dd($request->tanggal); // Periksa data tanggal yang diterima
+
         return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil ditambahkan.');
     }
 
@@ -52,6 +57,9 @@ class JadwalController extends Controller
             'tanggal' => 'required|date',
             'waktu' => 'required',
         ]);
+
+        // Mengonversi tanggal menjadi format Y-m-d tanpa waktu
+        $validated['tanggal'] = \Carbon\Carbon::parse($validated['tanggal'])->toDateString();
 
         $jadwal->update($validated);
         return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil diperbarui.');

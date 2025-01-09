@@ -22,8 +22,7 @@ use App\Http\Controllers\VitaminController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\PMTController;
 use App\Http\Controllers\LaporanController;
-use App\Exports\LaporanExport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\DashboardKaderController;
 
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -190,9 +189,6 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
 
 
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
-    // Route::get('laporan/export', function () {
-    //     return Excel::download(new LaporanExport, 'laporan.xlsx');
-    // })->name('laporan.export');
     Route::get('/laporan/export', [LaporanController::class, 'exportLaporan'])->name('laporan.export');
 
 });

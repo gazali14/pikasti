@@ -46,7 +46,7 @@
                                                 {{ $jadwal->nama_kegiatan }}</td>
                                             <td
                                                 class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
-                                                {{ $jadwal->tanggal->format('d-m-Y') }}</td>
+                                                {{ $jadwal->tanggal->format('Y-m-d') }}</td>
                                             <td
                                                 class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
                                                 {{ $jadwal->waktu }}</td>
