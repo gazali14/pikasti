@@ -2,7 +2,7 @@
     <div class="p-2 min-h-screen max-h-96">
         <!-- Judul Halaman -->
         <div class="text-center my-4">
-            <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Pendataan Kondisi Bayi</h1>
+            <h1 class="text-3xl font-bold mx-5">Pendataan Kondisi Bayi</h1>
         </div>
 
         <!-- Tabel KMS -->

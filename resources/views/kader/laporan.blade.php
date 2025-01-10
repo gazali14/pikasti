@@ -1,5 +1,7 @@
 <x-layout-kader>
-    <p class="font-bold text-2xl text-[#353535] text-center mb-10">Laporan</p>
+    <div class="text-center my-4">
+        <h1 class="text-3xl font-bold mx-5">Laporan</h1>
+    </div>
     <!-- Tanggal -->
     <form action="{{ route('laporan.index') }}" method="GET">
         <div class="flex flex-wrap md:flex-nowrap justify-between items-center space-y-2 md:space-y-0 md:space-x-4 bg-white p-4 rounded-lg shadow-md mb-4">
