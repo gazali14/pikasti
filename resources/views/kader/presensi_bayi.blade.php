@@ -47,7 +47,9 @@
   <body class="bg-[#f4fcf7]">
       <div class="container mx-auto p-5 mt-[-20px]">
          <!-- Judul Halaman -->
-         <h1 class="text-3xl font-bold mb-4">Daftar Presensi Kegiatan</h1>
+         <div class="text-center my-4">
+            <h1 class="text-3xl font-bold mx-5">Daftar Presensi Kegiatan</h1>
+        </div>
 
         <!-- Search Input -->
           <div class="flex">
