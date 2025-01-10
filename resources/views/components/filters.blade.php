@@ -1,5 +1,5 @@
 <!-- Tanggal -->
-<form action="{{ route('dashboard.index') }}" method="GET">
+<form action="{{ route('kader.dashboard') }}" method="GET">
     <div class="flex flex-wrap md:flex-nowrap justify-between items-center space-y-2 md:space-y-0 md:space-x-4 bg-white p-4 rounded-lg shadow-md mb-4">
         <div class="w-full md:w-auto flex justify-start">
         @if(request('tanggal'))
