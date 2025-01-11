@@ -19,20 +19,27 @@
         <div class="flex items-center justify-between mb-4">
             <!-- Dropdown Pilih Bayi -->
             <div class="relative">
-                <button id="dropdown-button" class="inline-flex items-center justify-between px-4 py-2 w-full text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
+                <button id="dropdown-button"
+                    class="inline-flex items-center justify-between px-4 py-2 w-full text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
                     <!-- Teks Dropdown -->
                     {{ $bayiList->firstWhere('nik', $selectedBayiNik)->nama ?? 'Pilih Nama Bayi' }}
                     <!-- Ikon Filter -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-black" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M3 5h18a1 1 0 0 1 .8 1.6l-6.6 8.8a1 1 0 0 0-.2.6v5.2a1 1 0 0 1-1.6.8l-4-3.2a1 1 0 0 1-.4-.8v-2.6a1 1 0 0 0-.2-.6L2.2 6.6A1 1 0 0 1 3 5z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-black" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M3 5h18a1 1 0 0 1 .8 1.6l-6.6 8.8a1 1 0 0 0-.2.6v5.2a1 1 0 0 1-1.6.8l-4-3.2a1 1 0 0 1-.4-.8v-2.6a1 1 0 0 0-.2-.6L2.2 6.6A1 1 0 0 1 3 5z" />
                     </svg>
                 </button>
-                <div id="dropdown-menu" class="hidden absolute left-0 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-                    <input id="search-input" class="block w-full px-4 py-2 text-gray-800 border rounded-md border-gray-300 focus:outline-none" type="text" placeholder="Cari Nama Bayi..." autocomplete="off">
+                <div id="dropdown-menu"
+                    class="hidden absolute left-0 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                    <input id="search-input"
+                        class="block w-full px-4 py-2 text-gray-800 border rounded-md border-gray-300 focus:outline-none"
+                        type="text" placeholder="Cari Nama Bayi..." autocomplete="off">
                     <div id="dropdown-list">
                         @foreach ($bayiList as $bayi)
-                            <a href="javascript:void(0)" onclick="selectBayi('{{ $bayi->nik }}', '{{ $bayi->nama }}')"
-                            class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md">
+                            <a href="javascript:void(0)"
+                                onclick="selectBayi('{{ $bayi->nik }}', '{{ $bayi->nama }}')"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md">
                                 {{ $bayi->nama }}
                             </a>
                         @endforeach
@@ -50,7 +57,7 @@
         </div>
 
         <!-- Informasi Bayi -->
-        @if($selectedBayiNik)
+        @if ($selectedBayiNik)
             @php
                 $selectedBayi = $bayiList->firstWhere('nik', $selectedBayiNik);
                 $tanggalLahir = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir);
@@ -84,40 +91,58 @@
             <table id="TableKMS" class="min-w-full border-collapse border border-[#62BCB1]">
                 <thead>
                     <tr>
-                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Tanggal</th>
-                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Umur (Bulan)</th>
-                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Tinggi Badan (cm)</th>
-                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Berat Badan (kg)</th>
-                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Imunisasi</th>
-                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Kategori</th>
-                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">Aksi</th>
+                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
+                            Tanggal</th>
+                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
+                            Umur (Bulan)</th>
+                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
+                            Tinggi Badan (cm)</th>
+                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
+                            Berat Badan (kg)</th>
+                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
+                            Imunisasi</th>
+                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
+                            Kategori</th>
+                        <th class="text-sm font-medium text-white bg-[#62BCB1] border-[#62BCB1] px-6 py-4 text-center">
+                            Aksi</th>
                     </tr>
                 </thead>
-                <tbody class= "bg-white text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
+                <tbody
+                    class= "bg-white text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
                     @forelse ($kmsData as $kms)
-                         @php
-                            $umurBulan = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir)->diffInMonths(\Carbon\Carbon::parse($kms->tanggal));
+                        @php
+                            $umurBulan = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir)->diffInMonths(
+                                \Carbon\Carbon::parse($kms->tanggal),
+                            );
                         @endphp
                         <tr>
                             <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->tanggal }}</td>
-                            <td class="border-collapse border border-[#62BCB1] text-center">{{ floor($umurBulan) }} bulan</td> <!-- Tambahkan usia bulan jika dibutuhkan -->
-                            <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->tinggi_badan }}</td>
-                            <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->berat_badan }}</td>
-                            <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->imunisasi }}</td>
+                            <td class="border-collapse border border-[#62BCB1] text-center">{{ floor($umurBulan) }}
+                                bulan</td> <!-- Tambahkan usia bulan jika dibutuhkan -->
+                            <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->tinggi_badan }}
+                            </td>
+                            <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->berat_badan }}
+                            </td>
+                            <td class="border-collapse border border-[#62BCB1] text-center">
+                                {{ $kms->imunisasi ? $kms->imunisasi : '-' }}</td>
                             <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->kategori }}</td>
                             <td class="border-collapse border border-[#62BCB1] text-center py-2 px-4">
                                 <!-- Tombol Edit -->
-                                <button type="button" onclick="openEditModal('{{ $kms->id }}', '{{ $kms->tanggal }}', '{{ $kms->tinggi_badan }}', '{{ $kms->berat_badan }}', '{{ $kms->imunisasi }}', '{{ $kms->kategori }}')"
-                                        class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-teal-600 transition">
+                                <button type="button"
+                                    onclick="openEditModal('{{ $kms->id }}', '{{ $kms->tanggal }}', '{{ $kms->tinggi_badan }}', '{{ $kms->berat_badan }}', '{{ $kms->imunisasi }}', '{{ $kms->kategori }}')"
+                                    class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-teal-600 transition">
                                     <i class="fas fa-edit"></i>
                                     <span>Edit</span>
                                 </button>
 
                                 <!-- Tombol Hapus -->
-                                <form id="delete-form-{{ $kms->id }}" action="{{ route('kms.destroy', $kms->id) }}" method="POST" style="display:inline;">
+                                <form id="delete-form-{{ $kms->id }}"
+                                    action="{{ route('kms.destroy', $kms->id) }}" method="POST"
+                                    style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="confirmDelete({{ $kms->id }})" class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">
+                                    <button type="button" onclick="confirmDelete({{ $kms->id }})"
+                                        class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">
                                         <i class="fas fa-trash-alt"></i>
                                         <span>Hapus</span>
                                     </button>
@@ -131,6 +156,10 @@
                     @endforelse
                 </tbody>
             </table>
+
+            <div class="mt-4">
+                {{ $kmsData->links('vendor.pagination.tailwind') }}
+            </div>
         </div>
     </div>
 
@@ -145,15 +174,18 @@
 
                 <div class="mb-4">
                     <label for="tanggal" class="block text-sm font-medium">Tanggal</label>
-                    <input type="date" name="tanggal" id="tanggal" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="date" name="tanggal" id="tanggal" class="block w-full px-3 py-2 border rounded-md"
+                        required>
                 </div>
                 <div class="mb-4">
                     <label for="tinggi_badan" class="block text-sm font-medium">Tinggi Badan (cm)</label>
-                    <input type="text" name="tinggi_badan" id="tinggi_badan" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="text" name="tinggi_badan" id="tinggi_badan"
+                        class="block w-full px-3 py-2 border rounded-md" required>
                 </div>
                 <div class="mb-4">
                     <label for="berat_badan" class="block text-sm font-medium">Berat Badan (kg)</label>
-                    <input type="text" name="berat_badan" id="berat_badan" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="text" name="berat_badan" id="berat_badan"
+                        class="block w-full px-3 py-2 border rounded-md" required>
                 </div>
                 <div class="mb-4">
                     <label for="imunisasi" class="block text-sm font-medium">Imunisasi</label>
@@ -172,10 +204,13 @@
                 </div>
                 <div class="mb-4">
                     <label for="kategori" class="block text-sm font-medium">Kategori</label>
-                    <input type="text" name="kategori" id="kategori" class="block w-full px-3 py-2 border rounded-md bg-gray-200" readonly placeholder="Terisi otomatis">
+                    <input type="text" name="kategori" id="kategori"
+                        class="block w-full px-3 py-2 border rounded-md bg-gray-200" readonly
+                        placeholder="Terisi otomatis">
                 </div>
                 <div class="flex justify-end">
-                    <button type="button" id="cancel-button" class="px-4 py-2 bg-gray-500 text-white rounded-md mr-2">Batal</button>
+                    <button type="button" id="cancel-button"
+                        class="px-4 py-2 bg-gray-500 text-white rounded-md mr-2">Batal</button>
                     <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Simpan</button>
                 </div>
             </form>
@@ -193,15 +228,18 @@
 
                 <div class="mb-4">
                     <label for="edit-tanggal" class="block text-sm font-medium">Tanggal</label>
-                    <input type="date" name="tanggal" id="edit-tanggal" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="date" name="tanggal" id="edit-tanggal"
+                        class="block w-full px-3 py-2 border rounded-md" required>
                 </div>
                 <div class="mb-4">
                     <label for="edit-tinggi_badan" class="block text-sm font-medium">Tinggi Badan (cm)</label>
-                    <input type="text" name="tinggi_badan" id="edit-tinggi_badan" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="text" name="tinggi_badan" id="edit-tinggi_badan"
+                        class="block w-full px-3 py-2 border rounded-md" required>
                 </div>
                 <div class="mb-4">
                     <label for="edit-berat_badan" class="block text-sm font-medium">Berat Badan (kg)</label>
-                    <input type="twxt" name="berat_badan" id="edit-berat_badan" class="block w-full px-3 py-2 border rounded-md" required>
+                    <input type="twxt" name="berat_badan" id="edit-berat_badan"
+                        class="block w-full px-3 py-2 border rounded-md" required>
                 </div>
                 <div class="mb-4">
                     <label for="edit-imunisasi" class="block text-sm font-medium">Imunisasi</label>
@@ -220,10 +258,13 @@
                 </div>
                 <div class="mb-4">
                     <label for="edit-kategori" class="block text-sm font-medium">Kategori</label>
-                    <input type="text" name="kategori" id="edit-kategori" class="block w-full px-3 py-2 border rounded-md bg-gray-200" readonly placeholder="Terisi otomatis">
+                    <input type="text" name="kategori" id="edit-kategori"
+                        class="block w-full px-3 py-2 border rounded-md bg-gray-200" readonly
+                        placeholder="Terisi otomatis">
                 </div>
                 <div class="flex justify-end">
-                    <button type="button" id="edit-cancel-button" class="px-4 py-2 bg-gray-500 text-white rounded-md mr-2">Batal</button>
+                    <button type="button" id="edit-cancel-button"
+                        class="px-4 py-2 bg-gray-500 text-white rounded-md mr-2">Batal</button>
                     <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Simpan</button>
                 </div>
             </form>
@@ -266,7 +307,7 @@
 
             // Menampilkan nama bayi yang dipilih di tombol dropdown
             dropdownButton.innerHTML = `Pilih Nama Bayi: ${nama}`;
-            
+
             // Menutup dropdown setelah bayi dipilih
             dropdownMenu.classList.add('hidden');
 
@@ -299,24 +340,24 @@
 
         // Fungsi untuk membuka modal edit
         const openEditModal = (id, tanggal, tinggi_badan, berat_badan, imunisasi, kategori) => {
-        const modal = document.getElementById('modal-edit');
-        modal.classList.remove('hidden');
+            const modal = document.getElementById('modal-edit');
+            modal.classList.remove('hidden');
 
-        // Isi nilai input dalam form
-        document.getElementById('edit-tanggal').value = tanggal;
-        document.getElementById('edit-tinggi_badan').value = tinggi_badan;
-        document.getElementById('edit-berat_badan').value = berat_badan;
+            // Isi nilai input dalam form
+            document.getElementById('edit-tanggal').value = tanggal;
+            document.getElementById('edit-tinggi_badan').value = tinggi_badan;
+            document.getElementById('edit-berat_badan').value = berat_badan;
 
-        // Set selected value for dropdown
-        const imunisasiDropdown = document.getElementById('edit-imunisasi');
-        imunisasiDropdown.value = imunisasi; // Pastikan 'imunisasi' cocok dengan value dropdown
+            // Set selected value for dropdown
+            const imunisasiDropdown = document.getElementById('edit-imunisasi');
+            imunisasiDropdown.value = imunisasi; // Pastikan 'imunisasi' cocok dengan value dropdown
 
-        document.getElementById('edit-kategori').value = kategori;
+            document.getElementById('edit-kategori').value = kategori;
 
-        // Update action form untuk route update
-        const form = document.getElementById('form-edit');
-        form.action = `/kader/kms/${id}`;
-    };
+            // Update action form untuk route update
+            const form = document.getElementById('form-edit');
+            form.action = `/kader/kms/${id}`;
+        };
 
 
         // Fungsi untuk menutup modal edit
@@ -348,7 +389,6 @@
                 }
             });
         }
-
     </script>
 </body>
 
