@@ -14,6 +14,16 @@
                     </form>
 
 
+                    <!-- Tombol Edit dan Hapus di bawah tabel -->
+                    <div class="flex justify-end mt-4" id="actionButtons" style="display: none;">
+                        <button
+                            class="inline-block px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-600 transition duration-150 ease-in-out"
+                            id="editBtn">Edit</button>
+                        <button
+                            class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 transition duration-150 ease-in-out ml-2"
+                            id="deleteBtn">Hapus</button>
+                    </div>
+
                     <!-- Table -->
                     <table id="kaderTable" class="min-w-full table-fixed border-collapse border border-[#62BCB1] mt-5">
                         <thead>
@@ -51,18 +61,12 @@
                             @endforelse
                         </tbody>
                     </table>
+
+                    <div class="mt-4">
+                        {{ $kaders->links('vendor.pagination.tailwind') }}
+                    </div>
                 </div>
 
-
-                <!-- Tombol Edit dan Hapus di bawah tabel -->
-                <div class="flex justify-end mt-4" id="actionButtons" style="display: none;">
-                    <button
-                        class="inline-block px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-600 transition duration-150 ease-in-out"
-                        id="editBtn">Edit</button>
-                    <button
-                        class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 transition duration-150 ease-in-out ml-2"
-                        id="deleteBtn">Hapus</button>
-                </div>
             </div>
 
 
@@ -102,7 +106,8 @@
 
                             <div>
                                 <label for="alamat" class="block text-gray-700 font-medium">Alamat</label>
-                                <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}" required
+                                <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}"
+                                    required
                                     class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
                                     placeholder="Masukkan Alamat">
                                 @error('alamat')

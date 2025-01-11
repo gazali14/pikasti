@@ -92,7 +92,6 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
 
     // Semua route RESTful sudah didefinisikan oleh Route::resource
     Route::resource('dokumentasi', AdminKelolaDokumentasiController::class);
-    Route::get('/dokumentasi/search', [AdminKelolaDokumentasiController::class, 'search'])->name('dokumentasi.search');
 
 
     // Route::post();

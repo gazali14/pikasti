@@ -6,10 +6,10 @@
                 <div class="mx-auto mt-1 mb-10 p-5">
                     <!-- Search bar dan tombol tambah -->
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <form method="GET" action="{{ route('dokumentasi.search') }}">
-                            <input type="text" id="search" name='search' placeholder="Cari Dokumentasi"
+                        <form>
+                            <input type="search" id="default-search"
                                 class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"
-                                placeholder="Cari Dokumentasi" />
+                                placeholder="Cari Dokumentasi" required />
                         </form>
 
                         <button id="tambahButton"
@@ -64,6 +64,10 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    <div class="mt-4">
+                        {{ $dokumentasis->links('vendor.pagination.tailwind') }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,15 +129,6 @@
             </div>
         </div>
     </div>
-
-    <!-- SweetAlert2 CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    @if (session('error'))
-        <script>
-            alert("{{ session('error') }}");
-        </script>
-    @endif
 
     <!-- Javascript -->
     <script>
@@ -200,20 +195,36 @@
             @endif
         });
 
-        document.getElementById('search').addEventListener('input', function() {
-            let searchQuery = this.value.toLowerCase();
-            let rows = document.querySelectorAll('#dokumentasiTable tbody tr');
+        // Notifikasi error
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('error'))
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end', // Lokasi di kanan atas
+                    icon: 'error',
+                    title: "{{ session('error') }}",
+                    showConfirmButton: false, // Tidak ada tombol
+                    timer: 5000, // Menghilang setelah 3 detik
+                    timerProgressBar: true, // Menampilkan progress bar
+                });
+            @endif
+        });
 
-            rows.forEach((row) => {
-                let namaKegiatan = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
-                let tanggal = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        // Pencarian dengan AJAX
+        document.getElementById('default-search').addEventListener('input', function() {
+            const search = this.value;
 
-                if (namaKegiatan.includes(searchQuery) || tanggal.includes(searchQuery)) {
-                    row.style.display = ''; // Tampilkan baris
-                } else {
-                    row.style.display = 'none'; // Sembunyikan baris yang tidak sesuai
-                }
-            });
+            fetch(`{{ route('dokumentasi.index') }}?search=${search}`)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const tbody = doc.querySelector('tbody');
+                    document.querySelector('tbody').innerHTML = tbody.innerHTML;
+
+                    // Reapply event listeners for dynamically updated rows
+                    attachRowEventListeners();
+                });
         });
     </script>
 </x-layout-admin>
