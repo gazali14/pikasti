@@ -19,8 +19,9 @@ class AdminKelolaKaderController extends Controller
                     ->orWhere('alamat', 'LIKE', "%{$search}%")
                     ->orWhere('jabatan', 'LIKE', "%{$search}%");
             })
+            ->orderBy('nama', 'asc') 
             ->paginate(5);
-
+        
         return view('admin.kelola_kader', compact('kaders', 'selectedKader'));
     }
 

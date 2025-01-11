@@ -12,8 +12,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\KohortController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\VitaminController;
-use App\Http\Controllers\KegiatanController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\ProfilKaderController;
 use App\Http\Controllers\HalamanJadwalController;

@@ -7,6 +7,7 @@ use App\Models\Kehadiran;
 use Illuminate\Http\Request;
 use App\Models\KehadiranKader;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AdminKelolaJadwalController extends Controller
 {
@@ -17,7 +18,7 @@ class AdminKelolaJadwalController extends Controller
     {
         $selectedKader = Auth::guard('kader')->user();
         // Ambil semua data jadwal dari database
-        $jadwals = Jadwal::paginate(10);
+        $jadwals = Jadwal::orderBy('tanggal', 'desc')->paginate(10);
         return view('admin.kelola_jadwal', compact('jadwals', 'selectedKader'));
     }
 
@@ -31,6 +32,9 @@ class AdminKelolaJadwalController extends Controller
             'tanggal' => 'required|date',
             'waktu' => 'required|date_format:H:i',
         ]);
+
+        // Format tanggal ke Y-m-d agar hanya tanggal yang disimpan
+        $validated['tanggal'] = Carbon::parse($validated['tanggal'])->format('Y-m-d');
 
         Jadwal::create($validated);
         return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil ditambahkan!');
@@ -90,6 +94,8 @@ class AdminKelolaJadwalController extends Controller
             'waktu' => 'required|date_format:H:i',
         ]);
 
+        // Format tanggal ke Y-m-d agar hanya tanggal yang disimpan
+        $validated['tanggal'] = Carbon::parse($validated['tanggal'])->format('Y-m-d');
 
         // Cari jadwal berdasarkan ID
         $jadwal = Jadwal::findOrFail($id);
@@ -99,11 +105,11 @@ class AdminKelolaJadwalController extends Controller
         $jadwal->tanggal = $validated['tanggal'];
         $jadwal->waktu = $validated['waktu'];
 
-
         // Simpan perubahan ke database
         $jadwal->save();
 
         // Redirect kembali ke halaman kelola jadwal dengan pesan sukses
         return redirect()->route('jadwal.indeks')->with('success', 'Jadwal berhasil diperbarui!');
     }
+
 }

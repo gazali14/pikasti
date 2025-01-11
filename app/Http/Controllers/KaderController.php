@@ -42,39 +42,6 @@ class KaderController extends Controller
         return view('kader.presensi_bayi', compact('jadwal'));
     }
 
-    // /**
-    //  * Handle search functionality for bayi by name.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\View\View
-    //  */
-    // public function search(Request $request)
-    // {
-    //     // Ambil data bayi berdasarkan pencarian nama
-    //     $bayis = Bayi::query();
-
-    //     if ($request->has('search') && $request->search != '') {
-    //         $bayis->where('nama', 'LIKE', '%' . $request->search . '%');
-    //     }
-
-    //     // Ambil kehadiran bayi berdasarkan pencarian dan ID kegiatan terbaru
-    //     $bayis = $bayis->get();
-
-    //     // Ambil ID kegiatan terakhirz
-    //     $jadwal = Jadwal::latest('tanggal')->first();
-
-    //     // Ambil kehadiran berdasarkan ID kegiatan
-    //     $kehadiran = Kehadiran::where('id_kegiatan', $jadwal->id)
-    //                         ->pluck('kehadiran', 'nik');
-
-    //     // Jika hasil pencarian kosong, kirim pesan ke view
-    //     $message = $bayis->isEmpty() ? "Nama '" . $request->search . "' tidak ditemukan" : null;
-
-    //     // Return the view with search results
-    //     return view('kader.cek_presensi', compact('bayis', 'jadwal', 'kehadiran', 'message'));
-    // }
-
-
     public function cekPresensi(Request $request, $id_kegiatan)
     {
         // Cari jadwal berdasarkan ID
@@ -101,36 +68,7 @@ class KaderController extends Controller
         return view('kader.cek_presensi', compact('bayis', 'jadwal', 'kehadiran', 'message'));
     }
 
-    // public function countKaderByMonth(Request $request)
-    // {
-    //     $year = $request->input('year') ?? date('Y'); // Default ke tahun sekarang jika tidak diberikan
-
-    //     // Validasi input tahun
-    //     $request->validate([
-    //         'year' => 'nullable|integer|min:1900|max:' . date('Y'),
-    //     ]);
-
-    //     // Mengambil jumlah kader per bulan
-    //     $kaderPerMonth = KehadiranKader::selectRaw('strftime("%m", created_at) as month, COUNT(*) as count')
-    //         ->whereRaw('strftime("%Y", created_at) = ?', [$year])
-    //         ->where('kehadiran', 1)
-    //         ->groupByRaw('strftime("%m", created_at)')
-    //         ->pluck('count', 'month');
-
-    //     // Konversi hasil menjadi array dengan nama bulan
-    //     $result = [];
-    //     for ($month = 1; $month <= 12; $month++) {
-    //         $monthKey = str_pad($month, 2, '0', STR_PAD_LEFT); // Format bulan menjadi "01", "02", ...
-    //         $result[Carbon::create()->month($month)->translatedFormat('F')] = $kaderPerMonth[$monthKey] ?? 0;
-    //     }
-
-    //     return response()->json([
-    //         'year' => $year,
-    //         'data' => $result,
-    //     ]);
-    // }
-
-
+    
     public function savePresensi(Request $request)
     {
         // Ambil ID kegiatan dari request
@@ -138,7 +76,8 @@ class KaderController extends Controller
 
         // Ambil tanggal kegiatan dari tabel Jadwal
         $jadwal = Jadwal::findOrFail($id_kegiatan);
-        $tanggal_kegiatan = $jadwal->tanggal;
+        $tanggal_kegiatan = Carbon::parse($jadwal->tanggal)->format('Y-m-d'); // Format ke Y-m-d
+
 
         // Ambil data kehadiran dari form
         $kehadiran = $request->input('kehadiran', []);

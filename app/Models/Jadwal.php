@@ -9,31 +9,24 @@ class Jadwal extends Model
 {
     use HasFactory;
 
-    /**
-     * Nama tabel yang terkait dengan model ini.
-     */
     protected $table = 'jadwals';
 
-    /**
-     * Kolom yang dapat diisi melalui mass assignment.
-     */
     protected $fillable = [
         'nama_kegiatan',
         'tanggal',
         'waktu',
     ];
 
-    /**
-     * Format default untuk kolom tanggal dan waktu.
-     */
     protected $casts = [
         'tanggal' => 'date',
     ];
 
+    // Mutator untuk memastikan format tanggal adalah Y-m-d
+    public function setTanggalAttribute($value)
+    {
+        $this->attributes['tanggal'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
+    }
 
-    /**
-     * Relasi ke model Vitamin
-     */
     public function vitamins()
     {
         return $this->hasMany(Vitamin::class, 'id_kegiatan');

@@ -9,6 +9,10 @@
             <i class="fas fa-tachometer-alt mr-3"></i>
             Dashboard
         </a>
+        <a href="/admin/kohort" class="{{ request()->is('admin/kohort') ? 'active-nav-link text-white' : 'text-white opacity-75 hover:opacity-100'}} flex items-center py-4 pl-6 nav-item">
+            <i class="fas fa-baby mr-3"></i>
+            Kelola Kohort Bayi
+        </a>
         <a href="/admin/kelola_kader" class="{{ request()->is('admin/kelola_kader') ? 'active-nav-link text-white' : 'text-white opacity-75 hover:opacity-100'}} flex items-center py-4 pl-6 nav-item">
             <i class="fas fa-user mr-3"></i>
             Kelola Kader
@@ -26,10 +30,6 @@
         <a href="/admin/dokumentasi" class="{{ request()->is('admin/dokumentasi') ? 'active-nav-link text-white' : 'text-white opacity-75 hover:opacity-100'}} flex items-center py-4 pl-6 nav-item">
             <i class="fas fa-camera mr-3"></i>
             Dokumentasi
-        </a>
-        <a href="/admin/kohort" class="{{ request()->is('admin/kohort') ? 'active-nav-link text-white' : 'text-white opacity-75 hover:opacity-100'}} flex items-center py-4 pl-6 nav-item">
-            <i class="fas fa-baby mr-3"></i>
-            Kohort Bayi
         </a>
     </nav>
 </aside>
