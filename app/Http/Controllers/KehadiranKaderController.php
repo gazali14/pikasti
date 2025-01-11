@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jadwal; // Import model Jadwal
+use Carbon\Carbon;
+use App\Models\Kader;
 use Illuminate\Http\Request;
 use App\Models\KehadiranKader;
-use App\Models\Kader;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Jadwal; // Import model Jadwal
 
 // Set locale ke Indonesia
 Carbon::setLocale('id');
@@ -20,6 +21,7 @@ class KehadiranKaderController extends Controller
      */
     public function index(Request $request)
     {
+        $selectedKader = Auth::guard('kader')->user();
         // Ambil semua kader atau hasil pencarian berdasarkan nama
         $kaders = Kader::query();
 
@@ -35,12 +37,13 @@ class KehadiranKaderController extends Controller
             $item->tanggal = Carbon::parse($item->tanggal)->format('Y-m-d');
         });
 
-        return view('admin.presensi_kader', compact('jadwal'));
+        return view('admin.presensi_kader', compact('jadwal', 'selectedKader'));
     }
 
 
     public function cekPresensiKader(Request $request, $id_kegiatan)
     {
+        $selectedKader = Auth::guard('kader')->user();
         // Cari jadwal berdasarkan ID
         $jadwal = Jadwal::findOrFail($id_kegiatan);
 
@@ -62,7 +65,7 @@ class KehadiranKaderController extends Controller
             : null;
 
         // Kirimkan data ke view
-        return view('admin.cek_presensi_kader', compact('kaders', 'jadwal', 'kehadiran', 'message'));
+        return view('admin.cek_presensi_kader', compact('kaders', 'jadwal', 'kehadiran', 'message', 'selectedKader'));
     }
 
     // /**

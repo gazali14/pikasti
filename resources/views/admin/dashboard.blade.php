@@ -1,4 +1,4 @@
-<x-layout-admin>
+<x-layout-admin :selectedKader='$selectedKader'>
     <div class="p-3 min-h-screen">
         <div class="mt-5">
             <!-- Grafik Jumlah Kader -->

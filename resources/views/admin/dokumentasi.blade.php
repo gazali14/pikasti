@@ -1,4 +1,4 @@
-<x-layout-admin>
+<x-layout-admin :selectedKader="$selectedKader">
     <h1 class="text-3xl font-bold mx-5">Daftar Dokumentasi</h1>
     <div class="min-h-screen max-h-96">
         <div class="container mx-auto p-5">
@@ -105,9 +105,9 @@
                     @enderror
 
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-bold text-black-700" for="foto">Upload
+                        <label class="block mb-2 text-sm font-bold text-black-700" for="foto[]">Upload
                             Foto</label>
-                        <input type="file" id="foto" name="foto.*" multiple
+                        <input type="file" id="foto" name="foto[]" multiple
                             class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
                     </div>
                     @error('foto.*')

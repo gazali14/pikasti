@@ -1,4 +1,4 @@
-<x-layout-admin>
+<x-layout-admin :selectedKader='$selectedKader'>
     <!DOCTYPE html>
     <html lang="id">
 

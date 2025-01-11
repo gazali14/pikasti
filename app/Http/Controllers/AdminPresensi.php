@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jadwal;
 use App\Models\Kader;
-use App\Models\KehadiranKader;
-use App\Models\PresensiKader;
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
-use Laravel\Pail\ValueObjects\Origin\Console;
+use App\Models\PresensiKader;
+use App\Models\KehadiranKader;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Prompts\Output\ConsoleOutput;
+use Laravel\Pail\ValueObjects\Origin\Console;
 
 class AdminPresensi extends Controller
 {
@@ -46,22 +47,24 @@ class AdminPresensi extends Controller
 
     public function presensiBayi()
     {
+        $selectedKader = Auth::guard('kader')->user();
         // Ambil data jadwal dari database
         $jadwal = Jadwal::all(); // Sesuaikan query jika perlu (contoh: filter tanggal mendatang)
 
         // Kembalikan ke view presensi_bayi dengan data jadwal
-        return view('admin.presensi_kader', compact('jadwal'));
+        return view('admin.presensi_kader', compact('jadwal', 'selectedKader'));
     }
 
     public function cekPresensiBayi($id)
     {
+        $selectedKader = Auth::guard('kader')->user();
         $kegiatan = Jadwal::find($id);
         $kaders = Kader::all();
         
         if (!$kegiatan) {
             return redirect()->back()->with('error', 'Kegiatan tidak ditemukan.');
         }
-        return view('admin.cek_presensi_kader', compact('kegiatan', 'kaders'));
+        return view('admin.cek_presensi_kader', compact('kegiatan', 'kaders', 'selectedKader'));
     }
     //buat controller pake looping save presensi fungsi save presensi
 }

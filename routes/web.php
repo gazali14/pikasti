@@ -1,28 +1,29 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use App\Models\Bayi;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminPresensi;
 use App\Http\Controllers\KMSController;
+use App\Http\Controllers\PMTController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KaderController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\KohortController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\VitaminController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\ProfilKaderController;
 use App\Http\Controllers\HalamanJadwalController;
+use App\Http\Controllers\DashboardKaderController;
 use App\Http\Controllers\KehadiranKaderController;
 use App\Http\Controllers\AdminKelolaKaderController;
 use App\Http\Controllers\AdminKelolaJadwalController;
 use App\Http\Controllers\HalamanDokumentasiController;
 use App\Http\Controllers\AdminKelolaDokumentasiController;
 use App\Http\Controllers\HalamanDashboardOrangTuaController;
-use App\Http\Controllers\KohortController;
-use App\Http\Controllers\VitaminController;
-use App\Http\Controllers\KonsultasiController;
-use App\Http\Controllers\PMTController;
-use App\Http\Controllers\LaporanController;
-use App\Http\Controllers\DashboardKaderController;
 
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -54,7 +55,8 @@ Route::get('/admin/count-by-month', [KehadiranKaderController::class, 'countKade
 // Routes for admin
 Route::prefix('admin')->middleware('auth:kader')->group(function () {
     Route::get('/dashboard', function () {
-        return view('admin.dashboard');
+        $selectedKader = Auth::guard('kader')->user();
+        return view('admin.dashboard', compact('selectedKader'));
     })->name('admin.dashboard');
 
     // Route::get('/kelola_jadwal', function () {

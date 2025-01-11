@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Kader;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class AdminKelolaKaderController extends Controller
 {
     public function index(Request $request)
     {
+        $selectedKader = Auth::guard('kader')->user();
         $search = $request->input('search');
         $kaders = Kader::query()
             ->when($search, function ($query) use ($search) {
@@ -19,7 +21,7 @@ class AdminKelolaKaderController extends Controller
             })
             ->get();
 
-        return view('admin.kelola_kader', compact('kaders'));
+        return view('admin.kelola_kader', compact('kaders', 'selectedKader'));
     }
 
     public function store(Request $request)

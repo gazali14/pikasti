@@ -1,3 +1,5 @@
+@props(['selectedKader'])
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +45,7 @@
 <body class="bg-green-50 font-family-karla flex">
     <x-sidebar-admin></x-sidebar-admin>
     <div class="relative w-full flex flex-col h-screen">
-        <x-header-admin></x-header-admin>
+        <x-header-admin :selectedKader="$selectedKader"></x-header-admin>
         <main class="w-full flex-grow p-6 overflow-y-auto bg-[#EEFFF8]">
             {{ $slot }}
         </main>

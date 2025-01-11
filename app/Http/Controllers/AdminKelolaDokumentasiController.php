@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Dokumentasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class AdminKelolaDokumentasiController extends Controller
 {
     public function index()
     {
+
+        $selectedKader = Auth::guard('kader')->user();
         // Ambil semua data jadwal dari database
         $dokumentasis = Dokumentasi::all();
-        return view('admin.dokumentasi', compact('dokumentasis'));
+        return view('admin.dokumentasi', compact('dokumentasis', 'selectedKader'));
     }
 
     

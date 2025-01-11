@@ -1,4 +1,4 @@
-<x-layout-admin>
+<x-layout-admin :selectedKader='$selectedKader'>
     <h1 class="text-3xl font-bold mx-5">Daftar Jadwal Posyandu</h1>
     <div class="min-h-screen max-h-96">
         <div class="container mx-auto p-5">

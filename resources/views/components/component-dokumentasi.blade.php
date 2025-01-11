@@ -9,7 +9,7 @@
                     <div class="p-5 flex flex-col justify-between min-h-[350px]">
                         {{-- Gambar --}}
                         <div class="rounded-xl overflow-hidden">
-                            <img src="{{ asset('storage/' . json_decode($dokumentasi->foto, true)[0]) }}"
+                            <img src="{{ json_decode($dokumentasi->foto, true) ? asset('storage/' . json_decode($dokumentasi->foto, true)[0]) : asset('img/documentation.png') }}"
                                 alt="Foto {{ $dokumentasi->nama_kegiatan }}"
                                 class="w-full h-48 object-cover rounded-t-xl">
                         </div>

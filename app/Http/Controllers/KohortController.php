@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bayi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class KohortController extends Controller
@@ -11,6 +12,7 @@ class KohortController extends Controller
     // Display the list of babies
     public function index(Request $request)
     {
+        $selectedKader = Auth::guard('kader')->user();
         $search = $request->input('search');
         $bayis = Bayi::when($search, function ($query, $search) {
             return $query->where('nama', 'like', "%$search%");
@@ -23,7 +25,7 @@ class KohortController extends Controller
             return response()->json($bayis);
         }
 
-        return view('admin.kohort', compact('bayis'));
+        return view('admin.kohort', compact('bayis', 'selectedKader'));
     }
 
     // Show the form for editing a specific baby using nik

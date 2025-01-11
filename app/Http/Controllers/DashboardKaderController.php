@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\KMS;
 use App\Models\Bayi;
-use App\Models\Kehadiran;
 use App\Models\Jadwal;
-use Carbon\Carbon;
+use App\Models\Kehadiran;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardKaderController extends Controller
 {
     public function index(Request $request)
     {
+        $selectedKader = Auth::guard('kader')->user();
         // Ambil tanggal dari input, default ke hari ini jika tidak ada
         $tanggal = $request->input('tanggal', Carbon::today()->toDateString());
 
@@ -76,6 +78,7 @@ class DashboardKaderController extends Controller
             'weightMaleAverage' => $weightMaleAverage,
             'weightFemaleAverage' => $weightFemaleAverage,
             'ageGroups' => $ageGroups,
+            'selectedKader' => $selectedKader,
         ]);
     }
 

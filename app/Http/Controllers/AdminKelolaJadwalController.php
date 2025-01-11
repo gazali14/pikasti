@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
 use App\Models\Kehadiran;
-use App\Models\KehadiranKader;
 use Illuminate\Http\Request;
+use App\Models\KehadiranKader;
+use Illuminate\Support\Facades\Auth;
 
 class AdminKelolaJadwalController extends Controller
 {
@@ -14,9 +15,10 @@ class AdminKelolaJadwalController extends Controller
      */
     public function index()
     {
+        $selectedKader = Auth::guard('kader')->user();
         // Ambil semua data jadwal dari database
         $jadwals = Jadwal::paginate(10);
-        return view('admin.kelola_jadwal', compact('jadwals'));
+        return view('admin.kelola_jadwal', compact('jadwals', 'selectedKader'));
     }
 
     /**
