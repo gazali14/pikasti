@@ -8,7 +8,7 @@
                         <!-- Search dan Tombol Tambah -->
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                             <div>
-                                <input type="text" id="default-search" placeholder="Cari Nama Bayi"
+                                <input type="text" id="default-search" placeholder="Cari Nama Bayi" required
                                     class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm" />
                             </div>
                             <button
@@ -72,6 +72,10 @@
                                 @endforeach
                             </tbody>
                         </table>
+
+                        <div class="mt-4">
+                            {{ $bayis->links('vendor.pagination.tailwind') }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -203,20 +207,21 @@
 </x-layout-admin>
 
 <script>
+    // Pencarian dengan AJAX
     document.getElementById('default-search').addEventListener('input', function() {
-        const searchQuery = this.value.toLowerCase(); // Ambil input pencarian
-        const rows = document.querySelectorAll('#kohortTable tbody tr'); // Pilih semua baris tabel
+        const search = this.value;
 
-        rows.forEach((row) => {
-            const namaBayi = row.querySelector('td:nth-child(2)').textContent
-                .toLowerCase(); // Ambil kolom Nama Bayi
+        fetch(`{{ route('admin.kohort.index') }}?search=${search}`)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const tbody = doc.querySelector('tbody');
+                document.querySelector('tbody').innerHTML = tbody.innerHTML;
 
-            if (namaBayi.includes(searchQuery)) {
-                row.style.display = ''; // Tampilkan baris jika sesuai
-            } else {
-                row.style.display = 'none'; // Sembunyikan baris jika tidak sesuai
-            }
-        });
+                // Reapply event listeners for dynamically updated rows
+                attachRowEventListeners();
+            });
     });
 
     function openAddModal() {
@@ -256,4 +261,34 @@
     function closeEditModal() {
         document.getElementById('editModal').classList.add('hidden');
     }
+
+    // Notifikasi sukses menambahkan data kader
+    document.addEventListener('DOMContentLoaded', function() {
+        @if (session('success'))
+            Swal.fire({
+                toast: true,
+                position: 'top-end', // Lokasi di kanan atas
+                icon: 'success',
+                title: "{{ session('success') }}",
+                showConfirmButton: false, // Tidak ada tombol
+                timer: 3000, // Menghilang setelah 3 detik
+                timerProgressBar: true, // Menampilkan progress bar
+            });
+        @endif
+    });
+
+    // Notifikasi error
+    document.addEventListener('DOMContentLoaded', function() {
+        @if (session('error'))
+            Swal.fire({
+                toast: true,
+                position: 'top-end', // Lokasi di kanan atas
+                icon: 'error',
+                title: "{{ session('error') }}",
+                showConfirmButton: false, // Tidak ada tombol
+                timer: 5000, // Menghilang setelah 3 detik
+                timerProgressBar: true, // Menampilkan progress bar
+            });
+        @endif
+    });
 </script>
