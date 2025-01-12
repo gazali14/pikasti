@@ -15,10 +15,11 @@ class KMSController extends Controller
     {
         try {
             $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
-            $kmsData = []; // Data KMS kosong di awal
+            $kmsData = collect([]); // Data KMS kosong di awal
+            $kmsDataPaginate = collect([]); // Data KMS kosong di awal
             $selectedBayiNik = null;
 
-            return view('kader.kms', compact('bayiList', 'kmsData', 'selectedBayiNik'));
+            return view('kader.kms', compact('bayiList', 'kmsData', 'kmsDataPaginate', 'selectedBayiNik'));
         } catch (\Exception $e) {
             Log::error('Kesalahan saat memuat halaman KMS: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat halaman.');
