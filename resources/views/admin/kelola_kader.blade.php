@@ -1,5 +1,7 @@
 <x-layout-admin :selectedKader='$selectedKader'>
-    <h1 class="text-3xl font-bold mx-5">Kelola Kader</h1>
+    <div class="text-center my-4">
+        <h1 class="text-3xl font-bold mx-5">Kelola Kader</h1>
+    </div>
     <div class="min-h-screen max-h-96">
         <div class="container p-5">
             <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded-2xl shadow">
@@ -17,10 +19,10 @@
                     <!-- Tombol Edit dan Hapus di bawah tabel -->
                     <div class="flex justify-end mt-4" id="actionButtons" style="display: none;">
                         <button
-                            class="inline-block px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-600 transition duration-150 ease-in-out"
+                            class="inline-block  bg-blue-500 text-white px-6 py-2.5 rounded-md hover:bg-gray-600 transition duration-150 ease-in-out"
                             id="editBtn">Edit</button>
                         <button
-                            class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 transition duration-150 ease-in-out ml-2"
+                            class="inline-block px-6 py-2.5 bg-red-600 text-white rounded-md shadow-md hover:bg-gray-600 transition duration-150 ease-in-out ml-2"
                             id="deleteBtn">Hapus</button>
                     </div>
 
@@ -36,21 +38,20 @@
                                     Jabatan</th>
                             </tr>
                         </thead>
-                        <tbody
-                            class= "bg-white text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center sm:text-base">
+                        <tbody class= "bg-white">
                             <!-- Contoh Data -->
                             @forelse ($kaders as $kader)
-                                <tr class="border-b kader-row" data-id="{{ $kader->id }}">
+                                <tr class="text-center" data-id="{{ $kader->id }}">
                                     <td
-                                        class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center sm:text-base">
+                                        class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
                                         {{ $kader->nama }}
                                     </td>
                                     <td
-                                        class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center sm:text-base">
+                                        class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
                                         {{ $kader->alamat }}
                                     </td>
                                     <td
-                                        class="text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center sm:text-base">
+                                        class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
                                         {{ $kader->jabatan }}
                                     </td>
                                 </tr>

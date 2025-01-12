@@ -1,5 +1,7 @@
 <x-layout-admin :selectedKader='$selectedKader'>
-    <h1 class="text-3xl font-bold mx-5">Daftar Jadwal Posyandu</h1>
+    <div class="text-center my-4">
+        <h1 class="text-3xl font-bold mx-5">Daftar Jadwal Posyandu</h1>
+    </div>
     <div class="min-h-screen max-h-96">
         <div class="container mx-auto p-5">
             <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded-2xl shadow">
@@ -25,7 +27,7 @@
 
                         <!-- Tabel -->
                         <div class="mt-5">
-                            <table id="jadwalPosyanduTable" class="w-full table-auto border border-[#62BCB1">
+                            <table id="jadwalPosyanduTable" class="w-full table-auto border border-[#62BCB1]">
                                 <thead>
                                     <tr>
                                         <th class="text-white border bg-[#62BCB1] text-sm sm:text-base py-2 px-4">Nama
@@ -78,7 +80,8 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div>
+
+                            <div class="mt-4">
                                 {{ $jadwals->links('vendor.pagination.tailwind') }}
                             </div>
                         </div>

@@ -1,5 +1,7 @@
 <x-layout-admin :selectedKader='$selectedKader'>
-    <h1 class="text-3xl font-bold mx-5">Registrasi Kohort Bayi</h1>
+    <div class="text-center my-4">
+        <h1 class="text-3xl font-bold mx-5">Registrasi Kohort Bayi</h1>
+    </div>
     <div class="min-h-screen max-h-96">
         <div class="container mx-auto p-5">
             <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded-2xl shadow">
@@ -12,7 +14,7 @@
                                     class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm" />
                             </div>
                             <button
-                                class="p-3 bg-teal-500 text-white rounded hover:bg-teal-600 min-w-[150px] max-w-[150px] whitespace-nowrap"s
+                                class="p-3 bg-teal-500 text-white rounded hover:bg-teal-600 min-w-[150px] max-w-[150px] whitespace-nowrap"
                                 onclick="openAddModal()">
                                 <i class="fas fa-folder-plus"></i>
                                 <span>Tambah Bayi</span>
