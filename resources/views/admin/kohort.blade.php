@@ -40,7 +40,7 @@
                                     <th class="text-white border bg-[#62BCB1] py-2 px-4 text-sm sm:text-base">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white">
+                            <tbody class="bg-white text-center">
                                 @foreach ($bayis as $bayi)
                                     <tr class="text-center">
                                         <td
