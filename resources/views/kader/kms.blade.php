@@ -109,57 +109,60 @@
                         </thead>
                         <tbody
                             class= "bg-white text-sm text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-center">
-                            @forelse ($kmsDataPaginate as $kms)
-                                @php
-                                    $umurBulan = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir)->diffInMonths(
-                                        \Carbon\Carbon::parse($kms->tanggal),
-                                    );
-                                @endphp
-                                <tr>
-                                    <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->tanggal }}
-                                    </td>
-                                    <td class="border-collapse border border-[#62BCB1] text-center">
-                                        {{ floor($umurBulan) }}
-                                        bulan</td> <!-- Tambahkan usia bulan jika dibutuhkan -->
-                                    <td class="border-collapse border border-[#62BCB1] text-center">
-                                        {{ $kms->tinggi_badan }}
-                                    </td>
-                                    <td class="border-collapse border border-[#62BCB1] text-center">
-                                        {{ $kms->berat_badan }}
-                                    </td>
-                                    <td class="border-collapse border border-[#62BCB1] text-center">
-                                        {{ $kms->imunisasi ? $kms->imunisasi : '-' }}</td>
-                                    <td class="border-collapse border border-[#62BCB1] text-center">
-                                        {{ $kms->kategori }}</td>
-                                    <td class="border-collapse border border-[#62BCB1] text-center py-2 px-4">
-                                        <!-- Tombol Edit -->
-                                        <button type="button"
-                                            onclick="openEditModal('{{ $kms->id }}', '{{ $kms->tanggal }}', '{{ $kms->tinggi_badan }}', '{{ $kms->berat_badan }}', '{{ $kms->imunisasi }}', '{{ $kms->kategori }}')"
-                                            class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-teal-600 transition">
-                                            <i class="fas fa-edit"></i>
-                                            <span>Edit</span>
-                                        </button>
-
-                                        <!-- Tombol Hapus -->
-                                        <form id="delete-form-{{ $kms->id }}"
-                                            action="{{ route('kms.destroy', $kms->id) }}" method="POST"
-                                            style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" onclick="confirmDelete({{ $kms->id }})"
-                                                class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">
-                                                <i class="fas fa-trash-alt"></i>
-                                                <span>Hapus</span>
+                            @if ($kmsDataPaginate->count())
+                                @foreach ($kmsDataPaginate as $kms)
+                                    @php
+                                        $umurBulan = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir)->diffInMonths(
+                                            \Carbon\Carbon::parse($kms->tanggal),
+                                        );
+                                    @endphp
+                                    <tr>
+                                        <td class="border-collapse border border-[#62BCB1] text-center">
+                                            {{ $kms->tanggal }}
+                                        </td>
+                                        <td class="border-collapse border border-[#62BCB1] text-center">
+                                            {{ floor($umurBulan) }}
+                                            bulan</td> <!-- Tambahkan usia bulan jika dibutuhkan -->
+                                        <td class="border-collapse border border-[#62BCB1] text-center">
+                                            {{ $kms->tinggi_badan }}
+                                        </td>
+                                        <td class="border-collapse border border-[#62BCB1] text-center">
+                                            {{ $kms->berat_badan }}
+                                        </td>
+                                        <td class="border-collapse border border-[#62BCB1] text-center">
+                                            {{ $kms->imunisasi ? $kms->imunisasi : '-' }}</td>
+                                        <td class="border-collapse border border-[#62BCB1] text-center">
+                                            {{ $kms->kategori }}</td>
+                                        <td class="border-collapse border border-[#62BCB1] text-center py-2 px-4">
+                                            <!-- Tombol Edit -->
+                                            <button type="button"
+                                                onclick="openEditModal('{{ $kms->id }}', '{{ $kms->tanggal }}', '{{ $kms->tinggi_badan }}', '{{ $kms->berat_badan }}', '{{ $kms->imunisasi }}', '{{ $kms->kategori }}')"
+                                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-teal-600 transition">
+                                                <i class="fas fa-edit"></i>
+                                                <span>Edit</span>
                                             </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
+
+                                            <!-- Tombol Hapus -->
+                                            <form id="delete-form-{{ $kms->id }}"
+                                                action="{{ route('kms.destroy', $kms->id) }}" method="POST"
+                                                style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" onclick="confirmDelete({{ $kms->id }})"
+                                                    class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                    <span>Hapus</span>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
                                 <tr>
                                     <td colspan="7" class="text-center text-gray-500">Belum ada data KMS untuk bayi
                                         ini.</td>
                                 </tr>
-                            @endforelse
+                            @endif
                         </tbody>
                     </table>
 
@@ -284,7 +287,7 @@
 
         <!-- Grafik KMS -->
         @if ($kmsData->count())
-        <x-grafik-kms :bayiList="$bayiList" :kmsData="$kmsData" :selectedBayiNik="$selectedBayiNik" />
+            <x-grafik-kms :bayiList="$bayiList" :kmsData="$kmsData" :selectedBayiNik="$selectedBayiNik" />
         @endif
     </div>
 
