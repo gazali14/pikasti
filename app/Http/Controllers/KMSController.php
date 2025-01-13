@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\KMS;
 use App\Models\Bayi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class KMSController extends Controller
 {
@@ -14,15 +15,16 @@ class KMSController extends Controller
     public function index()
     {
         try {
+            $selectedKader = Auth::guard('kader')->user();
             $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
             $kmsData = collect([]); // Data KMS kosong di awal
             $kmsDataPaginate = collect([]); // Data KMS kosong di awal
             $selectedBayiNik = null;
 
-            return view('kader.kms', compact('bayiList', 'kmsData', 'kmsDataPaginate', 'selectedBayiNik'));
+            return view('kader.kms', compact('bayiList', 'kmsData', 'kmsDataPaginate', 'selectedBayiNik', 'selectedKader'));
         } catch (\Exception $e) {
             Log::error('Kesalahan saat memuat halaman KMS: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat halaman.');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat halaman: ' . $e->getMessage());
         }
     }
 
@@ -30,6 +32,7 @@ class KMSController extends Controller
     public function show($nik)
     {
         try {
+            $selectedKader = Auth::guard('kader')->user();
             $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
             $selectedBayi = Bayi::where('nik', $nik)->first();
     
@@ -62,10 +65,11 @@ class KMSController extends Controller
                 'kmsDataPaginate' => $paginator, // Tetap gunakan paginator di view
                 'selectedBayi' => $selectedBayi,
                 'selectedBayiNik' => $selectedBayiNik,
+                'selectedKader' => $selectedKader,
             ]);
         } catch (\Exception $e) {
             Log::error('Kesalahan saat memuat data KMS: ' . $e->getMessage());
-            return redirect()->route('kms.index')->with('error', 'Terjadi kesalahan saat memuat data KMS.');
+            return redirect()->route('kms.index')->with('error', 'Terjadi kesalahan saat memuat data KMS: ' . $e->getMessage());
         }
     }
     
@@ -98,7 +102,7 @@ class KMSController extends Controller
             return redirect()->back()->with('success', 'Data KMS berhasil ditambahkan!');
         } catch (\Exception $e) {
             Log::error('Kesalahan saat menambahkan data KMS: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menambahkan data KMS.' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menambahkan data KMS: ' . $e->getMessage());
         }
     }
 
@@ -127,7 +131,7 @@ class KMSController extends Controller
             return redirect()->back()->with('success', 'Data KMS berhasil diperbarui!');
         } catch (\Exception $e) {
             Log::error('Kesalahan saat memperbarui data KMS: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data KMS.');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data KMS: ' . $e->getMessage());
         }
     }
 
@@ -141,7 +145,7 @@ class KMSController extends Controller
             return redirect()->back()->with('success', 'Data KMS berhasil dihapus!');
         } catch (\Exception $e) {
             Log::error('Kesalahan saat menghapus data KMS: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data KMS.');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data KMS: ' . $e->getMessage());
         }
     }
 

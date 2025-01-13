@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Pikasti</title>
-    <meta name="author" content="David Grzyb">
+    <meta name="author" content="Tim 2 RPL">
     <meta name="description" content="">
     <link rel="icon" type="image/png" href="{{ asset('img/logo2.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">

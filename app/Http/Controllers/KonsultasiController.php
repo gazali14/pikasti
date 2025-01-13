@@ -2,27 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Konsultasi;
+use Carbon\Carbon; 
 use App\Models\Bayi;
+use App\Models\Konsultasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Carbon\Carbon; 
+use Illuminate\Support\Facades\Auth;
 
 class KonsultasiController extends Controller
 {
     // Menampilkan halaman utama
     public function index()
     {
+        $selectedKader = Auth::guard('kader')->user();
         $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
         $konsultasiData = []; // Data Konsultasi kosong di awal
         $selectedBayiNik = null;
 
-        return view('kader.konsultasi', compact('bayiList', 'konsultasiData', 'selectedBayiNik'));
+        return view('kader.konsultasi', compact('bayiList', 'konsultasiData', 'selectedBayiNik', 'selectedKader'));
     }
 
     // Menampilkan data konsultasi berdasarkan NIK bayi
     public function show($nik)
     {
+        $selectedKader = Auth::guard('kader')->user();
         $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
         $selectedBayi = Bayi::where('nik', $nik)->first(); // Data bayi yang dipilih
 
@@ -43,7 +46,7 @@ class KonsultasiController extends Controller
 
 
         $selectedBayiNik = $nik;
-        return view('kader.konsultasi', compact('bayiList', 'konsultasiData','selectedBayi', 'selectedBayiNik'));
+        return view('kader.konsultasi', compact('bayiList', 'konsultasiData','selectedBayi', 'selectedBayiNik', 'selectedKader'));
     }
 
 

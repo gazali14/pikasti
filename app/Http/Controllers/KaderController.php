@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bayi;
-use App\Models\Jadwal; // Import model Jadwal
-use Illuminate\Http\Request;
-use App\Models\Kehadiran;
-use App\Models\KehadiranKader;
 use Carbon\Carbon;
+use App\Models\Bayi;
+use App\Models\Kehadiran;
+use Illuminate\Http\Request;
+use App\Models\KehadiranKader;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Jadwal; // Import model Jadwal
 
 // Set locale ke Indonesia
 Carbon::setLocale('id');
@@ -21,6 +22,8 @@ class KaderController extends Controller
      */
     public function index(Request $request)
     {
+        $selectedKader = Auth::guard('kader')->user();
+        
         // Ambil semua bayi atau hasil pencarian berdasarkan nama
         $bayis = Bayi::query();
 
@@ -39,11 +42,13 @@ class KaderController extends Controller
         });
 
         // Kirim data ke view
-        return view('kader.presensi_bayi', compact('jadwal'));
+        return view('kader.presensi_bayi', compact('jadwal', 'selectedKader'));
     }
 
     public function cekPresensi(Request $request, $id_kegiatan)
     {
+        $selectedKader = Auth::guard('kader')->user();
+
         // Cari jadwal berdasarkan ID
         $jadwal = Jadwal::findOrFail($id_kegiatan);
 
@@ -65,7 +70,7 @@ class KaderController extends Controller
             : null;
 
         // Kirimkan data ke view
-        return view('kader.cek_presensi', compact('bayis', 'jadwal', 'kehadiran', 'message'));
+        return view('kader.cek_presensi', compact('bayis', 'jadwal', 'kehadiran', 'message', 'selectedKader'));
     }
 
     

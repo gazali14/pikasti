@@ -1,4 +1,4 @@
-<x-layout-kader>
+<x-layout-kader :selectedKader='$selectedKader'>
     <div class="text-center my-4">
         <h1 class="text-3xl font-bold mx-5">Konsultasi</h1>
     </div>

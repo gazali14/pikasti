@@ -1,4 +1,4 @@
-<x-layout-kader>
+<x-layout-kader :selectedKader='$selectedKader'>
     <!-- Judul Halaman -->
     <div class="text-center my-4">
         <h1 class="text-3xl font-bold mx-5">Pemberian Makanan Tambahan (PMT)</h1>

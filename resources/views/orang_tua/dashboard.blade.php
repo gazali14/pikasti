@@ -122,15 +122,6 @@
                 
                         // Buat grafik pertama kali
                         createChart();
-                
-                        // Fungsi debounce untuk resize
-                        // let resizeTimeout;
-                        // window.addEventListener('resize', () => {
-                        //     clearTimeout(resizeTimeout);
-                        //     resizeTimeout = setTimeout(() => {
-                        //         createChart(); // Render ulang grafik saat resize selesai
-                        //     }, 300); // Render ulang hanya setelah 300ms tidak ada resize
-                        // });
                     });
                 </script>
                 
@@ -185,6 +176,7 @@
                             },
                             options: {
                                 responsive: true,
+                                maintainAspectRatio: false, // Supaya grafik berubah ukuran sesuai container
                                 plugins: {
                                     legend: {
                                         display: false

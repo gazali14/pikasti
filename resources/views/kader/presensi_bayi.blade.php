@@ -1,4 +1,4 @@
-<x-layout-kader>
+<x-layout-kader :selectedKader='$selectedKader'>
   <!DOCTYPE html>
   <html lang="id">
   <head>

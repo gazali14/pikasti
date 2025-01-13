@@ -56,11 +56,16 @@
         <div class="flex flex-col items-center justify-center mb-15 mt-10">
             <section class="w-full max-w-[800px]">
                 <div class="border-l-4 border-[#7ea9a4] ml-3 mt-3 py-16 space-y-14">
-
-                    @forelse($jadwal as $item)
+                    @forelse($jadwal as $index => $item)
+                        @php
+                            // Hitung opasitas warna berdasarkan indeks (misalnya 1.0 untuk elemen pertama, 0.8 untuk elemen berikutnya)
+                            $opacity = 1 - ($index * 0.2); 
+                            $opacity = max($opacity, 0.5); // Jangan terlalu pudar, minimum opasitas 0.7
+                        @endphp
                         <div class="relative">
                             <div class="absolute top-0 -left-3.5 bg-[#7ea9a4] h-6 w-6 rounded-full"></div>
-                            <div class="pl-10 border-3 border-gray-300 p-6 bg-[#41a99d] rounded-lg ml-5 shadow-inner">
+                            <div class="pl-10 border-3 border-gray-300 p-6 rounded-lg ml-5 shadow-inner"
+                                style="background-color: rgba(65, 169, 157, {{ $opacity }});">
                                 <h3 class="text-2xl sm:text-3xl text-white font-semibold tracking-wide mb-2">
                                     {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
                                 </h3>
@@ -73,7 +78,6 @@
                     @empty
                         <p class="text-center text-gray-500">Belum ada jadwal yang tersedia.</p>
                     @endforelse
-
                 </div>
             </section>
         </div>

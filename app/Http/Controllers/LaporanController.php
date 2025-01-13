@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Vitamin;
-use App\Models\Bayi;
-use App\Models\kms;
-use App\Models\KehadiranKader;
-use App\Models\Kehadiran;
-use App\Models\PMT;
 use Carbon\Carbon;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\LaporanExport;
+use App\Models\kms;
+use App\Models\PMT;
+use App\Models\Bayi;
 use App\Models\Jadwal;
+use App\Models\Vitamin;
+use App\Models\Kehadiran;
+use Illuminate\Http\Request;
+use App\Exports\LaporanExport;
+use App\Models\KehadiranKader;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanController extends Controller
 {
     public function index(Request $request)
     {
+        $selectedKader = Auth::guard('kader')->user();
         // Ambil tanggal dari input, default ke hari ini jika tidak ada
         $tanggal = $request->input('tanggal', Carbon::today()->toDateString());
 
@@ -362,7 +364,7 @@ class LaporanController extends Controller
             'bayi_6_11_bulan' => $bayi_6_11_bulan,
             'bayi_12_23_bulan' => $bayi_12_23_bulan,
             'bayi_24_59_bulan' => $bayi_24_59_bulan,
-            
+            'selectedKader' => $selectedKader,
         ]);
     }
 

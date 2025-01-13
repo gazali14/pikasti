@@ -1,4 +1,4 @@
-<x-layout-kader>
+<x-layout-kader :selectedKader='$selectedKader'>
     <div class="p-6 bg-[#EEFFF8] min-h-screen">
         <!-- Filter Section -->
         <x-filters :namaKegiatan="$namaKegiatan" />

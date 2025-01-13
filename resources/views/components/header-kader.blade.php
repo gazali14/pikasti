@@ -1,3 +1,4 @@
+@props(['selectedKader'])
 <!-- Header Component -->
 <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
     <div class="w-1/2"></div>
@@ -5,8 +6,8 @@
         <button @click="isOpen = !isOpen"
             class="relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
             <img class="w-10 rounded-full object-cover"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt="">
+                src="{{ $selectedKader->foto ? asset('storage/' . $selectedKader->foto) : asset('img/Profile.png') }}"
+                alt="{{ $selectedKader -> nama }}">
         </button>
         <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
         <div x-show="isOpen" x-transition class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">

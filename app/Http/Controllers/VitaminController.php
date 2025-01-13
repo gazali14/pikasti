@@ -2,27 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vitamin;
+use Carbon\Carbon; 
 use App\Models\Bayi;
+use App\Models\Vitamin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Carbon\Carbon; 
+use Illuminate\Support\Facades\Auth;
 
 class VitaminController extends Controller
 {
     // Menampilkan halaman utama
     public function index()
     {
+        $selectedKader = Auth::guard('kader')->user();
         $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
         $vitaminData = []; // Data vitamin kosong di awal
         $selectedBayiNik = null;
 
-        return view('kader.vitamin', compact('bayiList', 'vitaminData', 'selectedBayiNik'));
+        return view('kader.vitamin', compact('bayiList', 'vitaminData', 'selectedBayiNik', 'selectedKader'));
     }
 
     // Menampilkan data vitamin berdasarkan NIK bayi
     public function show($nik)
     {
+        $selectedKader = Auth::guard('kader')->user();
         $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
         $selectedBayi = Bayi::where('nik', $nik)->first(); // Data bayi yang dipilih
 
@@ -43,7 +46,7 @@ class VitaminController extends Controller
 
 
         $selectedBayiNik = $nik;
-        return view('kader.vitamin', compact('bayiList', 'vitaminData','selectedBayi', 'selectedBayiNik'));
+        return view('kader.vitamin', compact('bayiList', 'vitaminData','selectedBayi', 'selectedBayiNik', 'selectedKader'));
     }
 
 

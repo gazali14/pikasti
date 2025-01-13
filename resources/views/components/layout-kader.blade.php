@@ -1,3 +1,5 @@
+@props(['selectedKader'])
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kader Pikasti</title>
-    <meta name="author" content="David Grzyb">
+    <meta name="author" content="Tim 2 RPL">
     <meta name="description" content="">
     <link rel="icon" type="image/png" href="{{ asset('img/logo2.png') }}">
 
@@ -43,7 +45,7 @@
 <body class="bg-green-50 font-family-karla flex ">
     <x-sidebar-kader></x-sidebar-kader>
     <div class="relative w-full flex flex-col h-screen">
-        <x-header-kader></x-header-kader>
+        <x-header-kader :selectedKader="$selectedKader"></x-header-kader>
         <main class="w-full flex-grow p-6 overflow-y-auto bg-[#EEFFF8]">
             {{ $slot }}
         </main>

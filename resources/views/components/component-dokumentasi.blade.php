@@ -37,6 +37,12 @@
             <p class="text-center text-gray-500 col-span-full">Belum ada dokumentasi kegiatan yang tersedia.</p>
         @endforelse
     </div>
+
+    @if (method_exists($dokumentasis, 'links'))
+        <div class="mt-4">
+            {{ $dokumentasis->links('vendor.pagination.tailwind') }}
+        </div>
+    @endif
 </div>
 
 {{-- MODAL POP-UP --}}

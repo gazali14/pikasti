@@ -3,26 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\PMT;
+use Carbon\Carbon; 
 use App\Models\Bayi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Carbon\Carbon; 
+use Illuminate\Support\Facades\Auth;
 
 class PMTController extends Controller
 {
     // Menampilkan halaman utama
     public function index()
     {
+        $selectedKader = Auth::guard('kader')->user();
         $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
         $pmtData = []; // Data PMT kosong di awal
         $selectedBayiNik = null;
 
-        return view('kader.pmt', compact('bayiList', 'pmtData', 'selectedBayiNik'));
+        return view('kader.pmt', compact('bayiList', 'pmtData', 'selectedBayiNik', 'selectedKader'));
     }
 
     // Menampilkan data PMT berdasarkan NIK bayi
     public function show($nik)
     {
+        $selectedKader = Auth::guard('kader')->user();
         $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
         $selectedBayi = Bayi::where('nik', $nik)->first(); // Data bayi yang dipilih
 
@@ -43,7 +46,7 @@ class PMTController extends Controller
 
 
         $selectedBayiNik = $nik;
-        return view('kader.pmt', compact('bayiList', 'pmtData','selectedBayi', 'selectedBayiNik'));
+        return view('kader.pmt', compact('bayiList', 'pmtData','selectedBayi', 'selectedBayiNik', 'selectedKader'));
     }
 
 

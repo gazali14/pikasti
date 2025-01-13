@@ -10,7 +10,7 @@ class HalamanDokumentasiController extends Controller
     public function index()
     {
         // Ambil data dokumentasi dari database
-        $dokumentasis = Dokumentasi::orderBy('tanggal', 'desc')->get();
+        $dokumentasis = Dokumentasi::orderBy('tanggal', 'desc')->paginate(6);
 
         // Kirim data ke view
         return view('orang_tua/before_login/dokumentasi', compact('dokumentasis'));

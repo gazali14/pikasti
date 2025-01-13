@@ -1,1 +1,1 @@
-<x-layout-kader></x-layout-kader>
+<x-layout-kader :selectedKader='$selectedKader'></x-layout-kader>
