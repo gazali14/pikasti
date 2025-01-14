@@ -4,7 +4,7 @@
     <p>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 justify-between">
         {{-- Data Bayi --}}
-        <div class="p-4 border rounded-lg shadow-md bg-[#f3f3f3]">
+        <div class="p-4 border rounded-lg shadow-md bg-[#ffff]">
             <div class="flex items-center justify-between text-sm">
                 <div class="font-bold text-lg">
                     Data Bayi
@@ -43,7 +43,7 @@
         </div>
 
         {{-- Grafik Tinggi Badan Bayi --}}
-        <div class="p-4 border rounded-lg shadow-md bg-[#f3f3f3]">
+        <div class="p-4 border rounded-lg shadow-md bg-[#ffff]">
             <div class="flex items-center justify-between text-sm">
                 <div class="text-left font-bold text-lg">
                     Tinggi Badan
@@ -53,7 +53,7 @@
             <p class="text-sm">Bulan ini:
                 <span class="text-lg font-semibold">{{ $kmsData->last()?->tinggi_badan ?? '-' }} cm</span>
             </p>
-            <div class="bg-white p-3 rounded-lg">
+            <div class="bg-white p-3 rounded-lg border-2 border-[#f3f3f3]" >
                 <div class="overflow-x-auto">
                     <canvas id="heightChart" class="w-full max-h-[400px]"></canvas>
                 </div>
@@ -134,7 +134,7 @@
         </div>
 
         {{-- Grafik Berat Badan Bayi --}}
-        <div class="p-4 border rounded-lg shadow-md bg-[#f3f3f3]">
+        <div class="p-4 border rounded-lg shadow-md bg-[#ffff]">
             <div class="flex items-center justify-between text-sm">
                 <div class="text-left font-bold text-lg">
                     Berat Badan
@@ -146,7 +146,7 @@
             </p>
             <div>
                 <!--Grafik BB -->
-                <div class="bg-white p-3 rounded-lg">
+                <div class="bg-white p-3 rounded-lg border-2 border-[#f3f3f3]">
                     <canvas id="weightChart"></canvas>
                 </div>
 
