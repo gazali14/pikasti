@@ -11,105 +11,84 @@ use Carbon\Carbon;
 
 class AdminKelolaJadwalController extends Controller
 {
-    /**
-     * Menampilkan halaman kelola jadwal.
-     */
-    public function index()
+    public function index(Request $request)
     {
         $selectedKader = Auth::guard('kader')->user();
-        // Ambil semua data jadwal dari database
-        $jadwals = Jadwal::orderBy('tanggal', 'desc')->paginate(10);
+        $search = $request->input('search');
+        $jadwals = Jadwal::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama_kegiatan', 'LIKE', "%{$search}%");
+            })
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('waktu', 'desc')
+            ->paginate(5);
+
         return view('admin.kelola_jadwal', compact('jadwals', 'selectedKader'));
     }
 
-    /**
-     * Menyimpan jadwal baru ke database.
-     */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama_kegiatan' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'waktu' => 'required|date_format:H:i',
-        ]);
-
-        // Format tanggal ke Y-m-d agar hanya tanggal yang disimpan
-        $validated['tanggal'] = Carbon::parse($validated['tanggal'])->format('Y-m-d');
-
-        Jadwal::create($validated);
-        return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil ditambahkan!');
-    }
-
-    public function destroy(Jadwal $jadwal)
-    {
         try {
-            // Coba hapus data jadwal
-            $jadwal->delete();
+            $validated = $request->validate([
+                'nama_kegiatan' => 'required|string|max:255',
+                'tanggal' => 'required|date',
+                'waktu' => 'required|date_format:H:i',
+            ]);
 
-            return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil dihapus!');
-        } catch (\Illuminate\Database\QueryException $e) {
-            // Tangkap error jika ada foreign key constraint
-            return redirect()->route('jadwal.index')
-                ->with('error', 'Jadwal tidak bisa dihapus karena masih memiliki keterkaitan dengan data lain.');
+            // Format tanggal ke Y-m-d agar hanya tanggal yang disimpan
+            $validated['tanggal'] = Carbon::parse($validated['tanggal'])->format('Y-m-d');
+
+            Jadwal::create($validated);
+            return redirect()->route('kelola_jadwal.index')->with('success', 'Jadwal berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
-
-
-
-    public function search(Request $request)
-    {
-        $searchQuery = $request->input('search');
-
-        // Pencarian di database
-        $jadwals = Jadwal::where('nama_kegiatan', 'like', "%$searchQuery%")
-            ->orWhere('tanggal', 'like', "%$searchQuery%")
-            ->orWhere('waktu', 'like', "%$searchQuery%")
-            ->paginate(10);
-
-        // Kembalikan hasil pencarian ke view
-        return view('admin.kelola_jadwal', compact('jadwals'));
-    }
-    /**
-     * Menampilkan form untuk mengedit jadwal.
-     */
-    public function edit($id)
-    {
-        // Cari jadwal berdasarkan ID
-        $jadwal = Jadwal::findOrFail($id);
-
-        // Tampilkan form edit dengan data jadwal
-        return view('admin.edit_jadwal', compact('jadwal'));
-    }
-
-    /**
-     * Mengupdate jadwal yang ada berdasarkan ID.
-     */
     public function update(Request $request, $id)
     {
-        // Validasi data yang diterima
-        $validated = $request->validate([
-            'nama_kegiatan' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'waktu' => 'required|date_format:H:i',
-        ]);
+        try {
+            $validated = $request->validate([
+                'nama_kegiatan' => 'required|string|max:255',
+                'tanggal' => 'required|date',
+                'waktu' => 'required|date_format:H:i',
+            ]);
 
-        // Format tanggal ke Y-m-d agar hanya tanggal yang disimpan
-        $validated['tanggal'] = Carbon::parse($validated['tanggal'])->format('Y-m-d');
+            $jadwal = Jadwal::findOrFail($id);
 
-        // Cari jadwal berdasarkan ID
-        $jadwal = Jadwal::findOrFail($id);
 
-        // Update data jadwal
-        $jadwal->nama_kegiatan = $validated['nama_kegiatan'];
-        $jadwal->tanggal = $validated['tanggal'];
-        $jadwal->waktu = $validated['waktu'];
+            $jadwal->update([
+                'nama_kegiatan' => $validated['nama_kegiatan'],
+                'tanggal' => $validated['tanggal'],
+                'waktu' => $validated['waktu'],
+            ]);
 
-        // Simpan perubahan ke database
-        $jadwal->save();
-
-        // Redirect kembali ke halaman kelola jadwal dengan pesan sukses
-        return redirect()->route('jadwal.indeks')->with('success', 'Jadwal berhasil diperbarui!');
+            return redirect()->route('kelola_jadwal.index')->with('success', 'Jadwal berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
+    public function destroy($id)
+    {
+        try {
+            $jadwal = jadwal::findOrFail($id);
+
+            $jadwal->delete();
+
+            return redirect()->route('kelola_jadwal.index')->with('success', 'Dokumentasi berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    public function edit($id)
+    {
+        try {
+            $jadwal = Jadwal::findOrFail($id);
+            return response()->json($jadwal);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
+    }
 }

@@ -10,10 +10,10 @@
                         <!-- Container untuk search box dan tombol tambah -->
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                             <!-- Form pencarian -->
-                            <form method="GET" action="{{ route('jadwal.search') }}">
-                                <input type="text" id="search" name="search"
+                            <form class="shrink-0">
+                                <input type="search" id="default-search"
                                     class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"
-                                    placeholder="Cari Jadwal Posyandu" />
+                                    placeholder="Cari Dokumentasi" required />
                             </form>
 
                             <!-- Tombol tambah -->
@@ -63,7 +63,7 @@
                                                         <span>Edit</span>
                                                     </button>
                                                     <!-- Tombol Hapus dengan SweetAlert -->
-                                                    <form action="{{ route('jadwal.destroy', $jadwal->id) }}"
+                                                    <form action="{{ route('kelola_jadwal.destroy', $jadwal->id) }}"
                                                         method="POST" class="delete-form inline">
                                                         @csrf
                                                         @method('DELETE')
@@ -95,7 +95,7 @@
             <div
                 class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-md w-2/4 shadow-lg">
                 <h2 id="popupTitle" class="text-xl text-center font-bold mb-4"></h2>
-                <form id="popupInputForm" action="{{ route('jadwal.store') }}" method="POST">
+                <form id="popupInputForm" action="{{ route('kelola_jadwal.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
                         <label class="block mb-2 text-sm font-bold text-black-700" for="namaKegiatan">Nama
@@ -150,7 +150,7 @@
             let form = document.getElementById('popupInputForm');
             if (id) {
                 // Mode Edit
-                form.action = `/admin/jadwal/${id}`;
+                form.action = `/admin/kelola_jadwal/${id}`;
                 form.method = 'POST';
                 let methodInput = document.createElement('input');
                 methodInput.type = 'hidden';
@@ -159,7 +159,7 @@
                 form.appendChild(methodInput);
             } else {
                 // Mode Tambah
-                form.action = '{{ route('jadwal.store') }}';
+                form.action = '{{ route('kelola_jadwal.store') }}';
                 form.method = 'POST';
             }
 
@@ -190,22 +190,51 @@
             });
         });
 
-        document.getElementById('search').addEventListener('input', function() {
-            let searchQuery = this.value.toLowerCase();
-            let rows = document.querySelectorAll('#jadwalPosyanduTable tbody tr');
-
-            rows.forEach((row) => {
-                let namaKegiatan = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
-                let tanggal = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                let jamPelayanan = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
-
-                if (namaKegiatan.includes(searchQuery) || tanggal.includes(searchQuery) || jamPelayanan
-                    .includes(searchQuery)) {
-                    row.style.display = ''; // Tampilkan baris
-                } else {
-                    row.style.display = 'none'; // Sembunyikan baris yang tidak sesuai
-                }
+          // Notifikasi sukses menambahkan data kader
+          document.addEventListener('DOMContentLoaded', function() {
+                @if (session('success'))
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end', // Lokasi di kanan atas
+                        icon: 'success',
+                        title: "{{ session('success') }}",
+                        showConfirmButton: false, // Tidak ada tombol
+                        timer: 3000, // Menghilang setelah 3 detik
+                        timerProgressBar: true, // Menampilkan progress bar
+                    });
+                @endif
             });
-        });
+
+            // Notifikasi error
+            document.addEventListener('DOMContentLoaded', function() {
+                @if (session('error'))
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end', // Lokasi di kanan atas
+                        icon: 'error',
+                        title: "{{ session('error') }}",
+                        showConfirmButton: false, // Tidak ada tombol
+                        timer: 5000, // Menghilang setelah 3 detik
+                        timerProgressBar: true, // Menampilkan progress bar
+                    });
+                @endif
+            });
+
+            // Pencarian dengan AJAX
+            document.getElementById('default-search').addEventListener('input', function() {
+                const search = this.value;
+
+                fetch(`{{ route('kelola_jadwal.index') }}?search=${search}`)
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const tbody = doc.querySelector('tbody');
+                        document.querySelector('tbody').innerHTML = tbody.innerHTML;
+
+                        // Reapply event listeners for dynamically updated rows
+                        attachRowEventListeners();
+                    });
+            });
     </script>
 </x-layout-admin>

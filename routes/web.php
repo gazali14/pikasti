@@ -61,12 +61,8 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
     //     return view('admin.kelola_jadwal');
     // })->name('admin.kelola_jadwal');
 
-    Route::get('/jadwal/search', [AdminKelolaJadwalController::class, 'search'])->name('jadwal.search');
-    Route::resource('jadwal', AdminKelolaJadwalController::class);
-    Route::put('/jadwal/{id}', [AdminKelolaJadwalController::class, 'update'])->name('jadwal.update');
-    Route::get('/kelola_jadwal', [AdminKelolaJadwalController::class, 'index'])->name('jadwal.indeks');
-    Route::post('/jadwal', [AdminKelolaJadwalController::class, 'store'])->name("jadwal.store");
-    Route::delete('/jadwal/{jadwal}', [AdminKelolaJadwalController::class, 'destroy'])->name("jadwal.destroy");
+    // Semua route RESTful sudah didefinisikan oleh Route::resource
+    Route::resource('kelola_jadwal', AdminKelolaJadwalController::class);
 
     // Route::get('/kelola_kader', function () {
     //     return view('admin.kelola_kader');
