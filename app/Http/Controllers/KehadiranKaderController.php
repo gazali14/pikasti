@@ -167,4 +167,26 @@ class KehadiranKaderController extends Controller
         ]);
     }
 
+    public function searchKegiatanKader(Request $request)
+    {
+        $search = $request->input('search');
+    
+        // Query jadwal berdasarkan pencarian
+        $jadwals = Jadwal::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama_kegiatan', 'LIKE', '%' . $search . '%');
+            })
+            ->orderBy('tanggal', 'asc')
+            ->get();
+    
+        // Jika permintaan adalah AJAX, kembalikan data sebagai JSON
+        if ($request->ajax()) {
+            return response()->json(['jadwals' => $jadwals]);
+        }
+    
+        // Render view untuk permintaan biasa
+        return view('admin.presensi_kader', compact('jadwals'));
+    }
+    
+
 }
