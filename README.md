@@ -1,66 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SISTEM MANAJEMEN PELAYANAN POSYANDU PIKASTI
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Proyek ini bertujuan untuk membangun sistem informasi Posyandu berbasis web menggunakan Laravel 11. Sistem ini dirancang untuk mempermudah kader Posyandu dalam mengelola data bayi, termasuk kehadiran bayi, mencatat perkembangan kesehatan bayi melalui Kartu Menuju Sehat (KMS), serta menyediakan laporan perkembangan bayi secara terstruktur. Pada sistem ini terdapat 3 role pengguna, yaitu admin, kader, dan orang tua bayi. 
+Orang Tua bayi dapat melihat informasi umum seputar posyandu pikasti serta dapat melihat kartu KMS bayi yang dimiliki. Admin memiliki peran untuk mengelola akun kader dan bayi, serta melakukan konfigurasi penting pada sistem seperti pengelolaan jadwal kegiatan posyandu. Sedangkan kader dapat mencatat data kesehatan bayi, memantau perkembangan, dan membuat laporan. 
+Dengan adanya sistem ini, diharapkan proses pencatatan, pelaporan, dan pemantauan perkembangan bayi menjadi lebih efisien, akurat, dan mudah diakses, sehingga meningkatkan kualitas layanan Posyandu bagi masyarakat.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Login
+1. **Login**: Autentikasi login untuk admin, kader, dan bayi.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Halaman Orang Tua Bayi
+1. **Home** : Halaman awal saat pengguna membuka sistm.
+2. **Jadwal** : Menampilkan jadwal kegiatan posyandu selama setahun.
+3. **Profil Kader** : Menampilkan data kader yang bekerja di Posyandu Pikasti
+4. **Dokumentasi** : Menampilakn foto/dokumentasi kegiatan yang ada di Posyandu Pikasti.
+5. **Dashboard** : Menampilkan data perkembangan kondisi bayi.
 
-## Learning Laravel
+### Halaman Kader 
+1. **Dashboard** : Menampilkan grafik kehadiran, rata-rata tinggi badan, dan rata-rata berat badan bayi tiap kegiatan.
+2. **Presensi Bayi** : Mencatat bayi yang hadir sesuai dengan kegiatan yang dilaksanakan.
+3. **Pendataan Kondisi Bayi** : Input, pembaruan, dan penghapusan untuk pengukuran tinggi badan, berat badan, imunisasi, serta menampilkan Kartu Menuju Sehat(KMS) tiap bayi.
+4. **Vitamin dan PMT** : Input, pembaruan, dan penghapusan untuk pemberian vitamin dan makanan tambahan kepada bayi.
+5. **Laporan** : Menampilkan dan mengenerate laporan summary pada setiap kegiatan dengan ekstensi .xlsx.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Halaman Admin
+1. **Dashboard** : Menampilkan grafik kehadiiran kader pada tahun terkini.
+2. **Kelola Kohort Bayi** : Mengelola akun bayi sekaligus mendaftarkan bayi pada Posyandu Pikasti.
+3. **Kelola Kader** : Mengelola akun kader sekaligus mendata seluruh kader yang bekerja di Posyandu Pikasti.
+4. **Presensi Kader** : Mencatat kader yang hadir pada jadwal kegiatan Posyandu Pikasti.
+5. **Kelola Jadwal** : Input, pembaruan, dan penghapusan jadwal kegiatan Posyandu Pikasti.
+6. **Kelola Dokumentasi** : Input, pembaruan, dan penghapusan dokumentasi kegiatan Posyandu Pikasti.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Struktur Direktori
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Berikut adalah struktur direktori utama dari repositori proyek ini beserta deskripsinya:
 
-## Laravel Sponsors
+```
+.
+├── app/              # Berisi logika aplikasi, seperti controller, model, dan middleware
+│   ├── Exports/      # Kelas untuk menangani ekspor data (misalnya ke Excel atau CSV)
+│   ├── Http/
+│   │   ├── Controllers/  # Controller aplikasi
+│   │   └── Middleware/   # Middleware aplikasi
+│   ├── Models/           # Model database
+│   └── ...
+├── bootstrap/        # File bootstrap untuk memulai aplikasi
+├── config/           # File konfigurasi aplikasi
+├── database/         # Berisi migrasi, seeder, dan factory untuk database
+│   ├── migrations/   # Skrip migrasi database
+│   ├── seeds/        # Seeder untuk data awal
+│   ├── database.sqlite # Database yang digunakan pada sistem
+│   └── factories/    # Factory untuk membuat data dummy (jika diperlukan)
+├── public/           # File publik seperti CSS, JavaScript, dan gambar
+├── resources/        # Template view dan file resource lainnya
+│   ├── views/        # Blade template
+│   │   ├── admin/        # Source code view untuk halaman admin
+│   │   ├── components/   # Komponen tampilan yang dapat digunakan ulang
+│   │   ├── kader/        # Source code view untuk halaman kader
+│   │   └── orang_tua/    # Source code view halaman pengguna bayi
+│   ├── css/          # File untuk lokalitas CSS (tidak dapat dilihat publik)
+│   └── ...
+├── routes/           # File untuk mendefinisikan rute aplikasi
+│   ├── web.php       # Rute untuk web
+│   ├── api.php       # Rute untuk API
+├── storage/          # File yang dihasilkan aplikasi seperti log atau cache
+├── tests/            # File untuk pengujian aplikasi
+├── vendor/           # Direktori yang berisi dependency Composer
+├── .env.example      # Contoh file konfigurasi lingkungan
+├── README.md         # Dokumentasi proyek
+├── .gitignore        # File untuk menentukan file atau folder yang diabaikan oleh Git
+├── tailwind.config.js# Konfigurasi Tailwind CSS
+├── vite.config.js    # Konfigurasi Vite untuk build frontend
+├── composer.json     # Konfigurasi dependency Composer
+├── package.json      # Konfigurasi dependency Node.js
+└── ...
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Panduan Instalasi
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lokal:
 
-## Contributing
+1. Clone repositori ini:
+   ```bash
+   git clone https://github.com/gazali14/pikasti.git
+   ```
+2. Masuk ke direktori proyek:
+   ```bash
+   cd repo-proyek
+   ```
+3. Instal dependency menggunakan Composer:
+   ```bash
+   composer install
+   ```
+4. Salin file `.env.example` menjadi `.env` dan konfigurasi sesuai kebutuhan Anda:
+   ```bash
+   cp .env.example .env
+   ```
+5. Generate kunci aplikasi:
+   ```bash
+   php artisan key:generate
+   ```
+6. Jalankan migrasi database:
+   ```bash
+   php artisan migrate
+   ```
+7. Jalankan server lokal:
+   ```bash
+   php artisan serve
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
