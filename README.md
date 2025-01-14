@@ -1,6 +1,6 @@
 # SISTEM MANAJEMEN PELAYANAN POSYANDU PIKASTI
 
-Proyek ini bertujuan untuk membangun sistem informasi Posyandu berbasis web menggunakan Laravel 11. Sistem ini dirancang untuk mempermudah kader Posyandu dalam mengelola data bayi, termasuk kehadiran bayi, mencatat perkembangan kesehatan bayi melalui Kartu Menuju Sehat (KMS), serta menyediakan laporan perkembangan bayi secara terstruktur. Pada sistem ini terdapat 3 role pengguna, yaitu admin, kader, dan orang tua bayi. 
+Proyek ini bertujuan untuk membangun sistem Manajemen Pelayanan Posyandu berbasis web menggunakan Laravel 11. Sistem ini dirancang untuk mempermudah kader Posyandu dalam mengelola data bayi, termasuk kehadiran bayi, mencatat perkembangan kesehatan bayi melalui Kartu Menuju Sehat (KMS), serta menyediakan laporan perkembangan bayi secara terstruktur. Pada sistem ini terdapat 3 role pengguna, yaitu admin, kader, dan orang tua bayi. 
 Orang Tua bayi dapat melihat informasi umum seputar posyandu pikasti serta dapat melihat kartu KMS bayi yang dimiliki. Admin memiliki peran untuk mengelola akun kader dan bayi, serta melakukan konfigurasi penting pada sistem seperti pengelolaan jadwal kegiatan posyandu. Sedangkan kader dapat mencatat data kesehatan bayi, memantau perkembangan, dan membuat laporan. 
 Dengan adanya sistem ini, diharapkan proses pencatatan, pelaporan, dan pemantauan perkembangan bayi menjadi lebih efisien, akurat, dan mudah diakses, sehingga meningkatkan kualitas layanan Posyandu bagi masyarakat.
 
