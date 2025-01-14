@@ -113,6 +113,26 @@ class KaderController extends Controller
         return redirect()->back()->with('success', 'Data presensi berhasil disimpan.');
     }
 
+    public function searchKegiatan(Request $request)
+    {
+        $search = $request->input('search');
+
+        // Query jadwal berdasarkan pencarian
+        $jadwals = Jadwal::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama_kegiatan', 'LIKE', '%' . $search . '%');
+            })
+            ->orderBy('tanggal', 'asc')
+            ->get();
+
+        // Jika permintaan adalah AJAX, kembalikan data sebagai JSON
+        if ($request->ajax()) {
+            return response()->json(['jadwals' => $jadwals]);
+        }
+
+        // Render view untuk permintaan biasa
+        return view('kader.presensi_bayi', compact('jadwals'));
+    }
 
 
 }
