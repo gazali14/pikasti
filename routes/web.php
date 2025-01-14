@@ -22,7 +22,7 @@ use App\Http\Controllers\AdminKelolaJadwalController;
 use App\Http\Controllers\HalamanDokumentasiController;
 use App\Http\Controllers\AdminKelolaDokumentasiController;
 use App\Http\Controllers\HalamanDashboardOrangTuaController;
-
+use App\Models\KehadiranKader;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
@@ -81,7 +81,7 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
     Route::get('/cek_presensi_kader/{id_kegiatan}', [KehadiranKaderController::class, 'cekPresensiKader'])->name('admin.cek_presensi_kader');
     //Route::post('/cek_presensi_kader/search', [KehadiranKaderController::class, 'search'])->name('admin.cek_presensi_kader.search');
     Route::post('/admin/cek-presensi-kader/save', [KehadiranKaderController::class, 'savePresensi'])->name('admin.cek_presensi_kader.save');
-
+    Route::get('/admin/presensi-kader/search', [KehadiranKaderController::class, 'searchKegiatanKader'])->name('admin.presensi_kader.searchKegiatanKader');
     Route::get('/admin/cek-presensi-bayi/{id}', [AdminPresensi::class, 'cekPresensiBayi'])->name('cek.presensi.bayi');
 
     // Semua route RESTful sudah didefinisikan oleh Route::resource
@@ -148,7 +148,7 @@ Route::prefix('kader')->middleware('auth:kader')->group(function () {
     Route::get('/cek_presensi/{id_kegiatan}', [KaderController::class, 'cekPresensi'])->name('kader.cek_presensi');
     //Route::post('/cek_presensi/search', [KaderController::class, 'search'])->name('kader.cek_presensi.search');
     Route::post('/kader/cek-presensi/save', [KaderController::class, 'savePresensi'])->name('kader.cek_presensi.save');
-    Route::get('/kader/presensi-bayi', [KaderController::class, 'presensiBayi'])->name('kader.presensi_bayi');
+    Route::get('/kader/presensi-bayi/search', [KaderController::class, 'searchKegiatan'])->name('kader.presensi_bayi.searchKegiatan');
 
 
 
