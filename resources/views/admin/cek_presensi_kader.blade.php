@@ -12,12 +12,13 @@
     <body id="cek-presensi" class="bg-[#E8F6F3] font-poppins m-0 p-0">
         <div class="flex mx-auto items-center relative my-4">
             <a href="/admin/presensi_kader"
-                class="flex px-2 py-2 text-sm mx-5 text-white bg-[#62BCB1] rounded-lg hover:bg-teal-600">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                </svg>
-            </a>
+                class="flex px-2 py-2 text-sm mx-5 text-white bg-[#62BCB1] rounded-lg hover:bg-teal-600"
+                style="position: relative; z-index: 1000;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </a>
             <div class="absolute inset-0 flex justify-center">
                 <h1 class="font-bold text-3xl">Presensi Kader</h1>
             </div>
