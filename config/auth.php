@@ -50,6 +50,10 @@ return [
             'driver' => 'session',
             'provider' => 'kaders',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins', // provider admin
+        ],
     ],
 
     /*
@@ -79,9 +83,13 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Bayi::class,
         ],
-            'kaders' => [
+        'kaders' => [
             'driver' => 'eloquent',
             'model' => App\Models\Kader::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Kader::class, // Ganti dengan model Admin yang sesuai
         ],
 
 

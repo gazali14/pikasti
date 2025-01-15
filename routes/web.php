@@ -24,6 +24,8 @@ use App\Http\Controllers\AdminKelolaDokumentasiController;
 use App\Http\Controllers\HalamanDashboardOrangTuaController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -38,6 +40,7 @@ Route::prefix('orang_tua/before_login')->group(function () {
     // Arahkan login ke LoginController
     Route::get('/login', [LoginController::class, 'index'])->name('orang_tua.before_login.login')->middleware('guest');
     Route::post('/login', [LoginController::class, 'login_proses'])->name('login-proses');
+    
 });
 
 // Routes for orang_tua after login (Authenticated)
@@ -50,12 +53,11 @@ Route::middleware('auth:bayi')->group(function () {
     Route::get('/dokumentasi', [HalamanDokumentasiController::class, 'index'])->name('orang_tua.before_login.dokumentasi');
     Route::get('/jadwal', [HalamanJadwalController::class, 'index'])->name('orang_tua.before_login.jadwal');
     Route::get('/profil_kader', [ProfilKaderController::class, 'index'])->name('orang_tua.before_login.profil_kader');
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 Route::get('/admin/count-by-month', [KehadiranKaderController::class, 'countKaderByMonth']);
 // Routes for admin
-Route::prefix('admin')->middleware('auth:kader')->group(function () {
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
     // Route untuk dashboard
     Route::get('/dashboard', function () {
         $selectedKader = Auth::guard('kader')->user();

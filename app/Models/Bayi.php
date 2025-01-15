@@ -7,12 +7,14 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Bayi extends Authenticatable
 {
     use Notifiable;
     use HasFactory;
 
     protected $table = 'bayis';
+    protected $guarded = [];
 
     public function kms()
     {

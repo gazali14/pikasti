@@ -1,11 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Kader;
 use App\Models\Bayi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class LoginController extends Controller
 {
@@ -24,9 +24,15 @@ class LoginController extends Controller
         ]);
 
         $credentials = $request->only('nik', 'password');
+        $remember = $request->has('remember');  // Cek apakah checkbox remember me dicentang
 
         // Login untuk bayi
         if (Auth::guard('bayi')->attempt($credentials)) {
+            if ($remember) {
+                // Generate token dan simpan dalam cookie
+                $token = bin2hex(random_bytes(32));  // Generate token yang cukup panjang dan aman
+                Cookie::queue('bayi_remember_token', $token, 60 * 24 * 7); // Cookie berlaku selama 7 hari
+            }
             return redirect()->intended(route('orang_tua.before_login.home'));
         }
 
@@ -51,16 +57,18 @@ class LoginController extends Controller
     // Logout
     public function logout(Request $request)
     {
-        // Logout dari semua guard
+        // Logout semua guard
         Auth::guard('bayi')->logout();
         Auth::guard('kader')->logout();
 
+        // Hapus cookie jika ada
+        Cookie::queue(Cookie::forget('bayi_remember_token'));
+
         // Hapus sesi dan regenerasi token CSRF
-        $request->session()->flush();
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         // Redirect ke halaman home
         return redirect()->route('orang_tua.before_login.home')->with('success', 'Logout berhasil.');
     }
-
 }
