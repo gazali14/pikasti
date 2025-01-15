@@ -11,12 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class VitaminController extends Controller
 {
-    // Menampilkan halaman utama
     public function index()
     {
         $selectedKader = Auth::guard('kader')->user();
-        $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
-        $vitaminData = []; // Data vitamin kosong di awal
+        $bayiList = Bayi::all(); 
+        $vitaminData = [];
         $selectedBayiNik = null;
 
         return view('kader.vitamin', compact('bayiList', 'vitaminData', 'selectedBayiNik', 'selectedKader'));
@@ -26,8 +25,8 @@ class VitaminController extends Controller
     public function show($nik)
     {
         $selectedKader = Auth::guard('kader')->user();
-        $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
-        $selectedBayi = Bayi::where('nik', $nik)->first(); // Data bayi yang dipilih
+        $bayiList = Bayi::all(); 
+        $selectedBayi = Bayi::where('nik', $nik)->first();
 
         // Jika bayi tidak ditemukan, alihkan kembali
         if (!$selectedBayi) {
@@ -40,7 +39,7 @@ class VitaminController extends Controller
             ->map(function ($item) use ($selectedBayi) {
                 $tanggalLahir = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir);
                 $tanggalVitamin = \Carbon\Carbon::parse($item->tanggal);
-                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalVitamin); // Hitung usia bulan
+                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalVitamin);
                 return $item;
             });
 
@@ -54,7 +53,7 @@ class VitaminController extends Controller
     {
         // Validasi input
         $validated = $request->validate([
-            'nik_bayi' => 'required|exists:bayis,nik', // Pastikan bayi ada di database
+            'nik_bayi' => 'required|exists:bayis,nik',
             'tanggal' => 'required|date',
             'vitamin' => 'required|string',
         ]);

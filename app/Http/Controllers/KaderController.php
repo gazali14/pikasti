@@ -8,7 +8,7 @@ use App\Models\Kehadiran;
 use Illuminate\Http\Request;
 use App\Models\KehadiranKader;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Jadwal; // Import model Jadwal
+use App\Models\Jadwal;
 
 // Set locale ke Indonesia
 Carbon::setLocale('id');
@@ -34,7 +34,7 @@ class KaderController extends Controller
         $bayis = $bayis->get();
 
         // Ambil semua jadwal kegiatan dari tabel Jadwal, urutkan berdasarkan tanggal terdekat dengan hari ini
-        $jadwal = Jadwal::orderBy('tanggal', 'asc')->paginate(12); // Urutkan berdasarkan tanggal dari yang terdekat
+        $jadwal = Jadwal::orderBy('tanggal', 'asc')->paginate(12);
 
         // Format tanggal jadwal agar hanya menampilkan tanggal (tanpa waktu)
         $jadwal->each(function ($item) {
@@ -48,11 +48,7 @@ class KaderController extends Controller
     public function cekPresensi(Request $request, $id_kegiatan)
     {
         $selectedKader = Auth::guard('kader')->user();
-
-        // Cari jadwal berdasarkan ID
         $jadwal = Jadwal::findOrFail($id_kegiatan);
-
-        // Ambil data bayi (dengan atau tanpa pencarian)
         $bayis = Bayi::query();
 
         if ($request->has('search') && $request->search != '') {
@@ -60,11 +56,7 @@ class KaderController extends Controller
         }
 
         $bayis = $bayis->get();
-
-        // Ambil kehadiran berdasarkan ID kegiatan
         $kehadiran = Kehadiran::where('id_kegiatan', $id_kegiatan)->pluck('kehadiran', 'nik');
-
-        // Tambahkan pesan jika pencarian kosong
         $message = $bayis->isEmpty() && $request->has('search')
             ? "Nama '" . $request->search . "' tidak ditemukan."
             : null;
@@ -72,7 +64,6 @@ class KaderController extends Controller
         // Kirimkan data ke view
         return view('kader.cek_presensi', compact('bayis', 'jadwal', 'kehadiran', 'message', 'selectedKader'));
     }
-
     
     public function savePresensi(Request $request)
     {
@@ -81,10 +72,7 @@ class KaderController extends Controller
 
         // Ambil tanggal kegiatan dari tabel Jadwal
         $jadwal = Jadwal::findOrFail($id_kegiatan);
-        $tanggal_kegiatan = Carbon::parse($jadwal->tanggal)->format('Y-m-d'); // Format ke Y-m-d
-
-
-        // Ambil data kehadiran dari form
+        $tanggal_kegiatan = Carbon::parse($jadwal->tanggal)->format('Y-m-d');
         $kehadiran = $request->input('kehadiran', []);
 
         foreach ($kehadiran as $nik => $value) {
@@ -96,20 +84,18 @@ class KaderController extends Controller
                 Kehadiran::updateOrCreate(
                     [
                         'nik' => $nik,
-                        'tanggal' => $tanggal_kegiatan, // Tanggal kegiatan dari Jadwal
-                        'id_kegiatan' => $id_kegiatan, // ID kegiatan
+                        'tanggal' => $tanggal_kegiatan,
+                        'id_kegiatan' => $id_kegiatan,
                     ],
                     [
                         'nama_bayi' => $bayi->nama,
                         'jenis_kelamin' => $bayi->jenis_kelamin,
-                        'kehadiran' => $value, // 1 jika hadir
+                        'kehadiran' => $value,
                         'waktu' => now()->toTimeString(),
                     ]
                 );
             }
         }
-
-        // Redirect ke halaman sebelumnya dengan pesan sukses
         return redirect()->back()->with('success', 'Data presensi berhasil disimpan.');
     }
 
@@ -129,8 +115,6 @@ class KaderController extends Controller
         if ($request->ajax()) {
             return response()->json(['jadwals' => $jadwals]);
         }
-
-        // Render view untuk permintaan biasa
         return view('kader.presensi_bayi', compact('jadwals'));
     }
 

@@ -1,5 +1,4 @@
 <x-layout>
-
     <p class="text-white mb-4">Selamat Datang Kembali!
     <p>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 justify-between">
@@ -11,7 +10,6 @@
                 </div>
                 <img src="{{ asset('img/ikon_dashboard.png') }}" alt="ikon" class="w-4 h-auto">
             </div>
-
             {{-- Data Diri Bayi --}}
             <div class="space-y-2 mt-6">
                 <div class="flex items-center">
@@ -209,15 +207,8 @@
             </div>
         </div>
     </div>
-
-
-    {{-- KMS
-    <div class="text-lg font-bold text-left mt-8 text-[#353535]">Kartu Menuju Sehat (KMS)</div> --}}
-
     <!-- Grafik KMS -->
     <x-grafik-kms :bayiList="$bayiList" :kmsData="$kmsData" :selectedBayiNik="$selectedBayiNik" />
-
 </x-layout>
-
 {{-- FOOTER --}}
 <x-footer-home></x-footer-home>

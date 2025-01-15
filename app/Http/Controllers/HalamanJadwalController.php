@@ -9,13 +9,12 @@ class HalamanJadwalController extends Controller
 {
     public function index()
     {
-        $today = now()->toDateString(); // Format tanggal sekarang
-
+        $today = now()->toDateString();
         // Ambil semua jadwal dengan urutan descending berdasarkan tanggal
         $jadwals = Jadwal::orderBy('tanggal', 'desc')->get();
         $jadwalsPaginate = Jadwal::orderBy('tanggal', 'desc')->orderBy('waktu', 'desc')
-            ->paginate(9); // Paginasi dilakukan di sini
-
+            ->paginate(9); 
+            
         // Cari jadwal terdekat
         $closestJadwal = Jadwal::where('tanggal', '>=', $today)
             ->orderBy('tanggal', 'asc')->orderBy('waktu','asc')
@@ -38,8 +37,7 @@ class HalamanJadwalController extends Controller
     public function filter(Request $request)
     {
         $year = $request->input('year');
-
-        $today = now()->toDateString(); // Format tanggal sekarang
+        $today = now()->toDateString(); 
         // Cari jadwal terdekat
         $closestJadwal = Jadwal::where('tanggal', '>=', $today)
             ->orderBy('tanggal', 'asc')->orderBy('waktu','asc')
@@ -63,7 +61,6 @@ class HalamanJadwalController extends Controller
                 'isClosest' => $closestJadwal && $jadwal->id === $closestJadwal->id, // True jika jadwal ini adalah yang terdekat
             ];
         });
-
         return response()->json($jadwals);
     }
 }

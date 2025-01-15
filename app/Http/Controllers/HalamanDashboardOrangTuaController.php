@@ -14,8 +14,7 @@ class HalamanDashboardOrangTuaController extends Controller
         // Ambil bayi yang sedang login
         $selectedBayi = Auth::guard('bayi')->user();
 
-        $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
-        // Jika tidak ada bayi yang login, kembalikan pesan error
+        $bayiList = Bayi::all(); 
         if (!$selectedBayi) {
             return redirect()->route('login')->withErrors(['error' => 'Silakan login terlebih dahulu.']);
         }
@@ -25,10 +24,9 @@ class HalamanDashboardOrangTuaController extends Controller
             ->orderBy('tanggal', 'asc')
             ->get()
             ->map(function ($item) use ($selectedBayi) {
-                // Hitung umur bayi dalam bulan berdasarkan tanggal lahir
                 $tanggalLahir = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir);
                 $tanggalKMS = \Carbon\Carbon::parse($item->tanggal);
-                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalKMS); // Hitung usia bulan
+                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalKMS);
                 return $item;
             });
 

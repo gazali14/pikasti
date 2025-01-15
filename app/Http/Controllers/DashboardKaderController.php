@@ -17,13 +17,10 @@ class DashboardKaderController extends Controller
         $selectedKader = Auth::guard('kader')->user();
         // Ambil tanggal dari input, default ke hari ini jika tidak ada
         $tanggal = $request->input('tanggal', Carbon::today()->toDateString());
-
         // Ambil nama_kegiatan dari tabel Jadwal yang tanggalnya sama dengan $tanggal
         $jadwal = Jadwal::whereDate('tanggal', $tanggal)->first(); // Mengambil satu data berdasarkan tanggal
-
         // Ambil data kehadiran untuk tanggal tersebut
         $kehadiranData = Kehadiran::where('tanggal', $tanggal)->get();
-
         // Hitung jumlah bayi berdasarkan jenis kelamin
         $data = [
             'Laki-Laki' => $kehadiranData->where('jenis_kelamin', 'Laki-Laki')->count(),
@@ -81,7 +78,6 @@ class DashboardKaderController extends Controller
             'selectedKader' => $selectedKader,
         ]);
     }
-
 
     // Fungsi untuk menentukan kelompok umur berdasarkan bulan
     private function getAgeGroup($umurBulan, $ageGroups)

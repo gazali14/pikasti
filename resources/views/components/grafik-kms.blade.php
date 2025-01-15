@@ -31,56 +31,53 @@
 
     @if($selectedBayi)
         <script>
-            const bayiData = @json($kmsData); // Data KMS bayi dalam format JSON
-            const selectedBayi = @json($selectedBayi); // Informasi bayi yang dipilih
-            const bayiPointColor = 'rgba(0, 0, 255, 1)'; // Warna untuk titik data bayi
-
+            const bayiData = @json($kmsData); 
+            const selectedBayi = @json($selectedBayi); 
+            const bayiPointColor = 'rgba(0, 0, 255, 1)'; 
             const referensiKMS = {
-            Perempuan: {
-                beratBadan: {
-                    '-3SD': Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 6.5)),
-                    '-2SD': Array.from({ length: 60 }, (_, i) => 2.2 + (Math.sqrt(i / 59) * 7.5)),
-                    '-1SD': Array.from({ length: 60 }, (_, i) => 2.5 + (Math.sqrt(i / 59) * 9)),
-                    'Median': Array.from({ length: 60 }, (_, i) => 3 + (Math.sqrt(i / 59) * 11.5)),
-                    '+1SD': Array.from({ length: 60 }, (_, i) => 3.5 + (Math.sqrt(i / 59) * 15)),
-                    '+2SD': Array.from({ length: 60 }, (_, i) => 4 + (Math.sqrt(i / 59) * 18.5)),
-                    '+3SD': Array.from({ length: 60 }, (_, i) => 4.5 + (Math.sqrt(i / 59) * 23))
+                Perempuan: {
+                    beratBadan: {
+                        '-3SD': Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 6.5)),
+                        '-2SD': Array.from({ length: 60 }, (_, i) => 2.2 + (Math.sqrt(i / 59) * 7.5)),
+                        '-1SD': Array.from({ length: 60 }, (_, i) => 2.5 + (Math.sqrt(i / 59) * 9)),
+                        'Median': Array.from({ length: 60 }, (_, i) => 3 + (Math.sqrt(i / 59) * 11.5)),
+                        '+1SD': Array.from({ length: 60 }, (_, i) => 3.5 + (Math.sqrt(i / 59) * 15)),
+                        '+2SD': Array.from({ length: 60 }, (_, i) => 4 + (Math.sqrt(i / 59) * 18.5)),
+                        '+3SD': Array.from({ length: 60 }, (_, i) => 4.5 + (Math.sqrt(i / 59) * 23))
+                    },
+                    tinggiBadan: {
+                        '-3SD': Array.from({ length: 60 }, (_, i) => 45 + (Math.sqrt(i / 59) * 49)),
+                        '-2SD': Array.from({ length: 60 }, (_, i) => 47 + (Math.sqrt(i / 59) * 53)),
+                        '-1SD': Array.from({ length: 60 }, (_, i) => 49 + (Math.sqrt(i / 59) * 56)),
+                        'Median': Array.from({ length: 60 }, (_, i) => 51 + (Math.sqrt(i / 59) * 59)),
+                        '+1SD': Array.from({ length: 60 }, (_, i) => 53 + (Math.sqrt(i / 59) * 62)),
+                        '+2SD': Array.from({ length: 60 }, (_, i) => 54 + (Math.sqrt(i / 59) * 66)),
+                        '+3SD': Array.from({ length: 60 }, (_, i) => 56 + (Math.sqrt(i / 59) * 70))
+                    }
                 },
-                tinggiBadan: {
-                    '-3SD': Array.from({ length: 60 }, (_, i) => 45 + (Math.sqrt(i / 59) * 49)),
-                    '-2SD': Array.from({ length: 60 }, (_, i) => 47 + (Math.sqrt(i / 59) * 53)),
-                    '-1SD': Array.from({ length: 60 }, (_, i) => 49 + (Math.sqrt(i / 59) * 56)),
-                    'Median': Array.from({ length: 60 }, (_, i) => 51 + (Math.sqrt(i / 59) * 59)),
-                    '+1SD': Array.from({ length: 60 }, (_, i) => 53 + (Math.sqrt(i / 59) * 62)),
-                    '+2SD': Array.from({ length: 60 }, (_, i) => 54 + (Math.sqrt(i / 59) * 66)),
-                    '+3SD': Array.from({ length: 60 }, (_, i) => 56 + (Math.sqrt(i / 59) * 70))
+                LakiLaki: {
+                    beratBadan: {
+                        '-3SD': Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 7.5)),
+                        '-2SD': Array.from({ length: 60 }, (_, i) => 2.5 + (Math.sqrt(i / 59) * 8.5)),
+                        '-1SD': Array.from({ length: 60 }, (_, i) => 3 + (Math.sqrt(i / 59) * 10)),
+                        'Median': Array.from({ length: 60 }, (_, i) => 3.5 + (Math.sqrt(i / 59) * 12.5)),
+                        '+1SD': Array.from({ length: 60 }, (_, i) => 4 + (Math.sqrt(i / 59) * 16)),
+                        '+2SD': Array.from({ length: 60 }, (_, i) => 4.5 + (Math.sqrt(i / 59) * 19.5)),
+                        '+3SD': Array.from({ length: 60 }, (_, i) => 5 + (Math.sqrt(i / 59) * 24))
+                    },
+                    tinggiBadan: {
+                        '-3SD': Array.from({ length: 60 }, (_, i) => 47 + (Math.sqrt(i / 59) * 50)),
+                        '-2SD': Array.from({ length: 60 }, (_, i) => 49 + (Math.sqrt(i / 59) * 54)),
+                        '-1SD': Array.from({ length: 60 }, (_, i) => 51 + (Math.sqrt(i / 59) * 57)),
+                        'Median': Array.from({ length: 60 }, (_, i) => 53 + (Math.sqrt(i / 59) * 60)),
+                        '+1SD': Array.from({ length: 60 }, (_, i) => 54 + (Math.sqrt(i / 59) * 63)),
+                        '+2SD': Array.from({ length: 60 }, (_, i) => 56 + (Math.sqrt(i / 59) *67)),
+                        '+3SD': Array.from({ length: 60 }, (_, i) => 58 + (Math.sqrt(i / 59) * 71))
+                    }
                 }
-            },
-            LakiLaki: {
-                beratBadan: {
-                    '-3SD': Array.from({ length: 60 }, (_, i) => 2 + (Math.sqrt(i / 59) * 7.5)),
-                    '-2SD': Array.from({ length: 60 }, (_, i) => 2.5 + (Math.sqrt(i / 59) * 8.5)),
-                    '-1SD': Array.from({ length: 60 }, (_, i) => 3 + (Math.sqrt(i / 59) * 10)),
-                    'Median': Array.from({ length: 60 }, (_, i) => 3.5 + (Math.sqrt(i / 59) * 12.5)),
-                    '+1SD': Array.from({ length: 60 }, (_, i) => 4 + (Math.sqrt(i / 59) * 16)),
-                    '+2SD': Array.from({ length: 60 }, (_, i) => 4.5 + (Math.sqrt(i / 59) * 19.5)),
-                    '+3SD': Array.from({ length: 60 }, (_, i) => 5 + (Math.sqrt(i / 59) * 24))
-                },
-                tinggiBadan: {
-                    '-3SD': Array.from({ length: 60 }, (_, i) => 47 + (Math.sqrt(i / 59) * 50)),
-                    '-2SD': Array.from({ length: 60 }, (_, i) => 49 + (Math.sqrt(i / 59) * 54)),
-                    '-1SD': Array.from({ length: 60 }, (_, i) => 51 + (Math.sqrt(i / 59) * 57)),
-                    'Median': Array.from({ length: 60 }, (_, i) => 53 + (Math.sqrt(i / 59) * 60)),
-                    '+1SD': Array.from({ length: 60 }, (_, i) => 54 + (Math.sqrt(i / 59) * 63)),
-                    '+2SD': Array.from({ length: 60 }, (_, i) => 56 + (Math.sqrt(i / 59) *67)),
-                    '+3SD': Array.from({ length: 60 }, (_, i) => 58 + (Math.sqrt(i / 59) * 71))
-                }
-            }
-        };
-
+            };
 
             const referensi = selectedBayi.jenis_kelamin === 'Perempuan' ? referensiKMS.Perempuan : referensiKMS.LakiLaki;
-
             const chartConfig = (canvasId, title, datasets, yLabel, yMin, yMax) => ({
                 type: 'line',
                 data: {
@@ -121,8 +118,8 @@
                         {
                             label: 'Data Berat Badan Bayi',
                             data: bayiData.map(kms => ({
-                                x: Math.floor(kms.umur_bulan), // Umur bayi dalam bulan
-                                y: kms.berat_badan // Berat badan bayi
+                                x: Math.floor(kms.umur_bulan), 
+                                y: kms.berat_badan 
                             })),
                             borderColor: bayiPointColor,
                             backgroundColor: bayiPointColor,
@@ -156,7 +153,7 @@
                             },
                             min: 1,
                             max: 60,
-                            type: 'linear' // Pastikan tipe sumbu adalah linear
+                            type: 'linear'
                         }
                     }
                 }
@@ -182,8 +179,8 @@
                         {
                             label: 'Data Tinggi Badan Bayi',
                             data: bayiData.map(kms => ({
-                                x: Math.floor(kms.umur_bulan), // Umur bayi dalam bulan
-                                y: kms.tinggi_badan // Tinggi badan bayi
+                                x: Math.floor(kms.umur_bulan),
+                                y: kms.tinggi_badan 
                             })),
                             borderColor: bayiPointColor,
                             backgroundColor: bayiPointColor,
@@ -217,12 +214,11 @@
                             },
                             min: 1,
                             max: 60,
-                            type: 'linear' // Pastikan tipe sumbu adalah linear
+                            type: 'linear' 
                         }
                     }
                 }
             });
-
 
             // Render Charts
             new Chart(document.getElementById('beratBadanChart'), chartConfig('beratBadanChart', `Grafik Berat Badan Bayi (${selectedBayi.jenis_kelamin})`, beratBadanDatasets, 'Berat Badan (kg)', 2, 30));

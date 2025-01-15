@@ -18,7 +18,7 @@ class KohortController extends Controller
             $bayis = Bayi::when($search, function ($query, $search) {
                 return $query->where('nama', 'like', "%$search%");
             })
-            ->orderBy('nama', 'asc') // Urutkan berdasarkan Nama Bayi secara ascending
+            ->orderBy('nama', 'asc')
             ->paginate(10);
 
             return view('admin.kohort', compact('bayis', 'selectedKader'));
@@ -71,7 +71,6 @@ class KohortController extends Controller
         }
     }
 
-    // Store a new baby
     public function store(Request $request)
     {
         try {

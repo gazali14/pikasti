@@ -11,7 +11,6 @@
                 @endforeach
             </select>
         </div>
-
         <!-- Kontainer Jadwal -->
         <div id="jadwalContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             @foreach ($jadwalsPaginate as $jadwal)
@@ -28,21 +27,16 @@
                 </div>
             @endforeach
         </div>
-
         <div class="my-4" id='paginator'>
             @if (method_exists($jadwalsPaginate, 'links'))
                 {{ $jadwalsPaginate->links('vendor.pagination.tailwind') }}
             @endif
         </div>
-
     </div>
 </x-layout>
-
-
 {{-- FOOTER --}}
 <x-footer-home></x-footer-home>
 
-{{-- JavaScript --}}
 <script>
     // Fungsi untuk membuat card
     function generateCard(jadwal) {
@@ -57,7 +51,6 @@
       </div>
     `;
     }
-
     // Event listener untuk filter tahun
     document.getElementById('tahun').addEventListener('change', function() {
         const selectedYear = this.value;
@@ -68,7 +61,6 @@
         } else {
             location.reload();
         }
-
         fetch(`{{ route('jadwal.filter') }}?year=${selectedYear}`)
             .then(response => response.json())
             .then(data => {

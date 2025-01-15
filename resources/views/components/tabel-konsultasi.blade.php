@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
 <body>
-    <!-- resources/views/components/tabel-pmt.blade.php -->
     @props(['bayiList', 'konsultasiData', 'selectedBayiNik'])
-
     <div class="mx-auto mt-1 mb-10 p-5">
         <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 mb-5">
             <!-- Dropdown Pilih Bayi -->
@@ -166,7 +162,6 @@
         </div>
     </div>
 
-
     <!-- Modal Edit -->
     <div id="modal-edit" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
         <div class="bg-white p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 mx-4">
@@ -193,8 +188,6 @@
             </form>
         </div>
     </div>
-
-
 
     <script>
         let selectedBayiNik = "{{ $selectedBayiNik }}";
@@ -227,14 +220,8 @@
         // Fungsi untuk memilih bayi dari dropdown
         const selectBayi = (nik, nama) => {
             selectedBayiNik = nik;
-
-            // Menampilkan nama bayi yang dipilih di tombol dropdown
             dropdownButton.innerHTML = `Pilih Nama Bayi: ${nama}`;
-
-            // Menutup dropdown setelah bayi dipilih
             dropdownMenu.classList.add('hidden');
-
-            // Redirect ke server untuk memuat data bayi yang dipilih
             window.location.href = `/kader/konsultasi/${nik}`;
         };
 
@@ -255,7 +242,7 @@
         // Fungsi untuk menutup modal
         const closeModal = () => {
             document.getElementById('modal').classList.add('hidden');
-            document.getElementById('form-data').reset(); // Reset data pada form modal
+            document.getElementById('form-data').reset();
         };
 
         // Event untuk tombol batal di modal
@@ -265,16 +252,13 @@
         const openEditModal = (id, tanggal, konsultasi) => {
             const modal = document.getElementById('modal-edit');
             modal.classList.remove('hidden');
-
             // Isi nilai input dalam form
             document.getElementById('edit-tanggal').value = tanggal;
             document.getElementById('edit-konsultasi').value = konsultasi;
-
             // Update action form untuk route update
             const form = document.getElementById('form-edit');
             form.action = `/kader/konsultasi/${id}`;
         };
-
 
         // Fungsi untuk menutup modal edit
         const closeEditModal = () => {
@@ -311,16 +295,15 @@
             @if (session('success'))
                 Swal.fire({
                     toast: true,
-                    position: 'top-end', // Lokasi di kanan atas
+                    position: 'top-end', 
                     icon: 'success',
                     title: "{{ session('success') }}",
-                    showConfirmButton: false, // Tidak ada tombol
-                    timer: 3000, // Menghilang setelah 3 detik
-                    timerProgressBar: true, // Menampilkan progress bar
+                    showConfirmButton: false, 
+                    timer: 3000, 
+                    timerProgressBar: true, 
                 });
             @endif
         });
     </script>
 </body>
-
 </html>

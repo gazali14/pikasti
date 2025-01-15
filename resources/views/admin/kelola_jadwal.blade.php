@@ -75,12 +75,10 @@
                                                     </form>
                                                 </div>
                                             </td>
-
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-
                             <div class="mt-4">
                                 {{ $jadwals->links('vendor.pagination.tailwind') }}
                             </div>
@@ -112,7 +110,6 @@
                                 class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white focus:border-gray-300 focus:ring-1 focus:ring-gray-300 rounded-lg"
                                 required />
                         </div>
-
                         <div class="w-1/2">
                             <label for="jamPelayanan" class="block mb-2 text-sm font-bold text-black-900">Jam
                                 Pelayanan</label>
@@ -184,7 +181,7 @@
                     cancelButtonText: 'Batal',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        this.submit(); // Kirim form jika dikonfirmasi
+                        this.submit();
                     }
                 });
             });
@@ -195,12 +192,12 @@
                 @if (session('success'))
                     Swal.fire({
                         toast: true,
-                        position: 'top-end', // Lokasi di kanan atas
+                        position: 'top-end', 
                         icon: 'success',
                         title: "{{ session('success') }}",
-                        showConfirmButton: false, // Tidak ada tombol
-                        timer: 3000, // Menghilang setelah 3 detik
-                        timerProgressBar: true, // Menampilkan progress bar
+                        showConfirmButton: false, 
+                        timer: 3000, 
+                        timerProgressBar: true,
                     });
                 @endif
             });
@@ -210,12 +207,12 @@
                 @if (session('error'))
                     Swal.fire({
                         toast: true,
-                        position: 'top-end', // Lokasi di kanan atas
+                        position: 'top-end',
                         icon: 'error',
                         title: "{{ session('error') }}",
-                        showConfirmButton: false, // Tidak ada tombol
-                        timer: 5000, // Menghilang setelah 3 detik
-                        timerProgressBar: true, // Menampilkan progress bar
+                        showConfirmButton: false,
+                        timer: 5000, 
+                        timerProgressBar: true, 
                     });
                 @endif
             });

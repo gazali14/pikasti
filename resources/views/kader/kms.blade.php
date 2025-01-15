@@ -1,11 +1,9 @@
 <x-layout-kader :selectedKader='$selectedKader'>
-
     <div class="text-center my-4">
         <h1 class="text-3xl font-bold mx-5">Pendataan Kondisi Bayi</h1>
     </div>
-    <div class="min-h-screen max-h-96">
+    <div class="min-h-screen max-h-96">        
         <div class="container p-5">
-
             <!-- Tabel KMS -->
             <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded shadow">
                 <div class="mx-auto mt-1 mb-10 p-5">
@@ -37,7 +35,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Tombol Tambah -->
                         <button id="add-button"
                             class="p-3 w-full sm:w-auto bg-teal-500 text-white rounded hover:bg-teal-600 min-w-[200px] max-w-[250px] whitespace-nowrap">
@@ -74,7 +71,6 @@
                             </table>
                         </div>
                     @endif
-
 
                     <!-- Tabel Data KMS -->
                     <div class="rounded shadow-sm overflow-x-auto">
@@ -156,14 +152,11 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="7" class="text-center text-gray-500">Belum ada data KMS untuk
-                                            bayi
-                                            ini.</td>
+                                        <td colspan="7" class="text-center text-gray-500">Belum ada data KMS untuk bayi ini.</td>
                                     </tr>
                                 @endif
                             </tbody>
                         </table>
-
                         @if ($kmsDataPaginate->count())
                             <div class="mt-4">
                                 {{ $kmsDataPaginate->links('vendor.pagination.tailwind') }}
@@ -171,7 +164,6 @@
                         @endif
                     </div>
                 </div>
-
 
                 <!-- Modal Tambah -->
                 <div id="modal"
@@ -227,7 +219,6 @@
                         </form>
                     </div>
                 </div>
-
 
                 <!-- Modal Edit -->
                 <div id="modal-edit"
@@ -286,7 +277,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Grafik KMS -->
             @if ($kmsData->count())
                 <x-grafik-kms :bayiList="$bayiList" :kmsData="$kmsData" :selectedBayiNik="$selectedBayiNik" />
@@ -295,7 +285,6 @@
 
         <script>
             let selectedBayiNik = "{{ $selectedBayiNik }}";
-
             // Fungsi untuk membuka dropdown
             const dropdownButton = document.getElementById('dropdown-button');
             const dropdownMenu = document.getElementById('dropdown-menu');
@@ -304,7 +293,6 @@
             dropdownButton.onclick = () => {
                 dropdownMenu.classList.toggle('hidden');
             };
-
             // Menyembunyikan dropdown jika klik terjadi di luar dropdown
             document.onclick = (e) => {
                 if (!dropdownMenu.contains(e.target) && !dropdownButton.contains(e.target)) {
@@ -324,14 +312,8 @@
             // Fungsi untuk memilih bayi dari dropdown
             const selectBayi = (nik, nama) => {
                 selectedBayiNik = nik;
-
-                // Menampilkan nama bayi yang dipilih di tombol dropdown
                 dropdownButton.innerHTML = `Pilih Nama Bayi: ${nama}`;
-
-                // Menutup dropdown setelah bayi dipilih
                 dropdownMenu.classList.add('hidden');
-
-                // Redirect ke server untuk memuat data bayi yang dipilih
                 window.location.href = `/kader/kms/${nik}`;
             };
 
@@ -379,7 +361,6 @@
                 form.action = `/kader/kms/${id}`;
             };
 
-
             // Fungsi untuk menutup modal edit
             const closeEditModal = () => {
                 const modal = document.getElementById('modal-edit');
@@ -415,12 +396,12 @@
                 @if (session('success'))
                     Swal.fire({
                         toast: true,
-                        position: 'top-end', // Lokasi di kanan atas
+                        position: 'top-end',
                         icon: 'success',
                         title: "{{ session('success') }}",
-                        showConfirmButton: false, // Tidak ada tombol
-                        timer: 3000, // Menghilang setelah 3 detik
-                        timerProgressBar: true, // Menampilkan progress bar
+                        showConfirmButton: false,
+                        timer: 3000, 
+                        timerProgressBar: true, 
                     });
                 @endif
             });
@@ -430,12 +411,12 @@
                 @if (session('error'))
                     Swal.fire({
                         toast: true,
-                        position: 'top-end', // Lokasi di kanan atas
+                        position: 'top-end',
                         icon: 'error',
                         title: "{{ session('error') }}",
-                        showConfirmButton: false, // Tidak ada tombol
-                        timer: 5000, // Menghilang setelah 3 detik
-                        timerProgressBar: true, // Menampilkan progress bar
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
                     });
                 @endif
             });

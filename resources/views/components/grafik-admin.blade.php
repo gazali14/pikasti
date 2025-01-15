@@ -8,8 +8,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="chart bg-white p-4 rounded-lg shadow mt-5">
     <h3 class="font-semibold text-lg text-center">Jumlah Kader yang Hadir</h3>
     <canvas id="kaderBarChart"></canvas>
@@ -25,7 +23,7 @@
         // Fungsi untuk membuat atau memperbarui grafik
         function updateChart(labels, data) {
             if (kaderBarChart) {
-                kaderBarChart.destroy(); // Hapus grafik lama jika ada
+                kaderBarChart.destroy(); 
             }
             kaderBarChart = new Chart(ctx, {
                 type: 'bar',
@@ -41,7 +39,7 @@
                 options: {
                     plugins: {
                         legend: {
-                            display: false // Tidak menampilkan legenda
+                            display: false 
                         }
                     },
                     scales: {
@@ -68,9 +66,9 @@
             axios.get(`/admin/count-by-month?year=${year}`)
                 .then(response => {
                     const result = response.data.data;
-                    const labels = Object.keys(result); // Nama bulan
-                    const data = Object.values(result); // Jumlah kader
-                    updateChart(labels, data); // Perbarui grafik
+                    const labels = Object.keys(result);
+                    const data = Object.values(result); 
+                    updateChart(labels, data); 
                 })
                 .catch(error => {
                     console.error('Gagal memuat data:', error);

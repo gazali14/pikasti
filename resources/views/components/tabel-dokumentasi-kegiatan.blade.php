@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Kader</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body>
     <div class="container mx-auto p-5">
         <h1 class="text-3xl font-bold mb-4">Daftar Dokumentasi Kegiatan</h1>
@@ -23,7 +21,6 @@
                     Cari
                 </button>
             </form>
-
             <!-- Tombol tambah -->
             <button id="tambahButton"
                 class="ml-4 bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition">
@@ -177,21 +174,21 @@
                 const fileReader = new FileReader();
                 if (file.type.startsWith("image/")) {
                     fileReader.onload = function(e) {
-                        previewImage.src = e.target.result; // Set source untuk pratinjau
-                        previewContainer.classList.remove("hidden"); // Tampilkan pratinjau
-                        errorMessage.classList.add("hidden"); // Sembunyikan pesan error
+                        previewImage.src = e.target.result;
+                        previewContainer.classList.remove("hidden"); 
+                        errorMessage.classList.add("hidden"); 
                     };
-                    fileReader.readAsDataURL(file); // Membaca file sebagai URL
+                    fileReader.readAsDataURL(file); 
                 } else {
                     // Jika file bukan gambar
-                    previewContainer.classList.add("hidden"); // Sembunyikan pratinjau
-                    errorMessage.classList.remove("hidden"); // Tampilkan pesan error
-                    this.value = ""; // Reset input file
+                    previewContainer.classList.add("hidden"); 
+                    errorMessage.classList.remove("hidden");
+                    this.value = "";
                 }
             } else {
                 // Jika tidak ada file yang dipilih
-                previewContainer.classList.add("hidden"); // Sembunyikan pratinjau
-                errorMessage.classList.add("hidden"); // Sembunyikan pesan error
+                previewContainer.classList.add("hidden"); 
+                errorMessage.classList.add("hidden");
             }
         });
 

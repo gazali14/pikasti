@@ -15,7 +15,6 @@
                         </div>
                     </form>
 
-
                     <!-- Tombol Edit dan Hapus di bawah tabel -->
                     <div class="flex justify-end mt-4" id="actionButtons" style="display: none;">
                         <button
@@ -67,9 +66,7 @@
                         {{ $kaders->links('vendor.pagination.tailwind') }}
                     </div>
                 </div>
-
             </div>
-
 
             <!-- Form Tambah Kader -->
             <div class="container mx-auto p-5 bg-white shadow-lg rounded-lg mt-10 ">
@@ -78,10 +75,7 @@
                 <form action="{{ route('admin.kelola_kader.store') }}" method="POST" enctype="multipart/form-data"
                     class="space-y-6">
                     @csrf
-
-                    <!-- Hidden input untuk ID (diisi saat edit) -->
                     <input type="hidden" name="id" id="kader-id">
-
                     <div class="flex flex-wrap md:flex-nowrap gap-6">
                         <!-- Kolom Kiri: Form -->
                         <div class="w-full md:w-2/3 space-y-4 mx-5">
@@ -148,7 +142,6 @@
                                     <span class="text-red-500 text-sm">* {{ $message }}</span>
                                 @enderror
                             </div>
-
                         </div>
 
                         <!-- Kolom Kanan: Foto -->
@@ -162,7 +155,6 @@
                                 <span class="text-red-500 text-sm">* {{ $message }}</span>
                             @enderror
                         </div>
-
                     </div>
 
                     <!-- Tombol -->
@@ -195,8 +187,6 @@
                 const doc = parser.parseFromString(html, 'text/html');
                 const tbody = doc.querySelector('tbody');
                 document.querySelector('tbody').innerHTML = tbody.innerHTML;
-
-                // Reapply event listeners for dynamically updated rows
                 attachRowEventListeners();
             });
     });
@@ -249,8 +239,8 @@
                     document.getElementById('nama').value = data.nama;
                     document.getElementById('alamat').value = data.alamat;
                     document.getElementById('jabatan').value = data.jabatan;
-                    document.getElementById('password').value = ''; // Kosongkan password untuk keamanan
-                    document.getElementById('kader-id').value = data.id; // Hidden input untuk ID
+                    document.getElementById('password').value = ''; 
+                    document.getElementById('kader-id').value = data.id; 
                 });
         }
     });
@@ -300,8 +290,8 @@
         document.getElementById('nama').value = "";
         document.getElementById('alamat').value = "";
         document.getElementById('jabatan').value = "";
-        document.getElementById('password').value = ''; // Kosongkan password untuk keamanan
-        document.getElementById('kader-id').value = ""; // Hidden input untuk ID
+        document.getElementById('password').value = ''; 
+        document.getElementById('kader-id').value = "";
     });
 
     // Notifikasi sukses menambahkan data kader
@@ -309,21 +299,17 @@
         @if (session('success'))
             Swal.fire({
                 toast: true,
-                position: 'top-end', // Lokasi di kanan atas
+                position: 'top-end',
                 icon: 'success',
                 title: "{{ session('success') }}",
-                showConfirmButton: false, // Tidak ada tombol
-                timer: 3000, // Menghilang setelah 3 detik
-                timerProgressBar: true, // Menampilkan progress bar
+                showConfirmButton: false, 
+                timer: 3000, 
+                timerProgressBar: true, 
             });
         @endif
     });
 
-    // Jalankan fungsi untuk menambahkan event listener ke baris tabel pada saat pertama kali halaman dimuat
     attachRowEventListeners();
-
-
-    // Javascript untuk menampilkan password
     const passwordInput = document.getElementById('password');
     const togglePasswordButton = document.getElementById('togglePassword');
     const eyeIcon = document.getElementById('eyeIcon');
@@ -345,19 +331,17 @@
 
     // Javascript untuk menampilkan foto yang diupload
     function previewPhoto(event) {
-        const file = event.target.files[0]; // Ambil file yang dipilih
-        const preview = document.getElementById('photoPreview'); // Ambil elemen img untuk preview
+        const file = event.target.files[0]; 
+        const preview = document.getElementById('photoPreview'); 
 
         // Pastikan ada file yang dipilih
         if (file) {
             const reader = new FileReader();
-
-            // Ketika file selesai dibaca, tampilkan di elemen img
             reader.onload = function(e) {
-                preview.src = e.target.result; // Ganti src img dengan data foto
+                preview.src = e.target.result;
             };
 
-            reader.readAsDataURL(file); // Membaca file sebagai URL data base64
+            reader.readAsDataURL(file); 
         } else {
             // Jika tidak ada file, kembalikan ke placeholder
             preview.src = '{{ asset('images/placeholder.jpg') }}';

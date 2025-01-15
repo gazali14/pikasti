@@ -3,16 +3,14 @@
     <h2 class="text-lg font-semibold mb-4">Catat Vitamin</h2>
     <form id="vitaminForm" action="{{ route('kader.vitamin.store') }}" method="POST" class="space-y-4">
         @csrf
-        <!-- ID Kegiatan (Hidden) -->
         <input type="hidden" id="id_kegiatan" name="id_kegiatan">
-        <!-- ID Bayi (Hidden) -->
         <input type="hidden" id="id_bayi" name="id_bayi">
 
         <div>
             <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
             <input type="text" id="nama" name="nama" placeholder="Masukkan Nama"
                 class="mt-1 block w-full p-2 border border-gray-300 rounded shadow-sm focus:ring focus:ring-teal-300 focus:border-teal-500"
-                readonly> <!--readonly agar nama ga bisa diedit, kalau nama bisa diedit tinggal hapus 'readony'-->
+                readonly>
         </div>
         <div>
             <label for="jenis_vitamin" class="block text-sm font-medium text-gray-700">Vitamin</label>
@@ -65,7 +63,6 @@
                 document.getElementById('jenis_vitamin').value = vitamin === 'Tidak Ada Data Vitamin' ? '' : vitamin;
             });
         });
-
 
         form.addEventListener('reset', function () {
             // Kosongkan ID Bayi saat reset

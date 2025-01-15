@@ -7,7 +7,7 @@ use App\Models\Kader;
 use Illuminate\Http\Request;
 use App\Models\KehadiranKader;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Jadwal; // Import model Jadwal
+use App\Models\Jadwal;
 
 // Set locale ke Indonesia
 Carbon::setLocale('id');
@@ -32,7 +32,7 @@ class KehadiranKaderController extends Controller
         $kaders = $kaders->get();
 
         // Ambil semua jadwal kegiatan dari tabel Jadwal, urutkan berdasarkan tanggal terdekat dengan hari ini
-        $jadwal = Jadwal::orderBy('tanggal', 'asc')->paginate(12);; // Urutkan berdasarkan tanggal dari yang terdekat
+        $jadwal = Jadwal::orderBy('tanggal', 'asc')->paginate(12);;
         $jadwal->each(function ($item) {
             $item->tanggal = Carbon::parse($item->tanggal)->format('Y-m-d');
         });
@@ -44,10 +44,7 @@ class KehadiranKaderController extends Controller
     public function cekPresensiKader(Request $request, $id_kegiatan)
     {
         $selectedKader = Auth::guard('kader')->user();
-        // Cari jadwal berdasarkan ID
         $jadwal = Jadwal::findOrFail($id_kegiatan);
-
-        // Ambil data kader (dengan atau tanpa pencarian)
         $kaders = Kader::query();
 
         if ($request->has('search') && $request->search != '') {
@@ -55,62 +52,18 @@ class KehadiranKaderController extends Controller
         }
 
         $kaders = $kaders->get();
-
-        // Ambil kehadiran berdasarkan ID kegiatan
         $kehadiran = KehadiranKader::where('id_kegiatan', $id_kegiatan)->pluck('kehadiran', 'nik');
-
-        // Tambahkan pesan jika pencarian kosong
         $message = $kaders->isEmpty() && $request->has('search')
             ? "Nama '" . $request->search . "' tidak ditemukan."
             : null;
-
-        // Kirimkan data ke view
         return view('admin.cek_presensi_kader', compact('kaders', 'jadwal', 'kehadiran', 'message', 'selectedKader'));
     }
 
-    // /**
-    //      * Handle search functionality for bayi by name.
-    //      *
-    //      * @param  \Illuminate\Http\Request  $request
-    //      * @return \Illuminate\View\View
-    //      */
-    // public function search(Request $request)
-    // {
-    //     // Ambil data bayi berdasarkan pencarian nama
-    //         $kaders = Kader::query();
-
-    //         if ($request->has('search') && $request->search != '') {
-    //             $kaders->where('nama', 'LIKE', '%' . $request->search . '%');
-    //         }
-
-    //         // Ambil kehadiran bayi berdasarkan pencarian dan ID kegiatan terbaru
-    //         $kaders = $kaders->get();
-
-    //         // Ambil ID kegiatan terakhirz
-    //         $jadwal = Jadwal::latest('tanggal')->first();
-
-    //         // Ambil kehadiran berdasarkan ID kegiatan
-    //         $kehadiran = KehadiranKader::where('id_kegiatan', $jadwal->id)
-    //                             ->pluck('kehadiran', 'nik');
-
-    //         // Jika hasil pencarian kosong, kirim pesan ke view
-    //         $message = $kaders->isEmpty() ? "Nama '" . $request->search . "' tidak ditemukan" : null;
-
-    //         // Return the view with search results
-    //         return view('admin.cek_presensi_kader', compact('kaders', 'jadwal', 'kehadiran', 'message'));
-    //     }
-
-
     public function savePresensi(Request $request)
     {
-        // Ambil ID kegiatan dari request
         $id_kegiatan = $request->input('id_kegiatan');
-
-        // Ambil tanggal kegiatan dari tabel Jadwal
         $jadwal = Jadwal::findOrFail($id_kegiatan);
         $tanggal_kegiatan = $jadwal->tanggal;
-
-        // Ambil data kehadiran dari form
         $kehadiran = $request->input('kehadiran', []);
 
         foreach ($kehadiran as $nik => $value) {
@@ -122,8 +75,8 @@ class KehadiranKaderController extends Controller
                 KehadiranKader::updateOrCreate(
                     [
                         'nik' => $nik,
-                        'tanggal' => $tanggal_kegiatan, // Tanggal kegiatan dari Jadwal
-                        'id_kegiatan' => $id_kegiatan, // ID kegiatan
+                        'tanggal' => $tanggal_kegiatan,
+                        'id_kegiatan' => $id_kegiatan, 
                     ],
                     [
                         'nama_kader' => $kader->nama,
@@ -140,7 +93,7 @@ class KehadiranKaderController extends Controller
 
     public function countKaderByMonth(Request $request)
     {
-        $year = $request->input('year') ?? date('Y'); // Default ke tahun sekarang jika tidak diberikan
+        $year = $request->input('year') ?? date('Y');
 
         // Validasi input tahun
         $request->validate([
@@ -170,7 +123,6 @@ class KehadiranKaderController extends Controller
     public function searchKegiatanKader(Request $request)
     {
         $search = $request->input('search');
-    
         // Query jadwal berdasarkan pencarian
         $jadwals = Jadwal::query()
             ->when($search, function ($query) use ($search) {
@@ -183,10 +135,7 @@ class KehadiranKaderController extends Controller
         if ($request->ajax()) {
             return response()->json(['jadwals' => $jadwals]);
         }
-    
         // Render view untuk permintaan biasa
         return view('admin.presensi_kader', compact('jadwals'));
     }
-    
-
 }

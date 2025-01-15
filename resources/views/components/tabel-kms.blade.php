@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,21 +8,16 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
 <body>
-    <!-- resources/views/components/tabel-kms.blade.php -->
     @props(['bayiList', 'kmsData', 'selectedBayiNik'])
 
     <div class="container mx-auto mt-5 mb-10 px-10">
-        <!-- Dropdown dan Tombol Tambah -->
         <div class="flex items-center justify-between mb-4">
             <!-- Dropdown Pilih Bayi -->
             <div class="relative">
                 <button id="dropdown-button"
                     class="inline-flex items-center justify-between px-4 py-2 w-full text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
-                    <!-- Teks Dropdown -->
                     {{ $bayiList->firstWhere('nik', $selectedBayiNik)->nama ?? 'Pilih Nama Bayi' }}
-                    <!-- Ikon Filter -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-black" fill="currentColor"
                         viewBox="0 0 24 24">
                         <path
@@ -85,7 +79,6 @@
             </div>
         @endif
 
-
         <!-- Tabel Data KMS -->
         <div class="rounded shadow-sm overflow-x-auto">
             <table id="TableKMS" class="min-w-full border-collapse border border-[#62BCB1]">
@@ -118,13 +111,14 @@
                         <tr>
                             <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->tanggal }}</td>
                             <td class="border-collapse border border-[#62BCB1] text-center">{{ floor($umurBulan) }}
-                                bulan</td> <!-- Tambahkan usia bulan jika dibutuhkan -->
+                                bulan
+                            </td> 
                             <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->tinggi_badan }}
                             </td>
                             <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->berat_badan }}
                             </td>
-                            <td class="border-collapse border border-[#62BCB1] text-center">
-                                {{ $kms->imunisasi ? $kms->imunisasi : '-' }}</td>
+                            <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->imunisasi ? $kms->imunisasi : '-' }}
+                            </td>
                             <td class="border-collapse border border-[#62BCB1] text-center">{{ $kms->kategori }}</td>
                             <td class="border-collapse border border-[#62BCB1] text-center py-2 px-4">
                                 <!-- Tombol Edit -->
@@ -156,13 +150,11 @@
                     @endforelse
                 </tbody>
             </table>
-
             <div class="mt-4">
                 {{ $kmsData->links('vendor.pagination.tailwind') }}
             </div>
         </div>
     </div>
-
 
     <!-- Modal Tambah -->
     <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
@@ -217,7 +209,6 @@
         </div>
     </div>
 
-
     <!-- Modal Edit -->
     <div id="modal-edit" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
         <div class="bg-white p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 mx-4">
@@ -271,8 +262,6 @@
         </div>
     </div>
 
-
-
     <script>
         let selectedBayiNik = "{{ $selectedBayiNik }}";
 
@@ -304,14 +293,8 @@
         // Fungsi untuk memilih bayi dari dropdown
         const selectBayi = (nik, nama) => {
             selectedBayiNik = nik;
-
-            // Menampilkan nama bayi yang dipilih di tombol dropdown
             dropdownButton.innerHTML = `Pilih Nama Bayi: ${nama}`;
-
-            // Menutup dropdown setelah bayi dipilih
             dropdownMenu.classList.add('hidden');
-
-            // Redirect ke server untuk memuat data bayi yang dipilih
             window.location.href = `/kader/kms/${nik}`;
         };
 
@@ -332,7 +315,7 @@
         // Fungsi untuk menutup modal
         const closeModal = () => {
             document.getElementById('modal').classList.add('hidden');
-            document.getElementById('form-data').reset(); // Reset data pada form modal
+            document.getElementById('form-data').reset(); 
         };
 
         // Event untuk tombol batal di modal
@@ -350,21 +333,18 @@
 
             // Set selected value for dropdown
             const imunisasiDropdown = document.getElementById('edit-imunisasi');
-            imunisasiDropdown.value = imunisasi; // Pastikan 'imunisasi' cocok dengan value dropdown
-
+            imunisasiDropdown.value = imunisasi; 
             document.getElementById('edit-kategori').value = kategori;
-
             // Update action form untuk route update
             const form = document.getElementById('form-edit');
             form.action = `/kader/kms/${id}`;
         };
 
-
         // Fungsi untuk menutup modal edit
         const closeEditModal = () => {
             const modal = document.getElementById('modal-edit');
             modal.classList.add('hidden');
-            document.getElementById('form-edit').reset(); // Reset data pada form
+            document.getElementById('form-edit').reset(); 
         };
 
         // Event untuk tombol batal di modal edit
@@ -384,7 +364,6 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Jika pengguna mengklik "Ya, Hapus!", kirim form penghapusan
                     document.getElementById(`delete-form-${id}`).submit();
                 }
             });

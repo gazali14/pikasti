@@ -20,8 +20,6 @@ class Jadwal extends Model
     protected $casts = [
         'tanggal' => 'date',
     ];
-
-    // Mutator untuk memastikan format tanggal adalah Y-m-d
     public function setTanggalAttribute($value)
     {
         $this->attributes['tanggal'] = \Carbon\Carbon::parse($value)->format('Y-m-d');

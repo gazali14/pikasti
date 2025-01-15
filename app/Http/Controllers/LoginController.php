@@ -9,10 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    // Tampilan login
     public function index()
     {
-        return view('orang_tua.before_login.login'); // Sesuaikan dengan view login Anda
+        return view('orang_tua.before_login.login'); 
     }
 
     // Proses login
@@ -46,7 +45,6 @@ class LoginController extends Controller
             return redirect()->route('kader.dashboard')->with('success', 'Selamat datang, Kader!');
         }
 
-        // Jika login gagal, kembalikan ke halaman login dengan pesan error
         return back()->withErrors(['login' => 'Login gagal. Cek NIK atau password!']);
     }
 

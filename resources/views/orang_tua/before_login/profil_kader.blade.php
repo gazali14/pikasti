@@ -21,6 +21,5 @@
         </div>
     </div>
 </x-layout>
-
 {{-- FOOTER --}}
 <x-footer-home></x-footer-home>

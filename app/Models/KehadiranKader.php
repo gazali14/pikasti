@@ -10,8 +10,6 @@ class KehadiranKader extends Model
     use HasFactory;
 
     protected $table = 'kehadiran_kaders';
-
-    // Kolom yang dapat diisi
     protected $fillable = [
         'nik', 
         'nama_kader', 
@@ -20,10 +18,6 @@ class KehadiranKader extends Model
         'waktu', 
         'id_kegiatan'
     ];
-    
-    /**
-     * Relasi ke model Kegiatan
-     */
     public function jadwals()
     {
         return $this->belongsTo(Jadwal::class, 'id_kegiatan');

@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Kader</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body>
     <div class="container mx-auto p-5">
         <h1 class="text-3xl font-bold mb-4">Daftar Jadwal Posyandu</h1>
-        <!-- Container untuk search box dan tombol tambah -->
         <div class="flex items-center justify-between mb-4">
             <!-- Form pencarian -->
             <form class="flex items-center w-1/2">
@@ -97,7 +94,6 @@
                         <input type="date" id="search-date"
                             class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white focus:border-gray-300 focus:ring-1 focus:ring-gray-300 rounded-lg">
                     </div>
-
                     <div class="w-1/2">
                         <label for="jamPelayanan" class="block mb-2 text-sm font-bold text-black-900">Jam
                             Pelayanan</label>
@@ -118,7 +114,6 @@
     </div>
 
     <script>
-        // Fungsi Untuk Mengantur Input Tanggal dan Jam
         document.getElementById("search-date").addEventListener("click", function() {
             this.showPicker();
         });
@@ -159,11 +154,9 @@
         // Event listener untuk form submit
         document.getElementById('popupInputForm').addEventListener('submit', (event) => {
             event.preventDefault();
-            // Ambil nilai input dan lakukan action (misalnya, simpan ke database atau update tabel)
             const namaKegiatan = document.getElementById('namaKegiatan').value;
             console.log(`Data disimpan: ${namaKegiatan}`);
             hidePopup();
         });
     </script>
-
 </body>

@@ -23,7 +23,7 @@ class AdminPresensi extends Controller
             'presensi.*.jenis_kelamin' => 'required|string',
             'presensi.*.tanggal' => 'required|date',
             'presensi.*.waktu' => 'required|string',
-            'presensi.*.id_kegiatan' => 'required|integer', // Pastikan ID kegiatan valid
+            'presensi.*.id_kegiatan' => 'required|integer',
         ]);
 
         // Simpan data presensi
@@ -49,9 +49,8 @@ class AdminPresensi extends Controller
     {
         $selectedKader = Auth::guard('kader')->user();
         // Ambil data jadwal dari database
-        $jadwal = Jadwal::all(); // Sesuaikan query jika perlu (contoh: filter tanggal mendatang)
+        $jadwal = Jadwal::all();
 
-        // Kembalikan ke view presensi_bayi dengan data jadwal
         return view('admin.presensi_kader', compact('jadwal', 'selectedKader'));
     }
 
@@ -66,5 +65,4 @@ class AdminPresensi extends Controller
         }
         return view('admin.cek_presensi_kader', compact('kegiatan', 'kaders', 'selectedKader'));
     }
-    //buat controller pake looping save presensi fungsi save presensi
 }

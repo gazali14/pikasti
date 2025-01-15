@@ -48,13 +48,11 @@ class PMTController extends Controller
         $selectedBayiNik = $nik;
         return view('kader.pmt', compact('bayiList', 'pmtData','selectedBayi', 'selectedBayiNik', 'selectedKader'));
     }
-
-
     public function store(Request $request)
     {
         // Validasi input
         $validated = $request->validate([
-            'nik_bayi' => 'required|exists:bayis,nik', // Pastikan bayi ada di database
+            'nik_bayi' => 'required|exists:bayis,nik',
             'tanggal' => 'required|date',
             'pmt' => 'required|string',
         ]);
@@ -77,13 +75,10 @@ class PMTController extends Controller
         ]);
 
         $pmt = PMT::findOrFail($id);
-
-        // Update data PMT dengan kategori baru
         $pmt->update([
             'tanggal' => $request->tanggal,
             'pmt' => $request->pmt,
         ]);
-
         return redirect()->back()->with('success', 'Data PMT berhasil diperbarui!');
     }
 
@@ -92,7 +87,6 @@ class PMTController extends Controller
     {
         $pmt = PMT::findOrFail($id);
         $pmt->delete();
-
         return redirect()->back()->with('success', 'Data PMT berhasil dihapus!');
     }
 }

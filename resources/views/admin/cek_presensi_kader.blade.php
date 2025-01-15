@@ -1,14 +1,12 @@
 <x-layout-admin :selectedKader='$selectedKader'>
     <!DOCTYPE html>
     <html lang="id">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Cek Presensi</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
-
     <body id="cek-presensi" class="bg-[#E8F6F3] font-poppins m-0 p-0">
         <div class="flex mx-auto items-center relative my-4">
             <a href="/admin/presensi_kader"
@@ -46,12 +44,10 @@
                             </div>
                         </div>
 
-
                         <form action="{{ route('admin.cek_presensi_kader.save') }}" method="POST" id="presensi-form">
-                            @csrf
-                            <!-- Hidden input untuk ID kegiatan -->
+                            @csrf->
                             <input type="hidden" name="id_kegiatan" value="{{ $jadwal->id }}">
-
+                            
                             <!-- Tabel Kehadiran -->
                             <table class="w-full table-auto border border-[#62BCB1] mt-5">
                                 <thead>
@@ -104,30 +100,30 @@
         </div>
 
         <script>
-            let isFormModified = false; // Flag untuk melacak perubahan pada form
+            let isFormModified = false; 
 
             // Fungsi untuk mendeteksi perubahan pada checkbox
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', () => {
-                    isFormModified = true; // Tandai bahwa ada perubahan
+                    isFormModified = true; 
                 });
             });
 
             function filterKaders() {
                 const searchValue = document.getElementById("search").value.toLowerCase();
                 const kaderItems = document.querySelectorAll(".kader-item");
-                let hasResults = false; // Untuk mengecek hasil pencarian
+                let hasResults = false; 
 
                 kaderItems.forEach(item => {
                     const nik = item.querySelector("td:nth-child(1)").textContent.toLowerCase();
                     const nama = item.querySelector("td:nth-child(2)").textContent.toLowerCase();
 
                     if (nik.includes(searchValue) || nama.includes(searchValue)) {
-                        item.style.display = ""; // Tampilkan baris yang cocok
-                        hasResults = true; // Set hasil pencarian menjadi true
+                        item.style.display = ""; 
+                        hasResults = true; 
                     } else {
-                        item.style.display = "none"; // Sembunyikan baris yang tidak cocok
+                        item.style.display = "none"; 
                     }
                 });
 
@@ -149,14 +145,14 @@
                 if (isFormModified) {
                     const confirmationMessage =
                         'Anda memiliki perubahan yang belum disimpan. Apakah Anda yakin ingin meninggalkan halaman ini?';
-                    event.returnValue = confirmationMessage; // Untuk browser yang mendukung
-                    return confirmationMessage; // Untuk browser yang lebih lama
+                    event.returnValue = confirmationMessage; 
+                    return confirmationMessage; 
                 }
             });
 
             // Fungsi untuk menangani simpan perubahan
             document.getElementById('presensi-form').addEventListener('submit', function() {
-                isFormModified = false; // Reset flag saat form disubmit
+                isFormModified = false;
             });
 
             // Notifikasi sukses menambahkan data kader
@@ -164,17 +160,16 @@
                 @if (session('success'))
                     Swal.fire({
                         toast: true,
-                        position: 'top-end', // Lokasi di kanan atas
+                        position: 'top-end', 
                         icon: 'success',
                         title: "{{ session('success') }}",
-                        showConfirmButton: false, // Tidak ada tombol
-                        timer: 3000, // Menghilang setelah 3 detik
-                        timerProgressBar: true, // Menampilkan progress bar
+                        showConfirmButton: false, 
+                        timer: 3000, 
+                        timerProgressBar: true,
                     });
                 @endif
             });
         </script>
     </body>
-
     </html>
 </x-layout-admin>

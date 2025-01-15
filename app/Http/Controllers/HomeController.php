@@ -12,8 +12,7 @@ class HomeController extends Controller
     public function index()
     {
         // Ambil jadwal terurut berdasarkan tanggal terdekat ke hari ini
-        $today = now()->toDateString(); // Format tanggal sekarang
-
+        $today = now()->toDateString(); 
         // Urutkan jadwal dengan tanggal terdekat ke hari ini (tanpa DATEDIFF, gunakan julianday)
         $jadwal = Jadwal::orderByRaw("
             CASE 

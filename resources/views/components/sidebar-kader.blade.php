@@ -18,7 +18,6 @@
             <i class="fas fa-chart-line mr-3"></i>
             KMS
         </a>
-        
         <div x-data="{ isSubmenuOpen: false }" class="flex flex-col">
             <a href="javascript:void(0);" @click="isSubmenuOpen = !isSubmenuOpen" class="{{ request()->is('kader/vitamin-pmt') ? 'active-nav-link text-white' : 'text-white opacity-75 hover:opacity-100'}} flex items-center py-4 pl-6 nav-item">
                 <i class="fas fa-apple-alt mr-3"></i>
@@ -33,7 +32,6 @@
                 </a>
             </div>
         </div>
-
         <a href="/kader/konsultasi" class="{{ request()->is('kader/konsultasi') ? 'active-nav-link text-white' : 'text-white opacity-75 hover:opacity-100'}} flex items-center py-4 pl-6 nav-item">
             <i class="fas fa-comments mr-3"></i>
             Konsultasi

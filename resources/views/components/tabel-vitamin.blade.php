@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabel Vitamin</title>
+    <title>Vitamin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
 <body>
-    <!-- resources/views/components/tabel-vitamin.blade.php -->
     @props(['bayiList', 'vitaminData', 'selectedBayiNik'])
     <div class="mx-auto mt-1 mb-10 p-5">
         <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 mb-5">
@@ -161,16 +158,6 @@
                         <option value="" disabled selected>Pilih Jenis Vitamin</option>
                         <option value="BIRU">Biru</option>
                         <option value="MERAH">Merah</option>
-                        <!--<option value="Polio I">Polio I</option>
-                        <option value="Polio II">Polio II</option>
-                        <option value="Polio III">Polio III</option>
-                        <option value="Polio IV">Polio IV</option>
-                        <option value="Campak">Campak</option>
-                        <option value="TT BUMIL">TT BUMIL</option>
-                        <option value="TT WUS">TT WUS</option>
-                        <option value="DPT, Hb Com1">DPT, Hb Com1</option>
-                        <option value="DPT, Hb Com2">DPT, Hb Com2</option>
-                        <option value="DPT, Hb Com3">DPT, Hb Com3</option>-->
                     </select>
                 </div>
                 <div class="flex justify-end">
@@ -181,7 +168,6 @@
             </form>
         </div>
     </div>
-
 
     <!-- Modal Edit -->
     <div id="modal-edit" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
@@ -202,15 +188,6 @@
                         <option value="" disabled selected>Pilih Jenis Vitamin</option>
                         <option value="BIRU">Biru</option>
                         <option value="MERAH">Merah</option>
-                        <!--<option value="Polio II">Polio II</option>
-                        <option value="Polio III">Polio III</option>
-                        <option value="Polio IV">Polio IV</option>
-                        <option value="Campak">Campak</option>
-                        <option value="TT BUMIL">TT BUMIL</option>
-                        <option value="TT WUS">TT WUS</option>
-                        <option value="DPT, Hb Com1">DPT, Hb Com1</option>
-                        <option value="DPT, Hb Com2">DPT, Hb Com2</option>
-                        <option value="DPT, Hb Com3">DPT, Hb Com3</option>-->
                     </select>
                 </div>
                 <div class="flex justify-end">
@@ -255,14 +232,8 @@
         // Fungsi untuk memilih bayi dari dropdown
         const selectBayi = (nik, nama) => {
             selectedBayiNik = nik;
-
-            // Menampilkan nama bayi yang dipilih di tombol dropdown
             dropdownButton.innerHTML = `Pilih Nama Bayi: ${nama}`;
-
-            // Menutup dropdown setelah bayi dipilih
             dropdownMenu.classList.add('hidden');
-
-            // Redirect ke server untuk memuat data bayi yang dipilih
             window.location.href = `/kader/vitamin/${nik}`;
         };
 
@@ -283,7 +254,7 @@
         // Fungsi untuk menutup modal
         const closeModal = () => {
             document.getElementById('modal').classList.add('hidden');
-            document.getElementById('form-data').reset(); // Reset data pada form modal
+            document.getElementById('form-data').reset();
         };
 
         // Event untuk tombol batal di modal
@@ -293,19 +264,15 @@
         const openEditModal = (id, tanggal, vitamin) => {
             const modal = document.getElementById('modal-edit');
             modal.classList.remove('hidden');
-
             // Isi nilai input dalam form
             document.getElementById('edit-tanggal').value = tanggal;
             // Set selected value for dropdown
             const vitaminDropdown = document.getElementById('edit-vitamin');
-            vitaminDropdown.value = vitamin; // Pastikan 'vitamin' cocok dengan value dropdown
-
-
+            vitaminDropdown.value = vitamin;
             // Update action form untuk route update
             const form = document.getElementById('form-edit');
             form.action = `/kader/vitamin/${id}`;
         };
-
 
         // Fungsi untuk menutup modal edit
         const closeEditModal = () => {
@@ -342,16 +309,15 @@
             @if (session('success'))
                 Swal.fire({
                     toast: true,
-                    position: 'top-end', // Lokasi di kanan atas
+                    position: 'top-end',
                     icon: 'success',
                     title: "{{ session('success') }}",
-                    showConfirmButton: false, // Tidak ada tombol
-                    timer: 3000, // Menghilang setelah 3 detik
-                    timerProgressBar: true, // Menampilkan progress bar
+                    showConfirmButton: false, 
+                    timer: 3000,
+                    timerProgressBar: true,
                 });
             @endif
         });
     </script>
 </body>
-
 </html>

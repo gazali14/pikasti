@@ -11,8 +11,6 @@ class Kehadiran extends Model
     use HasFactory;
 
     protected $table = 'kehadiran';
-
-    // Kolom yang dapat diisi
     protected $fillable = [
         'nik', 
         'nama_bayi', 
@@ -27,10 +25,6 @@ class Kehadiran extends Model
     {
         return $this->belongsTo(Bayi::class, 'nik', 'nik');
     }
-
-    /**
-     * Relasi ke model Kegiatan
-     */
     public function jadwals()
     {
         return $this->belongsTo(Jadwal::class, 'id_kegiatan');

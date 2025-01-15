@@ -1,15 +1,12 @@
 <x-layout-admin :selectedKader='$selectedKader'>
     <!DOCTYPE html>
     <html lang="id">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Daftar Presensi Kegiatan</title>
         <script src="https://cdn.tailwindcss.com"></script>
-
     </head>
-
     <body class="bg-[#f4fcf7]">
         <div class="container mx-auto p-5 mt-[-20px]">
             <!-- Judul Halaman -->
@@ -18,7 +15,6 @@
             </div>
             <!-- Search Input -->
             <div class="flex">
-                <!-- Input Box -->
                 <input type="search" id="default-search"
                     class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"
                 placeholder="Cari Kegiatan" required />
@@ -134,6 +130,5 @@
 
         </script>
     </body>
-
     </html>
 </x-layout-admin>

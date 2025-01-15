@@ -13,7 +13,6 @@
             <img src="{{ asset('img/home1.png') }}" alt="Gambar" class="w-full h-auto max-w-full object-contain">
         </div>
     </div>
-
     {{-- PROFIL POSYANDU --}}
     <div class="container px-5 sm:px-10 lg:px-20 py-5 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
         <div class="flex justify-center">
@@ -44,7 +43,6 @@
             </div>
         </div>
     </div>
-
     {{-- JADWAL --}}
     <div>
         <div class="flex items-center w-full mt-20">
@@ -82,7 +80,6 @@
             </section>
         </div>
     </div>
-
     <a href="orang_tua/before_login/jadwal">
         <div class="flex justify-end cursor-pointer mt-10 hover:underline">
             <p class="flex items-center space-x-2">
@@ -91,8 +88,6 @@
             </p>
         </div>
     </a>
-
-
     {{-- PROFIL KADER --}}
     <div>
         <div class="flex items-center w-full mt-20">
@@ -119,8 +114,6 @@
             </div>
         </div>
     </div>
-
-
     <!-- Lihat Selengkapnya -->
     <a href="orang_tua/before_login/profil_kader">
         <div class="flex justify-end cursor-pointer mt-10 hover:underline">
@@ -130,7 +123,6 @@
             </p>
         </div>
     </a>
-
     {{-- DOKUMENTASI KEGIATAN --}}
     <div>
         <div class="flex items-center w-full mt-20">
@@ -141,7 +133,6 @@
 
         <x-component-dokumentasi :dokumentasis="$dokumentasis"></x-component-dokumentasi>
     </div>
-
     {{-- Lihat Selengkapnya --}}
     <a href="orang_tua/before_login/dokumentasi">
         <div class="flex justify-end cursor-pointer mt-0 sm:mt-5 mb-10 hover:underline">

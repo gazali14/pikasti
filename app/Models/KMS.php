@@ -9,9 +9,8 @@ class KMS extends Model
 {
     use HasFactory;
 
-    protected $table = 'kms'; // Nama tabel di database
+    protected $table = 'kms';
 
-    // Properti yang dapat diisi
     protected $fillable = [
         'nik_bayi',
         'tanggal',
@@ -20,7 +19,7 @@ class KMS extends Model
         'imunisasi',
         'kategori',
     ];
-     // Define the relationship between KMS and Bayi
+
     public function bayi()
     {
         return $this->belongsTo(Bayi::class, 'nik_bayi', 'nik');

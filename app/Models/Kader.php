@@ -8,8 +8,6 @@ use Illuminate\Notifications\Notifiable;
 class Kader extends Authenticatable
 {
     use Notifiable;
-
-    // Kolom yang dapat diisi melalui form atau mass assignment
     protected $fillable = [
         'nik',
         'nama',
@@ -19,8 +17,6 @@ class Kader extends Authenticatable
         'password',
         'is_admin',
     ];
-
-    // Kolom yang disembunyikan saat model diubah menjadi array atau JSON
     protected $hidden = [
         'password',
         'remember_token',
@@ -32,7 +28,7 @@ class Kader extends Authenticatable
      * @return string
      */
     public function getAuthIdentifierName(){
-        return 'nik'; // Pastikan ini sesuai dengan field yang digunakan untuk login
+        return 'nik';
     }
 
     public function username()

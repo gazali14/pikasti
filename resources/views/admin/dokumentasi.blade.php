@@ -196,12 +196,12 @@
                 @if (session('success'))
                     Swal.fire({
                         toast: true,
-                        position: 'top-end', // Lokasi di kanan atas
+                        position: 'top-end', 
                         icon: 'success',
                         title: "{{ session('success') }}",
-                        showConfirmButton: false, // Tidak ada tombol
-                        timer: 3000, // Menghilang setelah 3 detik
-                        timerProgressBar: true, // Menampilkan progress bar
+                        showConfirmButton: false, 
+                        timer: 3000, 
+                        timerProgressBar: true, 
                     });
                 @endif
             });
@@ -211,12 +211,12 @@
                 @if (session('error'))
                     Swal.fire({
                         toast: true,
-                        position: 'top-end', // Lokasi di kanan atas
+                        position: 'top-end', 
                         icon: 'error',
                         title: "{{ session('error') }}",
-                        showConfirmButton: false, // Tidak ada tombol
-                        timer: 5000, // Menghilang setelah 3 detik
-                        timerProgressBar: true, // Menampilkan progress bar
+                        showConfirmButton: false, 
+                        timer: 5000, 
+                        timerProgressBar: true,
                     });
                 @endif
             });
@@ -224,7 +224,6 @@
             // Pencarian dengan AJAX
             document.getElementById('default-search').addEventListener('input', function() {
                 const search = this.value;
-
                 fetch(`{{ route('dokumentasi.index') }}?search=${search}`)
                     .then(response => response.text())
                     .then(html => {

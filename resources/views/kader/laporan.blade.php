@@ -2,11 +2,9 @@
     <div class="text-center my-4">
         <h1 class="text-3xl font-bold mx-5">Laporan</h1>
     </div>
-
     <div class="container p-5">
-        <!-- Tanggal -->
+        <!-- Filter Tanggal -->
         <form action="{{ route('laporan.index') }}" method="GET">
-
             <div
                 class="flex flex-wrap md:flex-nowrap justify-between items-center space-y-2 md:space-y-0 md:space-x-4 bg-white p-4 rounded-lg shadow-md mb-4">
                 <div class="w-full md:w-auto flex justify-start">
@@ -44,6 +42,7 @@
                 {{-- Summary --}}
                 <div class="space-y-4">
                     <div class="space-y-2">
+                        {{-- Informasi Jumlah kehadiran --}}
                         <p class="font-bold">JUMLAH KEHADIRAN</p>
                         <p class="font-medium">Bayi</p>
                         <ul class="pl-1">
@@ -74,7 +73,7 @@
                                 {{ $balitaMemilikiKMSLakiLaki }} L
                             </div>
                         </div>
-
+                        {{-- Informasi Gizi --}}
                         <p class="font-bold">GIZI</p>
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Jumlah Balita Ditimbang (D)</div>
@@ -107,7 +106,7 @@
                             <div class="w-1/2">: {{ $pertamaKaliDitimbangPerempuan }} P,
                                 {{ $pertamaKaliDitimbangLakiLaki }} L</div>
                         </div>
-
+                        {{-- Informasi Jumlah Bayi --}}
                         <p class="font-bold">JUMLAH BAYI</p>
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Jumlah Bayi 0-5 Bulan</div>
@@ -131,7 +130,7 @@
                         </div>
                     </div>
                 </div>
-
+                {{-- Informasi Pemberian Vitamin --}}
                 <div class="mt-2 space-y-4">
                     <div class="space-y-2">
                         <p class="font-bold">VITAMIN</p>
@@ -146,7 +145,7 @@
                                 <div class="w-1/2 text-left">: {{ $jumlahVitaminBiru }}</div>
                             </li>
                         </ul>
-
+                        {{-- Informasi pemberian PMT --}}
                         <p class="font-bold">PMT</p>
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Ada/Tidak</div>
@@ -156,73 +155,63 @@
                             <div class="w-1/2 font-medium">Keterangan</div>
                             <div class="w-1/2">: {{ $keteranganPMT }}</div>
                         </div>
-
+                        {{-- Informasi Imunisasi --}}
                         <p class="font-bold">IMUNISASI</p>
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Jumlah yang Imunisasi BCG</div>
                             <div class="w-1/2">: {{ $imunisasiBCGPerempuan }} P, {{ $imunisasiBCGLakiLaki }} L</div>
                         </div>
-
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Jumlah yang Imunisasi Polio I</div>
                             <div class="w-1/2">: {{ $imunisasiPolioIPerempuan }} P, {{ $imunisasiPolioILakiLaki }} L
                             </div>
                         </div>
-
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Jumlah yang Imunisasi Polio II</div>
                             <div class="w-1/2">: {{ $imunisasiPolioIIPerempuan }} P, {{ $imunisasiPolioIILakiLaki }}
                                 L
                             </div>
                         </div>
-
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Jumlah yang Imunisasi Polio III</div>
                             <div class="w-1/2">: {{ $imunisasiPolioIIIPerempuan }} P,
                                 {{ $imunisasiPolioIIILakiLaki }} L
                             </div>
                         </div>
-
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Jumlah yang Imunisasi Polio IV</div>
                             <div class="w-1/2">: {{ $imunisasiPolioIVPerempuan }} P, {{ $imunisasiPolioIVLakiLaki }}
                                 L
                             </div>
                         </div>
-
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Jumlah yang Imunisasi Campak</div>
                             <div class="w-1/2">: {{ $imunisasiCampakPerempuan }} P, {{ $imunisasiCampakLakiLaki }} L
                             </div>
                         </div>
-
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Jumlah yang Imunisasi DPT, Hb Com1</div>
                             <div class="w-1/2">: {{ $imunisasiHepatitisB1Perempuan }} P,
                                 {{ $imunisasiHepatitisB1LakiLaki }} L</div>
                         </div>
-
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Jumlah yang Imunisasi DPT, Hb Com2</div>
                             <div class="w-1/2">: {{ $imunisasiHepatitisB2Perempuan }} P,
                                 {{ $imunisasiHepatitisB2LakiLaki }} L</div>
                         </div>
-
                         <div class="flex flex-wrap items-center">
                             <div class="w-1/2 font-medium">Jumlah yang Imunisasi DPT, Hb Com3</div>
                             <div class="w-1/2">: {{ $imunisasiHepatitisB3Perempuan }} P,
                                 {{ $imunisasiHepatitisB3LakiLaki }} L</div>
                         </div>
-
-
                     </div>
                 </div>
         </div>
-
+        {{-- Keterangan --}}
         <p class="p-2 text-sm">Keterangan:</p>
         <div class="pl-3 text-sm">P: Perempuan</div>
         <div class="pl-3 text-sm">L: Laki-Laki</div>
-
+        {{-- Ekspor --}}
         <div class="mt-3 font-bold pl-2 flex justify-end">Ekspor Data Mentah ke Excel</div>
         <div class="mt-2 w-full flex justify-end">
             <form action="{{ route('laporan.export') }}" method="get">
@@ -245,10 +234,8 @@
                 <input type="hidden" name="naikBBLakiLaki" value="{{ $naikBBLakiLaki }}">
                 <input type="hidden" name="tetapBBPerempuan" value="{{ $tetapBBPerempuan }}">
                 <input type="hidden" name="tetapBBLakiLaki" value="{{ $tetapBBLakiLaki }}">
-                <input type="hidden" name="pertamaKaliDitimbangPerempuan"
-                    value="{{ $pertamaKaliDitimbangPerempuan }}">
-                <input type="hidden" name="pertamaKaliDitimbangLakiLaki"
-                    value="{{ $pertamaKaliDitimbangLakiLaki }}">
+                <input type="hidden" name="pertamaKaliDitimbangPerempuan" value="{{ $pertamaKaliDitimbangPerempuan }}">
+                <input type="hidden" name="pertamaKaliDitimbangLakiLaki" value="{{ $pertamaKaliDitimbangLakiLaki }}">
                 <input type="hidden" name="bayi_0_5_bulan" value="{{ $bayi_0_5_bulan }}">
                 <input type="hidden" name="bayi_6_11_bulan" value="{{ $bayi_6_11_bulan }}">
                 <input type="hidden" name="bayi_12_23_bulan" value="{{ $bayi_12_23_bulan }}">
@@ -269,19 +256,13 @@
                 <input type="hidden" name="imunisasiPolioIVLakiLaki" value="{{ $imunisasiPolioIVLakiLaki }}">
                 <input type="hidden" name="imunisasiCampakPerempuan" value="{{ $imunisasiCampakPerempuan }}">
                 <input type="hidden" name="imunisasiCampakLakiLaki" value="{{ $imunisasiCampakLakiLaki }}">
-                <input type="hidden" name="imunisasiHepatitisB1Perempuan"
-                    value="{{ $imunisasiHepatitisB1Perempuan }}">
-                <input type="hidden" name="imunisasiHepatitisB1LakiLaki"
-                    value="{{ $imunisasiHepatitisB1LakiLaki }}">
-                <input type="hidden" name="imunisasiHepatitisB2Perempuan"
-                    value="{{ $imunisasiHepatitisB2Perempuan }}">
-                <input type="hidden" name="imunisasiHepatitisB2LakiLaki"
-                    value="{{ $imunisasiHepatitisB2LakiLaki }}">
-                <input type="hidden" name="imunisasiHepatitisB3Perempuan"
-                    value="{{ $imunisasiHepatitisB3Perempuan }}">
-                <input type="hidden" name="imunisasiHepatitisB3LakiLaki"
-                    value="{{ $imunisasiHepatitisB3LakiLaki }}">
-
+                <input type="hidden" name="imunisasiHepatitisB1Perempuan" value="{{ $imunisasiHepatitisB1Perempuan }}">
+                <input type="hidden" name="imunisasiHepatitisB1LakiLaki" value="{{ $imunisasiHepatitisB1LakiLaki }}">
+                <input type="hidden" name="imunisasiHepatitisB2Perempuan" value="{{ $imunisasiHepatitisB2Perempuan }}">
+                <input type="hidden" name="imunisasiHepatitisB2LakiLaki" value="{{ $imunisasiHepatitisB2LakiLaki }}">
+                <input type="hidden" name="imunisasiHepatitisB3Perempuan" value="{{ $imunisasiHepatitisB3Perempuan }}">
+                <input type="hidden" name="imunisasiHepatitisB3LakiLaki" value="{{ $imunisasiHepatitisB3LakiLaki }}">
+                {{-- Tombol Ekspor --}}
                 <button id="generate-button" type="submit"
                     style="background-color: #4EC3AF; color: #ffffff; padding: 10px 20px;
                     border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold;
@@ -290,7 +271,6 @@
                     Ekspor
                 </button>
             </form>
-
         </div>
     </div>
     @endif

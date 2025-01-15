@@ -10,7 +10,7 @@ class PMT extends Model
 {
     use HasFactory;
 
-    protected $table = 'pmts'; //nama tabel di database
+    protected $table = 'pmts';
 
     protected $fillable = [
         'nik_bayi',

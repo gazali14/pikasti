@@ -16,9 +16,9 @@ class KMSController extends Controller
     {
         try {
             $selectedKader = Auth::guard('kader')->user();
-            $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
-            $kmsData = collect([]); // Data KMS kosong di awal
-            $kmsDataPaginate = collect([]); // Data KMS kosong di awal
+            $bayiList = Bayi::all(); 
+            $kmsData = collect([]); 
+            $kmsDataPaginate = collect([]);
             $selectedBayiNik = null;
 
             return view('kader.kms', compact('bayiList', 'kmsData', 'kmsDataPaginate', 'selectedBayiNik', 'selectedKader'));
@@ -50,7 +50,7 @@ class KMSController extends Controller
             $kmsData = $paginator->getCollection()->map(function ($item) use ($selectedBayi) {
                 $tanggalLahir = Carbon::parse($selectedBayi->tanggal_lahir);
                 $tanggalKMS = Carbon::parse($item->tanggal);
-                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalKMS); // Hitung usia bulan
+                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalKMS);
                 return $item;
             });
     
@@ -62,7 +62,7 @@ class KMSController extends Controller
             return view('kader.kms', [
                 'bayiList' => $bayiList,
                 'kmsData' => $kmsData,
-                'kmsDataPaginate' => $paginator, // Tetap gunakan paginator di view
+                'kmsDataPaginate' => $paginator,
                 'selectedBayi' => $selectedBayi,
                 'selectedBayiNik' => $selectedBayiNik,
                 'selectedKader' => $selectedKader,
@@ -72,14 +72,13 @@ class KMSController extends Controller
             return redirect()->route('kms.index')->with('error', 'Terjadi kesalahan saat memuat data KMS: ' . $e->getMessage());
         }
     }
-    
 
     // Menambahkan data KMS baru
     public function store(Request $request)
     {
         try {
             $validated = $request->validate([
-                'nik_bayi' => 'required|exists:bayis,nik', // Pastikan bayi ada di database
+                'nik_bayi' => 'required|exists:bayis,nik',
                 'tanggal' => 'required|date',
                 'tinggi_badan' => 'required|numeric',
                 'berat_badan' => 'required|numeric',
@@ -92,7 +91,7 @@ class KMSController extends Controller
                 ->first();
 
             if (!$previousKMS) {
-                $kategori = 'B'; // Data bayi pertama kali
+                $kategori = 'B';
             } else {
                 $kategori = $this->determineCategory($request->berat_badan, $previousKMS->berat_badan);
             }

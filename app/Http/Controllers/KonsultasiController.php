@@ -15,10 +15,9 @@ class KonsultasiController extends Controller
     public function index()
     {
         $selectedKader = Auth::guard('kader')->user();
-        $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
-        $konsultasiData = []; // Data Konsultasi kosong di awal
+        $bayiList = Bayi::all();
+        $konsultasiData = [];
         $selectedBayiNik = null;
-
         return view('kader.konsultasi', compact('bayiList', 'konsultasiData', 'selectedBayiNik', 'selectedKader'));
     }
 
@@ -26,8 +25,8 @@ class KonsultasiController extends Controller
     public function show($nik)
     {
         $selectedKader = Auth::guard('kader')->user();
-        $bayiList = Bayi::all(); // Daftar semua bayi untuk dropdown
-        $selectedBayi = Bayi::where('nik', $nik)->first(); // Data bayi yang dipilih
+        $bayiList = Bayi::all(); 
+        $selectedBayi = Bayi::where('nik', $nik)->first(); 
 
         // Jika bayi tidak ditemukan, alihkan kembali
         if (!$selectedBayi) {
@@ -40,11 +39,9 @@ class KonsultasiController extends Controller
             ->map(function ($item) use ($selectedBayi) {
                 $tanggalLahir = \Carbon\Carbon::parse($selectedBayi->tanggal_lahir);
                 $tanggalKonsultasi = \Carbon\Carbon::parse($item->tanggal);
-                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalKonsultasi); // Hitung usia bulan
+                $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalKonsultasi);
                 return $item;
             });
-
-
         $selectedBayiNik = $nik;
         return view('kader.konsultasi', compact('bayiList', 'konsultasiData','selectedBayi', 'selectedBayiNik', 'selectedKader'));
     }
@@ -54,7 +51,7 @@ class KonsultasiController extends Controller
     {
         // Validasi input
         $validated = $request->validate([
-            'nik_bayi' => 'required|exists:bayis,nik', // Pastikan bayi ada di database
+            'nik_bayi' => 'required|exists:bayis,nik',
             'tanggal' => 'required|date',
             'konsultasi' => 'required|string',
         ]);
@@ -75,7 +72,6 @@ class KonsultasiController extends Controller
             'tanggal' => 'required|date',
             'konsultasi' => 'required|string',
         ]);
-
         $konsultasi = Konsultasi::findOrFail($id);
 
         // Update data konsultasi dengan kategori baru
@@ -87,7 +83,6 @@ class KonsultasiController extends Controller
         return redirect()->back()->with('success', 'Data Konsultasi berhasil diperbarui!');
     }
 
-    // Menghapus data konsultasi
     public function destroy($id)
     {
         $konsultasi = Konsultasi::findOrFail($id);
