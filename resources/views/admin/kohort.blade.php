@@ -28,7 +28,7 @@
                                     <th class="text-white border bg-[#62BCB1] py-2 px-4 text-sm sm:text-base">NIK</th>
                                     <th class="text-white border bg-[#62BCB1] py-2 px-4 text-sm sm:text-base">Nama Bayi
                                     </th>
-                                    <th class="text-white border bg-[#62BCB1] py-2 px-4 text-sm sm:text-base">Nama Ibu
+                                    <th class="text-white border bg-[#62BCB1] py-2 px-4 text-sm sm:text-base">Orang Tua
                                     </th>
                                     <th class="text-white border bg-[#62BCB1] py-2 px-4 text-sm sm:text-base">Tanggal
                                         Lahir</th>
@@ -73,9 +73,10 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="mt-4">
-                            {{ $bayis->links('vendor.pagination.tailwind') }}
-                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        {{ $bayis->links('vendor.pagination.tailwind') }}
                     </div>
                 </div>
             </div>

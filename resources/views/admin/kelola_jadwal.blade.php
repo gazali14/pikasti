@@ -131,11 +131,6 @@
 
     </div>
 
-    @if (session('error'))
-        <script>
-            alert("{{ session('error') }}");
-        </script>
-    @endif
     <!-- JavaScript -->
     <script>
         function showPopup(title, id = '', nama_kegiatan = '', tanggal = '', waktu = '') {
@@ -174,7 +169,7 @@
 
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
-                    text: "Anda tidak dapat membatalkan ini!",
+                    text: "Anda tidak dapat membatalkan ini! Data presensi yang ada juga akan dihapus.",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Ya, hapus!',

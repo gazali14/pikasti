@@ -3,64 +3,69 @@
         <h1 class="text-3xl font-bold mx-5">Kelola Kader</h1>
     </div>
     <div class="min-h-screen max-h-96">
-        <div class="container p-5">
+        <div class="container mx-auto p-5">
             <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded-2xl shadow">
                 <div class="mx-auto mt-1 mb-10 p-5">
-                    <form class="mb-2 flex justify-start items-center">
-                        <div class="flex">
-                            <!-- Input Box -->
-                            <input type="search" id="default-search"
-                                class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"
-                                placeholder="Cari Kader" required />
+                    <div id='kaderTableContainer' class="overflow-x-auto">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                            <div>
+                                <input type="text" id="default-search" placeholder="Cari Nama Bayi" required
+                                    class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm" />
+                            </div>
+                            <button id='tambahKaderBtn'
+                                class="p-3 bg-teal-500 text-white rounded hover:bg-teal-600 min-w-[150px] max-w-[150px] whitespace-nowrap">
+                                <i class="fas fa-folder-plus"></i>
+                                <span>Tambah Kader</span>
+                            </button>
                         </div>
-                    </form>
 
-                    <!-- Tombol Edit dan Hapus di bawah tabel -->
-                    <div class="flex justify-end mt-4" id="actionButtons" style="display: none;">
-                        <button
-                            class="inline-block  bg-blue-500 text-white px-6 py-2.5 rounded-md hover:bg-gray-600 transition duration-150 ease-in-out"
-                            id="editBtn">Edit</button>
-                        <button
-                            class="inline-block px-6 py-2.5 bg-red-600 text-white rounded-md shadow-md hover:bg-gray-600 transition duration-150 ease-in-out ml-2"
-                            id="deleteBtn">Hapus</button>
-                    </div>
+                        <!-- Tombol Edit dan Hapus di atas tabel -->
+                        <div class="flex justify-end mt-4" id="actionButtons" style="display: none;">
+                            <button
+                                class="inline-block  bg-blue-500 text-white px-6 py-2.5 rounded-md hover:bg-gray-600 transition duration-150 ease-in-out"
+                                id="editBtn">Edit</button>
+                            <button
+                                class="inline-block px-6 py-2.5 bg-red-600 text-white rounded-md shadow-md hover:bg-gray-600 transition duration-150 ease-in-out ml-2"
+                                id="deleteBtn">Hapus</button>
+                        </div>
 
-                    <!-- Table -->
-                    <table id="kaderTable" class="min-w-full table-fixed border-collapse border border-[#62BCB1] mt-5">
-                        <thead>
-                            <tr>
-                                <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
-                                    Nama</th>
-                                <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
-                                    Alamat</th>
-                                <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
-                                    Jabatan</th>
-                            </tr>
-                        </thead>
-                        <tbody class= "bg-white">
-                            <!-- Contoh Data -->
-                            @forelse ($kaders as $kader)
-                                <tr class="text-center" data-id="{{ $kader->id }}">
-                                    <td
-                                        class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
-                                        {{ $kader->nama }}
-                                    </td>
-                                    <td
-                                        class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
-                                        {{ $kader->alamat }}
-                                    </td>
-                                    <td
-                                        class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
-                                        {{ $kader->jabatan }}
-                                    </td>
+                        <!-- Table -->
+                        <table id="kaderTable" class="w-full table-auto border border-[#62BCB1] mt-5">
+                            <thead>
+                                <tr>
+                                    <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
+                                        Nama</th>
+                                    <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
+                                        Alamat</th>
+                                    <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
+                                        Jabatan</th>
                                 </tr>
-                            @empty
-                                <p class="text-center text-gray-500 col-span-full">Belum ada kader yang
-                                    tersedia.
-                                </p>
-                            @endforelse
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class= "bg-white">
+                                <!-- Contoh Data -->
+                                @forelse ($kaders as $kader)
+                                    <tr class="text-center kader-row" data-id="{{ $kader->id }}">
+                                        <td
+                                            class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
+                                            {{ $kader->nama }}
+                                        </td>
+                                        <td
+                                            class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
+                                            {{ $kader->alamat }}
+                                        </td>
+                                        <td
+                                            class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
+                                            {{ $kader->jabatan }}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <p class="text-center text-gray-500 col-span-full">Belum ada kader yang
+                                        tersedia.
+                                    </p>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
 
                     <div class="mt-4">
                         {{ $kaders->links('vendor.pagination.tailwind') }}
@@ -69,7 +74,7 @@
             </div>
 
             <!-- Form Tambah Kader -->
-            <div class="container mx-auto p-5 bg-white shadow-lg rounded-lg mt-10 ">
+            <div id="formTambahKader" class="container mx-auto p-5 bg-white shadow-lg rounded-lg mt-10 ">
                 <h1 class="text-2xl font-bold mb-6 text-gray-800">Tambah Kader</h1>
 
                 <form action="{{ route('admin.kelola_kader.store') }}" method="POST" enctype="multipart/form-data"
@@ -225,10 +230,25 @@
         document.getElementById('actionButtons').style.display = 'none';
     }
 
+    const form = document.getElementById('formTambahKader');
+    const tabelKader = document.getElementById('kaderTableContainer');
+    // Tambahkan event listener ke tombol Tambah
+    document.getElementById('tambahKaderBtn').addEventListener('click', function() {
+        resetButton();
+        form.scrollIntoView({
+            behavior: 'smooth'
+        });
+    })
+
     // Tambahkan event listener ke tombol Edit
     document.getElementById('editBtn').addEventListener('click', function() {
         if (selectedRow) {
             const kaderId = selectedRow.getAttribute('data-id');
+
+            // Scroll ke form
+            form.scrollIntoView({
+                behavior: 'smooth'
+            });
 
             // Fetch data kader dari server
             fetch(`{{ url('admin/kelola_kader') }}/${kaderId}/edit`)
@@ -239,8 +259,8 @@
                     document.getElementById('nama').value = data.nama;
                     document.getElementById('alamat').value = data.alamat;
                     document.getElementById('jabatan').value = data.jabatan;
-                    document.getElementById('password').value = ''; 
-                    document.getElementById('kader-id').value = data.id; 
+                    document.getElementById('password').value = '';
+                    document.getElementById('kader-id').value = data.id;
                 });
         }
     });
@@ -283,15 +303,22 @@
         }
     });
 
-    // Tambahkan event listener ke tombol Edit
-    document.getElementById('resetBtn').addEventListener('click', function() {
+    function resetButton() {
         // Hapus isi form
         document.getElementById('nik').value = "";
         document.getElementById('nama').value = "";
         document.getElementById('alamat').value = "";
         document.getElementById('jabatan').value = "";
-        document.getElementById('password').value = ''; 
+        document.getElementById('password').value = '';
         document.getElementById('kader-id').value = "";
+    }
+
+    // Tambahkan event listener ke tombol Reset
+    document.getElementById('resetBtn').addEventListener('click', function() {
+        resetButton();
+        tabelKader.scrollIntoView({
+            behavior: 'smooth'
+        })
     });
 
     // Notifikasi sukses menambahkan data kader
@@ -302,9 +329,9 @@
                 position: 'top-end',
                 icon: 'success',
                 title: "{{ session('success') }}",
-                showConfirmButton: false, 
-                timer: 3000, 
-                timerProgressBar: true, 
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
             });
         @endif
     });
@@ -331,8 +358,8 @@
 
     // Javascript untuk menampilkan foto yang diupload
     function previewPhoto(event) {
-        const file = event.target.files[0]; 
-        const preview = document.getElementById('photoPreview'); 
+        const file = event.target.files[0];
+        const preview = document.getElementById('photoPreview');
 
         // Pastikan ada file yang dipilih
         if (file) {
@@ -341,7 +368,7 @@
                 preview.src = e.target.result;
             };
 
-            reader.readAsDataURL(file); 
+            reader.readAsDataURL(file);
         } else {
             // Jika tidak ada file, kembalikan ke placeholder
             preview.src = '{{ asset('images/placeholder.jpg') }}';

@@ -45,7 +45,8 @@
                         </div>
 
                         <form action="{{ route('admin.cek_presensi_kader.save') }}" method="POST" id="presensi-form">
-                            @csrf->
+                            @csrf
+                            
                             <input type="hidden" name="id_kegiatan" value="{{ $jadwal->id }}">
                             
                             <!-- Tabel Kehadiran -->

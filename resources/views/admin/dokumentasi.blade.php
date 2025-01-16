@@ -38,7 +38,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white ">
-                                    @foreach ($dokumentasis as $dokumentasi)
+                                    @forelse ($dokumentasis as $dokumentasi)
                                         <tr class="text-center">
                                             <td
                                                 class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
@@ -70,13 +70,19 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="3" class="text-center text-gray-500 py-4">
+                                                Belum ada dokumentasi yang tersedia.
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
 
-                            <div class="mt-4">
-                                {{ $dokumentasis->links('vendor.pagination.tailwind') }}
-                            </div>
+                        </div>
+                        <div class="mt-4">
+                            {{ $dokumentasis->links('vendor.pagination.tailwind') }}
                         </div>
                     </div>
                 </div>
@@ -196,12 +202,12 @@
                 @if (session('success'))
                     Swal.fire({
                         toast: true,
-                        position: 'top-end', 
+                        position: 'top-end',
                         icon: 'success',
                         title: "{{ session('success') }}",
-                        showConfirmButton: false, 
-                        timer: 3000, 
-                        timerProgressBar: true, 
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
                     });
                 @endif
             });
@@ -211,11 +217,11 @@
                 @if (session('error'))
                     Swal.fire({
                         toast: true,
-                        position: 'top-end', 
+                        position: 'top-end',
                         icon: 'error',
                         title: "{{ session('error') }}",
-                        showConfirmButton: false, 
-                        timer: 5000, 
+                        showConfirmButton: false,
+                        timer: 5000,
                         timerProgressBar: true,
                     });
                 @endif

@@ -25,7 +25,7 @@ class AdminKelolaJadwalController extends Controller
             })
             ->orderBy('tanggal', 'desc')
             ->orderBy('waktu', 'desc')
-            ->paginate(5);
+            ->paginate(10);
 
         return view('admin.kelola_jadwal', compact('jadwals', 'selectedKader'));
     }

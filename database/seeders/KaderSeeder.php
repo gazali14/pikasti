@@ -15,23 +15,23 @@ class KaderSeeder extends Seeder
     public function run(): void
     {
         Kader::create([
-            'nik' => '747202140801002',
-            'nama'=> 'Ahmad', 
-            'jabatan'=>'admin', 
-            'alamat'=>'jl bonasut', 
-            'foto'=>'img/login-pict.png', 
-            'password'=> Hash::make('ahmad123'), 
+            'nik' => 'posyandupikasti1',
+            'nama'=> 'Admin 1', 
+            'jabatan'=>'Admin', 
+            'alamat'=>'Pikasti', 
+            'foto'=>'', 
+            'password'=> Hash::make('ilovepikasti123'), 
             'is_admin' => true
         ]);
 
         Kader::create([
-            'nik' => '7472021408010005',
-            'nama' => 'Gaza',
-            'jabatan' => 'Sekretaris',
+            'nik' => 'posyandupikasti2',
+            'nama' => 'Admin 2',
+            'jabatan' => 'Admin',
             'alamat' => 'Jl. Pondok Bambu, RT 14/RW 7',
-            'foto' => 'img/login-pict.png',
-            'password' => Hash::make('laodegazali14'),
-            'is_admin' => false,
+            'foto' => '',
+            'password' => Hash::make('mencatatbayisehat123'),
+            'is_admin' => true,
         ]);
     }
 }
