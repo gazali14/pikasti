@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-
 use App\Models\Kader;
 use App\Models\Bayi;
 use Illuminate\Http\Request;
@@ -13,7 +12,7 @@ class LoginController extends Controller
     {
         return view('orang_tua.before_login.login'); 
     }
-
+    
     // Proses login
     public function login_proses(Request $request)
     {
@@ -51,10 +50,12 @@ class LoginController extends Controller
             return redirect()->route('kader.dashboard')->with('success', 'Selamat datang, Kader!');
         }
 
-        return back()->withErrors(['login' => 'Login gagal. Cek NIK atau password!']);
+        // Jika login gagal, kirimkan pesan error ke halaman login
+        return back()->withErrors(['login_failed' => 'Login gagal. Cek NIK atau password!']);
     }
 
-    // Logout
+
+// Logout
     public function logout(Request $request)
     {
         // Logout semua guard

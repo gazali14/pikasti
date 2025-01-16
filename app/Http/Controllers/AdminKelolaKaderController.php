@@ -11,6 +11,9 @@ class AdminKelolaKaderController extends Controller
 {
     public function index(Request $request)
     {
+        if (!Auth::guard('kader')->user()->is_admin) {
+            return redirect()->route('orang_tua.before_login.login')->withErrors(['error' => 'Anda tidak memiliki akses ke halaman ini!']);
+        }
         $selectedKader = Auth::guard('kader')->user();
         $search = $request->input('search');
         $kaders = Kader::query()

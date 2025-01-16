@@ -7,16 +7,11 @@
     <title>Login</title>
     @vite('resources/css/app.css')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="flex w-full h-screen bg-gradient-to-b from-[rgb(137,201,196)] via-[rgb(238,255,248)] to-[rgb(217,238,229)]">
-        <!-- Back Button Section -->
-        <div class="absolute top-4 left-4">
-            <a href="/" class="flex items-center text-white hover:text-[#62BCB1] transition-colors">
-                <i class="fas fa-arrow-left mr-2"></i>
-                <span class="font-lg">Back</span>
-            </a>
-        </div>
         <div class="w-full flex items-center justify-center lg:w-1/2">
             <div>
                 <div class="flex items-center justify-center">
@@ -29,11 +24,9 @@
                     @csrf
                     <div>
                         <label for="nik" class="text-lg font-poppins font-semibold text-[#353535]">NIK</label>
-                        <input id="nik" name="nik" class="w-full border-[#35353525] border-2 rounded-full p-3 mt-1 bg-[#DEf0e9]" placeholder="Masukkan 16 Digit NIK" required autofocus/>
+                        <input id="nik" name="nik" class="w-full border-[#35353525] border-2 rounded-full p-3 mt-1 bg-[#DEf0e9]" placeholder="Masukkan 16 Digit NIK" required autofocus />
                     </div>
-                    @error('nik')
-                        <small>{{ $message }}</small>
-                    @enderror
+
                     <div class="mt-4 relative">
                         <label for="password" class="text-lg font-poppins font-semibold text-[#353535]">Password</label>
                         <input id="password" name="password" type="password" class="w-full border-[#35353525] border-2 rounded-full p-3 mt-1 bg-[#DEf0e9]" placeholder="Masukkan Password" required />
@@ -42,15 +35,13 @@
                         </span>
                     </div>
 
-                    @error('nik')
-                        <small>{{ $password }}</small>
-                    @enderror
                     <div class="mt-4 flex justify-between items-center">
                         <div>
                             <input type="checkbox" id="remember" name="remember" />
                             <label class="ml-2 font-medium text-base" for="remember">Remember me</label>
                         </div>
                     </div>
+
                     <div class="mt-4 flex flex-col gap-y-4">
                         <button type="submit" class="active:scale-[.98] active:duration-75 hover:sclae-[1.01] ease-in-out transition-all py-2 rounded-3xl w-full bg-[#62BCB1] text-white text-lg font-bold">Login</button>
                     </div>
@@ -62,7 +53,17 @@
         </div>
     </div>
 
-    <!-- Add the JavaScript to toggle the password visibility -->
+    <!-- SweetAlert for Error Message -->
+    @if($errors->has('login_failed'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Gagal',
+                text: '{{ $errors->first('login_failed') }}'
+            });
+        </script>
+    @endif
+
     <script>
       // Get the password input and eye icon
       const passwordField = document.getElementById('password');

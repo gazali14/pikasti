@@ -6,13 +6,15 @@ use Carbon\Carbon;
 use App\Models\Bayi;
 use App\Models\Vitamin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class VitaminController extends Controller
 {
     public function index()
     {
+        if (Auth::guard('kader')->user()->is_admin) {
+            return redirect()->route('orang_tua.before_login.login')->withErrors(['error' => 'Admin tidak dapat mengakses halaman kader.']);
+        }
         $selectedKader = Auth::guard('kader')->user();
         $bayiList = Bayi::all(); 
         $vitaminData = [];

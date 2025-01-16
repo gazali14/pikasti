@@ -10,6 +10,7 @@ use App\Models\KehadiranKader;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Jadwal;
 
+
 // Set locale ke Indonesia
 Carbon::setLocale('id');
 
@@ -40,6 +41,10 @@ class KaderController extends Controller
         $jadwal->each(function ($item) {
             $item->tanggal = Carbon::parse($item->tanggal)->format('Y-m-d');
         });
+
+        if (Auth::guard('kader')->user()->is_admin) {
+            return redirect()->route('orang_tua.before_login.login')->withErrors(['error' => 'Admin tidak dapat mengakses halaman kader.']);
+        }
 
         // Kirim data ke view
         return view('kader.presensi_bayi', compact('jadwal', 'selectedKader'));

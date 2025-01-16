@@ -13,6 +13,10 @@ class AdminKelolaJadwalController extends Controller
 {
     public function index(Request $request)
     {
+        if (!Auth::guard('kader')->user()->is_admin) {
+            return redirect()->route('orang_tua.before_login.login')->withErrors(['error' => 'Anda tidak memiliki akses ke halaman ini!']);
+        }
+
         $selectedKader = Auth::guard('kader')->user();
         $search = $request->input('search');
         $jadwals = Jadwal::query()
@@ -35,7 +39,6 @@ class AdminKelolaJadwalController extends Controller
                 'waktu' => 'required|date_format:H:i',
             ]);
 
-            // Format tanggal ke Y-m-d agar hanya tanggal yang disimpan
             $validated['tanggal'] = Carbon::parse($validated['tanggal'])->format('Y-m-d');
 
             Jadwal::create($validated);

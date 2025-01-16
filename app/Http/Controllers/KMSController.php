@@ -14,6 +14,10 @@ class KMSController extends Controller
     // Menampilkan halaman utama
     public function index()
     {
+        if (Auth::guard('kader')->user()->is_admin) {
+            return redirect()->route('orang_tua.before_login.login')->withErrors(['error' => 'Admin tidak dapat mengakses halaman kader.']);
+        }
+        
         try {
             $selectedKader = Auth::guard('kader')->user();
             $bayiList = Bayi::all(); 

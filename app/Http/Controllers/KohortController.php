@@ -12,6 +12,9 @@ class KohortController extends Controller
     // Display the list of babies
     public function index(Request $request)
     {
+        if (!Auth::guard('kader')->user()->is_admin) {
+            return redirect()->route('orang_tua.before_login.login')->withErrors(['error' => 'Anda tidak memiliki akses ke halaman ini!']);
+        }
         try {
             $selectedKader = Auth::guard('kader')->user();
             $search = $request->input('search');

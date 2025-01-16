@@ -3,7 +3,6 @@
 use App\Models\Bayi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminPresensi;
 use App\Http\Controllers\KMSController;
 use App\Http\Controllers\PMTController;
 use App\Http\Controllers\HomeController;
@@ -22,6 +21,8 @@ use App\Http\Controllers\AdminKelolaJadwalController;
 use App\Http\Controllers\HalamanDokumentasiController;
 use App\Http\Controllers\AdminKelolaDokumentasiController;
 use App\Http\Controllers\HalamanDashboardOrangTuaController;
+use App\Http\Middleware\AdminMiddleware;
+
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -56,13 +57,22 @@ Route::middleware('auth:bayi')->group(function () {
 });
 
 Route::get('/admin/count-by-month', [KehadiranKaderController::class, 'countKaderByMonth']);
+
 // Routes for admin
-Route::prefix('admin')->middleware('auth:admin')->group(function () {
+Route::prefix('admin')->middleware('auth:kader')->group(function () {
     // Route untuk dashboard
+     // Route untuk dashboard
     Route::get('/dashboard', function () {
-        $selectedKader = Auth::guard('kader')->user();
-        return view('admin.dashboard', compact('selectedKader'));
+        $user = Auth::guard('kader')->user();
+
+        // Cek apakah pengguna adalah admin di dalam controller langsung
+        if (!$user->is_admin) {
+            return redirect()->route('orang_tua.before_login.login')->withErrors(['error' => 'Anda tidak memiliki akses ke halaman ini!']);
+        }
+
+        return view('admin.dashboard', ['selectedKader' => $user]);
     })->name('admin.dashboard');
+    
     // Route untuk kelola jadwal
     Route::resource('kelola_jadwal', AdminKelolaJadwalController::class);
     // Route untuk kelola kader
@@ -75,8 +85,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/cek_presensi_kader/{id_kegiatan}', [KehadiranKaderController::class, 'cekPresensiKader'])->name('admin.cek_presensi_kader');
     Route::post('/admin/cek-presensi-kader/save', [KehadiranKaderController::class, 'savePresensi'])->name('admin.cek_presensi_kader.save');
     Route::get('/admin/presensi-kader/search', [KehadiranKaderController::class, 'searchKegiatanKader'])->name('admin.presensi_kader.searchKegiatanKader');
-    Route::get('/admin/cek-presensi-bayi/{id}', [AdminPresensi::class, 'cekPresensiBayi'])->name('cek.presensi.bayi');
-    Route::post('/save-presensi', [AdminPresensi::class, 'savePresensi'])->name('presensi.store');
+
     // Route untuk dokumentasi
     Route::resource('dokumentasi', AdminKelolaDokumentasiController::class);
     // Route untuk kohort
@@ -89,9 +98,18 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
 // Routes for kader
 Route::prefix('kader')->middleware('auth:kader')->group(function () {
-    // Route untuk dashboard
-    Route::get('/dashboard', [DashboardKaderController::class, 'index'])->name('kader.dashboard');
-    //Route untuk konsultasi
+    Route::get('/dashboard', function () {
+        $user = Auth::guard('kader')->user();
+
+        // Validasi apakah pengguna adalah admin
+        if ($user->is_admin) {
+            return redirect()->route('orang_tua.before_login.login')->withErrors(['error' => 'Admin tidak dapat mengakses halaman kader.']);
+        }
+
+        // Jika bukan admin, panggil controller untuk melanjutkan logika lainnya
+        return app()->call('App\Http\Controllers\DashboardKaderController@index');
+    })->name('kader.dashboard');
+//Route untuk konsultasi
     Route::get('/konsultasi', function () {
         return view('kader.konsultasi');
     })->name('kader.konsultasi');

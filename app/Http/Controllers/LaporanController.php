@@ -19,6 +19,9 @@ class LaporanController extends Controller
 {
     public function index(Request $request)
     {
+        if (Auth::guard('kader')->user()->is_admin) {
+            return redirect()->route('orang_tua.before_login.login')->withErrors(['error' => 'Admin tidak dapat mengakses halaman kader.']);
+        }
         $selectedKader = Auth::guard('kader')->user();
         // Ambil tanggal dari input, default ke hari ini jika tidak ada
         $tanggal = $request->input('tanggal', Carbon::today()->toDateString());

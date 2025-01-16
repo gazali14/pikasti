@@ -14,6 +14,10 @@ class KonsultasiController extends Controller
     // Menampilkan halaman utama
     public function index()
     {
+        if (Auth::guard('kader')->user()->is_admin) {
+            return redirect()->route('admin.dashboard')->withErrors(['error' => 'Admin tidak dapat mengakses halaman kader.']);
+        }
+
         $selectedKader = Auth::guard('kader')->user();
         $bayiList = Bayi::all();
         $konsultasiData = [];
