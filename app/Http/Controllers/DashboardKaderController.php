@@ -23,9 +23,16 @@ class DashboardKaderController extends Controller
         $kehadiranData = Kehadiran::where('tanggal', $tanggal)->get();
         // Hitung jumlah bayi berdasarkan jenis kelamin
         $data = [
-            'Laki-Laki' => $kehadiranData->where('jenis_kelamin', 'Laki-Laki')->count(),
-            'Perempuan' => $kehadiranData->where('jenis_kelamin', 'Perempuan')->count(),
+            'Laki-Laki' => $kehadiranData
+                ->where('jenis_kelamin', 'Laki-Laki')
+                ->where('kehadiran', true)
+                ->count(),
+            'Perempuan' => $kehadiranData
+                ->where('jenis_kelamin', 'Perempuan')
+                ->where('kehadiran', true)
+                ->count(),
         ];
+
 
         // Ambil data KMS untuk bayi berdasarkan tanggal
         $kmsData = KMS::with('bayi') // Assuming KMS has a relationship with Bayi model

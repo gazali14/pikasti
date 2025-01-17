@@ -31,11 +31,10 @@
                         <div class="overflow-x-auto">
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                                 <!-- Kolom Tanggal -->
-                                <div
-                                    class="flex items-center  bg-white border border-gray-300 rounded-lg p-2 w-80 shadow-md">
+                                <div class="flex items-center bg-white border border-gray-300 rounded-lg p-2 w-80 shadow-md">
                                     <label class="block text-lg font-medium text-black mx-4">Tanggal:</label>
-                                    <span id="tanggal-kegiatan"
-                                        class="text-lg font-semibold">{{ \Carbon\Carbon::parse($jadwal->tanggal)->format('d F Y') }}
+                                    <span id="tanggal-kegiatan" class="text-lg font-semibold">
+                                        {{ \Carbon\Carbon::parse($jadwal->tanggal)->locale('id')->translatedFormat('d F Y') }}
                                     </span>
                                 </div>
 
@@ -54,27 +53,25 @@
                                 <input type="hidden" name="id_kegiatan" value="{{ $jadwal->id }}">
 
                                 <!-- Tabel Kehadiran -->
-                                <table class="w-full table-auto border border-[#62BCB1] mt-5">
+                                <table class="w-full table-auto border-collapse mt-5">
                                     <thead>
-                                        <tr>
-                                            <th class="text-white text-center bg-[#62BCB1] border py-2 px-4">NIK</th>
-                                            <th class="text-white text-center bg-[#62BCB1] border py-2 px-4">Nama Kader
-                                            </th>
-                                            <th class="text-white text-center bg-[#62BCB1] border py-2 px-4">Kehadiran
-                                            </th>
+                                        <tr class="bg-[#62BCB1]">
+                                            <th class="text-white text-center py-3 px-4 border">NIK</th>
+                                            <th class="text-white text-center py-3 px-4 border">Nama Kader</th>
+                                            <th class="text-white text-center py-3 px-4 border">Kehadiran</th>
                                         </tr>
                                     </thead>
                                     <tbody id="kader-list" class="bg-white">
                                         @foreach ($kaders as $kader)
-                                            <tr class="kader-item">
+                                            <tr class="kader-item hover:bg-teal-50">
                                                 <td
-                                                    class="text-gray-900 text-center font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
+                                                    class="text-gray-900 text-center border border-gray-300 px-6 py-4 text-sm sm:text-base">
                                                     {{ $kader->nik }}</td>
                                                 <td
-                                                    class="text-gray-900 text-center font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
+                                                    class="text-gray-900 text-center border border-gray-300 px-6 py-4 text-sm sm:text-base">
                                                     {{ $kader->nama }}</td>
                                                 <td
-                                                    class="text-gray-900 text-center font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
+                                                    class="text-gray-900 text-center border border-gray-300 px-6 py-4 text-sm sm:text-base">
                                                     <!-- Hidden input untuk nilai default jika tidak diceklis -->
                                                     <input type="hidden" name="kehadiran[{{ $kader->nik }}]"
                                                         value="0">
