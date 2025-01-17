@@ -8,14 +8,24 @@
             <x-diagram-lingkaran :dataChart="$chartData" />
             <!-- Grafik Tinggi Badan dan Berat Badan -->
             <div class="sm:col-span-2 lg:col-span-2">
-                <x-grafik 
-                    :heightMaleAverage="$heightMaleAverage"
-                    :heightFemaleAverage="$heightFemaleAverage"
-                    :weightMaleAverage="$weightMaleAverage"
-                    :weightFemaleAverage="$weightFemaleAverage"
-                    :ageGroups="$ageGroups"
-                />
+                <x-grafik :heightMaleAverage="$heightMaleAverage" :heightFemaleAverage="$heightFemaleAverage" :weightMaleAverage="$weightMaleAverage" :weightFemaleAverage="$weightFemaleAverage" :ageGroups="$ageGroups" />
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: "{{ session('success') }}",
+                    showConfirmButton: false,
+                    timer: 2500,
+                    timerProgressBar: true,
+                });
+            @endif
+        });
+    </script>
 </x-layout-kader>

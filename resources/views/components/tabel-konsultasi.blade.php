@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
-    @props(['bayiList', 'konsultasiData', 'selectedBayiNik'])
+    @props(['bayiList', 'konsultasiData',  'konsultasiDataPaginate','selectedBayiNik'])
     <div class="mx-auto mt-1 mb-10 p-5">
         <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 mb-5">
             <!-- Dropdown Pilih Bayi -->
@@ -133,6 +135,11 @@
                 </tbody>
             </table>
         </div>
+        @if ($konsultasiDataPaginate->count())
+            <div class="mt-4">
+                {{ $konsultasiDataPaginate->links('vendor.pagination.tailwind') }}
+            </div>
+        @endif
     </div>
 
     <!-- Modal Tambah -->
@@ -295,15 +302,16 @@
             @if (session('success'))
                 Swal.fire({
                     toast: true,
-                    position: 'top-end', 
+                    position: 'top-end',
                     icon: 'success',
                     title: "{{ session('success') }}",
-                    showConfirmButton: false, 
-                    timer: 3000, 
-                    timerProgressBar: true, 
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
                 });
             @endif
         });
     </script>
 </body>
+
 </html>

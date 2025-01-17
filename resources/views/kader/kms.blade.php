@@ -2,7 +2,7 @@
     <div class="text-center my-4">
         <h1 class="text-3xl font-bold mx-5">Pendataan Kondisi Bayi</h1>
     </div>
-    <div class="min-h-screen max-h-96">        
+    <div class="min-h-screen max-h-96">
         <div class="container p-5">
             <!-- Tabel KMS -->
             <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded shadow">
@@ -152,17 +152,18 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="7" class="text-center text-gray-500">Belum ada data KMS untuk bayi ini.</td>
+                                        <td colspan="7" class="text-center text-gray-500">Belum ada data KMS untuk
+                                            bayi ini.</td>
                                     </tr>
                                 @endif
                             </tbody>
                         </table>
-                        @if ($kmsDataPaginate->count())
-                            <div class="mt-4">
-                                {{ $kmsDataPaginate->links('vendor.pagination.tailwind') }}
-                            </div>
-                        @endif
                     </div>
+                    @if ($kmsDataPaginate->count())
+                        <div class="mt-4">
+                            {{ $kmsDataPaginate->links('vendor.pagination.tailwind') }}
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Modal Tambah -->
@@ -400,8 +401,8 @@
                         icon: 'success',
                         title: "{{ session('success') }}",
                         showConfirmButton: false,
-                        timer: 3000, 
-                        timerProgressBar: true, 
+                        timer: 3000,
+                        timerProgressBar: true,
                     });
                 @endif
             });

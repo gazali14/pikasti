@@ -22,7 +22,7 @@
                     <p class="text-xl font-medium {{ $jadwal->isClosest ? 'text-[#41a99d]' : 'text-white' }}">
                         {{ $jadwal->nama_kegiatan }}</p>
                     <p class="text-lg font-medium {{ $jadwal->isClosest ? 'text-[#41a99d]' : 'text-white' }} self-end mt-5">
-                        {{ $jadwal->waktu }} - Selesai
+                        {{ date('H:i', strtotime($jadwal->waktu)) }} - Selesai
                     </p>
                 </div>
             @endforeach
