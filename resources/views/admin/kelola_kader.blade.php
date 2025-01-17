@@ -6,11 +6,11 @@
         <div class="container mx-auto p-5">
             <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded-2xl shadow">
                 <div class="mx-auto mt-1 mb-10 p-5">
-                    <div id='kaderTableContainer' class="overflow-x-auto">
+                    <div id='kaderTableContainer'>
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                             <div>
                                 <input type="text" id="default-search" placeholder="Cari Nama Bayi" required
-                                    class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm" />
+                                    class="border border-gray-300 rounded-md w-full sm:w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm" />
                             </div>
                             <button id='tambahKaderBtn'
                                 class="p-3 bg-teal-500 text-white rounded hover:bg-teal-600 min-w-[150px] max-w-[150px] whitespace-nowrap">
