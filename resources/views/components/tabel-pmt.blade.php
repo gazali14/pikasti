@@ -12,7 +12,7 @@
 
 <body>
     <!-- resources/views/components/tabel-pmt.blade.php -->
-    @props(['bayiList', 'pmtData', 'selectedBayiNik'])
+    @props(['bayiList', 'pmtData', 'pmtDataPaginate', 'selectedBayiNik'])
     <div class="mx-auto mt-1 mb-10 p-5">
         <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 mb-5">
             <!-- Dropdown Pilih Bayi -->
@@ -132,6 +132,11 @@
                 </tbody>
             </table>
         </div>
+        @if ($pmtDataPaginate->count())
+            <div class="mt-4">
+                {{ $pmtDataPaginate->links('vendor.pagination.tailwind') }}
+            </div>
+        @endif
     </div>
     </div>
 

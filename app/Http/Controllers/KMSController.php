@@ -48,7 +48,7 @@ class KMSController extends Controller
             // Paginator untuk pagination
             $paginator = KMS::where('nik_bayi', $nik)
                 ->orderBy('tanggal', 'asc')
-                ->paginate(10);
+                ->paginate(5);
     
             // Koleksi untuk manipulasi data
             $kmsData = $paginator->getCollection()->map(function ($item) use ($selectedBayi) {

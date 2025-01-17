@@ -8,7 +8,7 @@
     </head>
     <body id="cek-presensi" class="bg-[#E8F6F3] font-poppins m-0 p-0">
         <div class="flex mx-auto items-center relative my-4">
-            <a href="/kader/presensi_kader"
+            <a href="/kader/presensi_bayi"
                 class="flex px-2 py-2 text-sm mx-5 text-white bg-[#62BCB1] rounded-lg hover:bg-teal-600"
                 style="position: relative; z-index: 1000;">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -34,54 +34,69 @@
                                         {{ \Carbon\Carbon::parse($jadwal->tanggal)->locale('id')->translatedFormat('d F Y') }}
                                     </span>
                                 </div>
-                    
+
                                 <!-- Kolom Pencarian -->
-                                <div class="flex justify-end mb-4">
-                                    <input type="text" id="search" class="w-64 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" placeholder="Cari nama bayi..." oninput="filterBayis()" />
+                                <div>
+                                    <input type="text" id="search"
+                                        class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"
+                                        placeholder="Cari nama bayi..." oninput="filterKaders()" />
                                 </div>
                             </div>
-                            
-                            
-                            <form id="presensi-form" action="{{ route('kader.cek_presensi.save') }}" method="POST">
+
+                            <form action="{{ route('kader.cek_presensi.save') }}" method="POST"
+                                id="presensi-form">
                                 @csrf
+
                                 <input type="hidden" name="id_kegiatan" value="{{ $jadwal->id }}">
-                                
-                                <div class="overflow-x-auto">
-                                    <table class="table-auto w-full border border-gray-200 shadow rounded-lg">
-                                        <thead class="bg-[#41a99d] text-white">
-                                            <tr>
-                                                <th class="py-3 px-6 text-center border-b border-gray-300">NIK</th>
-                                                <th class="py-3 px-6 text-center border-b border-gray-300">Nama Bayi</th>
-                                                <th class="py-3 px-6 text-center border-b border-gray-300">Kehadiran</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="bayi-list" class="bg-white">
-                                            @foreach ($bayis as $bayi)
-                                            <tr class="bayi-item hover:bg-gray-100">
-                                                <td class="py-3 px-6 text-center border-b border-gray-300">{{ $bayi->nik }}</td>
-                                                <td class="py-3 px-6 text-center border-b border-gray-300">{{ $bayi->nama }}</td>
-                                                <td class="py-3 px-6 text-center border-b border-gray-300">
-                                                    <input type="hidden" name="kehadiran[{{ $bayi->nik }}]" value="0">
-                                                    <input type="checkbox" name="kehadiran[{{ $bayi->nik }}]" value="1" class="w-5 h-5 cursor-pointer" {{ isset($kehadiran[$bayi->nik]) && $kehadiran[$bayi->nik] == 1 ? 'checked' : '' }}>
+
+                                <!-- Tabel Kehadiran -->
+                                <table class="w-full table-auto border-collapse mt-5">
+                                    <thead>
+                                        <tr class="bg-[#62BCB1]">
+                                            <th class="text-white text-center py-3 px-4 border">NIK</th>
+                                            <th class="text-white text-center py-3 px-4 border">Nama Bayi</th>
+                                            <th class="text-white text-center py-3 px-4 border">Kehadiran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="kader-list" class="bg-white">
+                                        @foreach ($bayis as $bayi)
+                                            <tr class="kader-item hover:bg-teal-50">
+                                                <td
+                                                    class="text-gray-900 text-center border border-gray-300 px-6 py-4 text-sm sm:text-base">
+                                                    {{ $bayi->nik }}</td>
+                                                <td
+                                                    class="text-gray-900 text-center border border-gray-300 px-6 py-4 text-sm sm:text-base">
+                                                    {{ $bayi->nama }}</td>
+                                                <td
+                                                    class="text-gray-900 text-center border border-gray-300 px-6 py-4 text-sm sm:text-base">
+                                                    <!-- Hidden input untuk nilai default jika tidak diceklis -->
+                                                    <input type="hidden" name="kehadiran[{{ $bayi->nik }}]"
+                                                        value="0">
+                                                    <!-- Tambahkan nilai 1 untuk checkbox yang dicentang -->
+                                                    <input type="checkbox" name="kehadiran[{{ $bayi->nik }}]"
+                                                        value="1" class="w-4 h-4 cursor-pointer"
+                                                        {{ isset($kehadiran[$bayi->nik]) && $kehadiran[$bayi->nik] == 1 ? 'checked' : '' }}>
                                                 </td>
                                             </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                
-                                <div id="no-results" class="text-center text-red-500 mt-4 hidden">
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                                <div id="no-results" class="text-center text-red-500 font-semibold mt-3"
+                                    style="display: none;">
                                     <span id="no-results-text"></span>
                                 </div>
-                    
-                                <div class="flex justify-end gap-3 mt-5">
-                                    <button type="submit" class="bg-[#41a99d] text-white px-6 py-3 rounded-md shadow-md transition duration-300 hover:bg-[#41a99dac] active:scale-95">
-                                        Simpan
-                                    </button>
-                                </div>
-                            </form>
-                        </div> 
-        
+                        </div>
+                        <div class="flex justify-center mt-5">
+                            <!-- Tombol Simpan -->
+                            <button id="save-button"
+                                class="ml-auto px-4 py-2 bg-teal-500 text-white rounded shadow hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-300">
+                                Simpan
+                            </button>
+                        </div>
+                        </form>
+
+                    </div>
                 </div>
             </div>
         </div>

@@ -35,7 +35,7 @@ class KaderController extends Controller
         $bayis = $bayis->get();
 
         // Ambil semua jadwal kegiatan dari tabel Jadwal, urutkan berdasarkan tanggal terdekat dengan hari ini
-        $jadwal = Jadwal::orderBy('tanggal', 'asc')->paginate(12);
+        $jadwal = Jadwal::orderBy('tanggal', 'desc')->paginate(12);
 
         // Format tanggal jadwal agar hanya menampilkan tanggal (tanpa waktu)
         $jadwal->each(function ($item) {
