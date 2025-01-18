@@ -74,7 +74,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div class="mt-4">
                         {{ $bayis->links('vendor.pagination.tailwind') }}
                     </div>
@@ -84,7 +84,7 @@
 
         <!-- Modal Tambah Bayi -->
         <div id="addModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-            <div class="bg-white p-4 rounded-lg shadow-lg max-w-lg w-full max-h-[80vh] overflow-y-auto">
+            <div class="bg-white p-4 rounded-lg shadow-lg max-w-lg w-full max-h-[80vh] overflow-y-auto m-4">
                 <h2 class="text-xl font-bold mb-4">Tambah Bayi</h2>
                 <form method="POST" action="{{ route('admin.kohort.store') }}">
                     @csrf
@@ -143,7 +143,7 @@
 
         <!-- Modal Edit Bayi -->
         <div id="editModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-            <div class="bg-white p-4 rounded-lg shadow-lg max-w-lg w-full max-h-[80vh] overflow-y-auto">
+            <div class="bg-white p-4 rounded-lg shadow-lg max-w-lg w-full max-h-[80vh] overflow-y-auto m-4">
                 <h2 class="text-xl font-bold mb-4">Edit Bayi</h2>
                 <form method="POST" id="editForm">
                     @csrf
@@ -266,12 +266,12 @@
         @if (session('success'))
             Swal.fire({
                 toast: true,
-                position: 'top-end', 
+                position: 'top-end',
                 icon: 'success',
                 title: "{{ session('success') }}",
-                showConfirmButton: false, 
-                timer: 3000, 
-                timerProgressBar: true, 
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
             });
         @endif
     });
@@ -281,12 +281,12 @@
         @if (session('error'))
             Swal.fire({
                 toast: true,
-                position: 'top-end', 
+                position: 'top-end',
                 icon: 'error',
                 title: "{{ session('error') }}",
-                showConfirmButton: false, 
-                timer: 5000, 
-                timerProgressBar: true, 
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
             });
         @endif
     });
