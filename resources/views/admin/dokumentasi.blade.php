@@ -8,7 +8,7 @@
                 <div class="mx-auto mt-1 mb-10 p-5">
                     <div class="overflow-x-auto">
                         <!-- Search bar dan tombol tambah -->
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 overflow-auto">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                             <form class="shrink-0">
                                 <input type="search" id="default-search"
                                     class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"

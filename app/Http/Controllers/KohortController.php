@@ -67,7 +67,7 @@ class KohortController extends Controller
 
             $bayi->save();
 
-            return redirect()->route('admin.kohort.index')->with('success', 'Data bayi berhasil diperbarui.');
+            return redirect()->route('kohort.index')->with('success', 'Data bayi berhasil diperbarui!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data bayi: ' . $e->getMessage());
         }
@@ -78,7 +78,7 @@ class KohortController extends Controller
             $bayi = Bayi::where('nik', $nik)->firstOrFail();
             $bayi->delete();
 
-            return redirect()->route('admin.kohort.index')->with('success', 'Data bayi berhasil dihapus.');
+            return redirect()->route('kohort.index')->with('success', 'Data bayi berhasil dihapus!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data bayi: ' . $e->getMessage());
         }
@@ -112,7 +112,7 @@ class KohortController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-            return redirect()->route('admin.kohort.index')->with('success', 'Data bayi berhasil ditambahkan.');
+            return redirect()->route('kohort.index')->with('success', 'Data bayi berhasil ditambahkan!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menambahkan data bayi: ' . $e->getMessage());
         }

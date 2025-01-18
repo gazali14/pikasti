@@ -52,7 +52,6 @@
                                                 {{ $kader->nama }}
                                             </td>
                                             <td
-
                                                 class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
                                                 {{ $kader->alamat }}
                                             </td>
@@ -63,7 +62,8 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <p class="text-center text-gray-500 col-span-full">Belum ada kader yang tersedia.</p>
+                                        <p class="text-center text-gray-500 col-span-full">Belum ada kader yang
+                                            tersedia.</p>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -132,7 +132,7 @@
                             <div class="relative">
                                 <label for="password" class="block text-gray-700 font-medium">Password</label>
                                 <div class="relative">
-                                    <input type="password" name="password" id="password" required
+                                    <input type="password" name="password" id="password"
                                         class="w-full mt-1 p-2 pr-10 border rounded focus:ring focus:ring-teal-300 focus:outline-none"
                                         placeholder="Masukkan Password">
                                     <button type="button" id="togglePassword"
@@ -334,6 +334,21 @@
                 title: "{{ session('success') }}",
                 showConfirmButton: false,
                 timer: 3000,
+                timerProgressBar: true,
+            });
+        @endif
+    });
+
+    // Notifikasi error menambahkan data kader
+    document.addEventListener('DOMContentLoaded', function() {
+        @if (session('error'))
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: "{{ session('error') }}",
+                showConfirmButton: false,
+                timer: 4500,
                 timerProgressBar: true,
             });
         @endif

@@ -44,22 +44,26 @@ class KMSController extends Controller
             if (!$selectedBayi) {
                 return redirect()->route('kms.index')->with('error', 'Bayi tidak ditemukan.');
             }
+            
+            if (!$selectedBayi->tanggal_lahir) {
+                return redirect()->route('kms.index')->with('error', 'Tanggal lahir bayi tidak ditemukan.');
+            }
     
             // Paginator untuk pagination
             $paginator = KMS::where('nik_bayi', $nik)
-                ->orderBy('tanggal', 'asc')
+                ->orderBy('tanggal', 'desc')
                 ->paginate(5);
     
             // Koleksi untuk manipulasi data
-            $kmsData = $paginator->getCollection()->map(function ($item) use ($selectedBayi) {
+            $kmsData = KMS::where('nik_bayi', $nik)
+            ->orderBy('tanggal', 'asc')
+            ->get()
+            ->map(function ($item) use ($selectedBayi) {
                 $tanggalLahir = Carbon::parse($selectedBayi->tanggal_lahir);
                 $tanggalKMS = Carbon::parse($item->tanggal);
                 $item->umur_bulan = $tanggalLahir->diffInMonths($tanggalKMS);
                 return $item;
             });
-    
-            // Masukkan koleksi kembali ke paginator
-            $paginator->setCollection($kmsData);
     
             $selectedBayiNik = $nik;
     

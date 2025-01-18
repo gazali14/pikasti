@@ -21,7 +21,7 @@ class AdminKelolaDokumentasiController extends Controller
                 $query->where('nama_kegiatan', 'LIKE', "%{$search}%");
             })
             ->orderBy('tanggal', 'desc')
-            ->paginate(5);
+            ->paginate(10);
 
         return view('admin.dokumentasi', compact('dokumentasis', 'selectedKader'));
     }
