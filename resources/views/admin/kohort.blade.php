@@ -34,8 +34,6 @@
                                         Lahir</th>
                                     <th class="text-white border bg-[#62BCB1] py-2 px-4 text-sm sm:text-base">Alamat
                                     </th>
-                                    <th class="text-white border bg-[#62BCB1] py-2 px-4 text-sm sm:text-base">No Telp
-                                    </th>
                                     <th class="text-white border bg-[#62BCB1] py-2 px-4 text-sm sm:text-base">Aksi</th>
                                 </tr>
                             </thead>
@@ -57,9 +55,6 @@
                                         <td
                                             class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
                                             {{ $bayi->alamat }}</td>
-                                        <td
-                                            class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
-                                            {{ $bayi->no_telpon }}</td>
                                         <td
                                             class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
                                             <button
@@ -116,9 +111,6 @@
                         <input type="text" id="addAlamat" name="alamat" class="w-full border p-2 rounded"
                             required />
 
-                        <label for="addNoTelpon" class="block text-sm font-medium text-gray-700">No Telepon</label>
-                        <input type="text" id="addNoTelpon" name="no_telpon" class="w-full border p-2 rounded"
-                            required />
 
                         <label for="addBerat" class="block text-sm font-medium text-gray-700">Berat Lahir (kg)</label>
                         <input type="text" id="addBerat" name="berat_badan_lahir" class="w-full border p-2 rounded"
@@ -174,10 +166,6 @@
 
                         <label for="editAlamat" class="block text-sm font-medium text-gray-700">Alamat</label>
                         <input type="text" id="editAlamat" name="alamat" class="w-full border p-2 rounded"
-                            required />
-
-                        <label for="editNoTelpon" class="block text-sm font-medium text-gray-700">No Telepon</label>
-                        <input type="text" id="editNoTelpon" name="no_telpon" class="w-full border p-2 rounded"
                             required />
 
                         <label for="editBerat" class="block text-sm font-medium text-gray-700">Berat Lahir
@@ -248,7 +236,6 @@
                 document.getElementById('editTanggal').value = data.tanggal_lahir;
                 document.getElementById('editKelamin').value = data.jenis_kelamin;
                 document.getElementById('editAlamat').value = data.alamat;
-                document.getElementById('editNoTelpon').value = data.no_telpon;
                 document.getElementById('editBerat').value = data.berat_badan_lahir;
                 document.getElementById('editTinggi').value = data.tinggi_badan_lahir;
             })

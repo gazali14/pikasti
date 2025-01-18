@@ -30,11 +30,8 @@
                         </div>
 
                         <!-- Table -->
-<<<<<<< HEAD
                         <div class="overflow-x-auto">
-=======
-                        <div class="rounded shadow-sm overflow-x-auto">
->>>>>>> ac9dded62f9616a5230329f0da8025ae68428fa6
+
                             <table id="kaderTable" class="w-full table-auto border border-[#62BCB1] mt-5">
                                 <thead>
                                     <tr>
@@ -46,11 +43,7 @@
                                             Jabatan</th>
                                     </tr>
                                 </thead>
-<<<<<<< HEAD
                                 <tbody class="bg-white">
-=======
-                                <tbody class= "bg-white">
->>>>>>> ac9dded62f9616a5230329f0da8025ae68428fa6
                                     <!-- Contoh Data -->
                                     @forelse ($kaders as $kader)
                                         <tr class="text-center kader-row" data-id="{{ $kader->id }}">
@@ -59,38 +52,22 @@
                                                 {{ $kader->nama }}
                                             </td>
                                             <td
-<<<<<<< HEAD
+
                                                 class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
                                                 {{ $kader->alamat }}
                                             </td>
                                             <td
                                                 class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
-=======
-                                                class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
-                                                {{ $kader->alamat }}
-                                            </td>
-                                            <td
-                                                class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
->>>>>>> ac9dded62f9616a5230329f0da8025ae68428fa6
+
                                                 {{ $kader->jabatan }}
                                             </td>
                                         </tr>
                                     @empty
-<<<<<<< HEAD
                                         <p class="text-center text-gray-500 col-span-full">Belum ada kader yang tersedia.</p>
-=======
-                                        <p class="text-center text-gray-500 col-span-full">Belum ada kader yang
-                                            tersedia.
-                                        </p>
->>>>>>> ac9dded62f9616a5230329f0da8025ae68428fa6
                                     @endforelse
                                 </tbody>
                             </table>
                         </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> ac9dded62f9616a5230329f0da8025ae68428fa6
                     </div>
 
                     <div class="mt-4">

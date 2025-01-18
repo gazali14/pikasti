@@ -56,7 +56,6 @@ class KohortController extends Controller
                 'berat_badan_lahir' => 'required|numeric|min:0',
                 'tinggi_badan_lahir' => 'required|numeric|min:0',
                 'alamat' => 'required|string|max:500',
-                'no_telpon' => 'required|string|max:15',
                 'password' => 'nullable|string|min:6',
             ]);
 
@@ -86,7 +85,6 @@ class KohortController extends Controller
                 'berat_badan_lahir' => 'required|numeric|min:0',
                 'tinggi_badan_lahir' => 'required|numeric|min:0',
                 'alamat' => 'required|string|max:500',
-                'no_telpon' => 'required|string|max:15',
                 'password' => 'required|string|min:6',
             ]);
 
@@ -99,7 +97,6 @@ class KohortController extends Controller
                 'berat_badan_lahir' => $request->berat_badan_lahir,
                 'tinggi_badan_lahir' => $request->tinggi_badan_lahir,
                 'alamat' => $request->alamat,
-                'no_telpon' => $request->no_telpon,
                 'password' => Hash::make($request->password),
             ]);
 
