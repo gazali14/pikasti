@@ -13,7 +13,7 @@
                             <form class="shrink-0">
                                 <input type="search" id="default-search"
                                     class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"
-                                    placeholder="Cari Dokumentasi" required />
+                                    placeholder="Cari Jadwal " required />
                             </form>
 
                             <!-- Tombol tambah -->

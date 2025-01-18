@@ -18,9 +18,7 @@ class AdminKelolaKaderController extends Controller
         $search = $request->input('search');
         $kaders = Kader::query()
             ->when($search, function ($query) use ($search) {
-                $query->where('nama', 'LIKE', "%{$search}%")
-                    ->orWhere('alamat', 'LIKE', "%{$search}%")
-                    ->orWhere('jabatan', 'LIKE', "%{$search}%");
+                $query->where('nama', 'LIKE', "%{$search}%");
             })
             ->orderBy('nama', 'asc') 
             ->paginate(5);

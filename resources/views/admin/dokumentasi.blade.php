@@ -91,14 +91,12 @@
             <!-- Popup form -->
             <div id="popupForm" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
                 <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-md w-2/4 shadow-lg">
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-md w-full max-w-2xl sm:max-w-lg lg:max-w-2xl shadow-lg">
                     <h2 id="popupTitle" class="text-xl text-center font-bold mb-4"></h2>
-                    <form id="popupInputForm" action="{{ route('dokumentasi.store') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form id="popupInputForm" action="{{ route('dokumentasi.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
-                            <label class="block mb-2 text-sm font-bold text-black-700" for="namaKegiatan">Nama
-                                Kegiatan</label>
+                            <label class="block mb-2 text-sm font-bold text-black-700" for="namaKegiatan">Nama Kegiatan</label>
                             <input type="text" id="namaKegiatan" name="nama_kegiatan" required
                                 class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
                         </div>
@@ -107,8 +105,7 @@
                         @enderror
 
                         <div class="mb-4">
-                            <label class="block mb-2 text-sm font-bold text-black-700"
-                                for="namaKegiatan">Deskripsi</label>
+                            <label class="block mb-2 text-sm font-bold text-black-700" for="deskripsiKegiatan">Deskripsi</label>
                             <input type="text" id="deskripsiKegiatan" name="deskripsi"
                                 class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
                         </div>
@@ -117,7 +114,7 @@
                         @enderror
 
                         <div class="mb-4">
-                            <label class="block mb-2 text-sm font-bold text-black-700" for="tanggal">Tanggal</label>
+                            <label class="block mb-2 text-sm font-bold text-black-700" for="tanggalKegiatan">Tanggal</label>
                             <input type="date" id="tanggalKegiatan" name="tanggal" required
                                 class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
                         </div>
@@ -126,8 +123,7 @@
                         @enderror
 
                         <div class="mb-4">
-                            <label class="block mb-2 text-sm font-bold text-black-700" for="foto[]">Upload
-                                Foto</label>
+                            <label class="block mb-2 text-sm font-bold text-black-700" for="foto">Upload Foto</label>
                             <input type="file" id="foto" name="foto[]" multiple
                                 class="w-full p-2.5 text-sm text-gray-900 border border-gray-300 bg-white rounded-lg" />
                         </div>
@@ -145,6 +141,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
 
         <!-- Javascript -->
