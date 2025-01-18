@@ -89,9 +89,8 @@
         </div>
 
         <!-- Pop-up Modal -->
-        <div id="popupForm" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
-            <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-md w-2/4 shadow-lg">
+        <div id="popupForm" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white p-4 rounded-lg shadow-lg max-w-lg w-full max-h-[80vh] overflow-y-auto m-4">
                 <h2 id="popupTitle" class="text-xl text-center font-bold mb-4"></h2>
                 <form id="popupInputForm" action="{{ route('kelola_jadwal.store') }}" method="POST">
                     @csrf
@@ -182,51 +181,51 @@
             });
         });
 
-          // Notifikasi sukses menambahkan data kader
-          document.addEventListener('DOMContentLoaded', function() {
-                @if (session('success'))
-                    Swal.fire({
-                        toast: true,
-                        position: 'top-end', 
-                        icon: 'success',
-                        title: "{{ session('success') }}",
-                        showConfirmButton: false, 
-                        timer: 3000, 
-                        timerProgressBar: true,
-                    });
-                @endif
-            });
+        // Notifikasi sukses menambahkan data kader
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: "{{ session('success') }}",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+            @endif
+        });
 
-            // Notifikasi error
-            document.addEventListener('DOMContentLoaded', function() {
-                @if (session('error'))
-                    Swal.fire({
-                        toast: true,
-                        position: 'top-end',
-                        icon: 'error',
-                        title: "{{ session('error') }}",
-                        showConfirmButton: false,
-                        timer: 5000, 
-                        timerProgressBar: true, 
-                    });
-                @endif
-            });
+        // Notifikasi error
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('error'))
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'error',
+                    title: "{{ session('error') }}",
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                });
+            @endif
+        });
 
-            // Pencarian dengan AJAX
-            document.getElementById('default-search').addEventListener('input', function() {
-                const search = this.value;
+        // Pencarian dengan AJAX
+        document.getElementById('default-search').addEventListener('input', function() {
+            const search = this.value;
 
-                fetch(`{{ route('kelola_jadwal.index') }}?search=${search}`)
-                    .then(response => response.text())
-                    .then(html => {
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-                        const tbody = doc.querySelector('tbody');
-                        document.querySelector('tbody').innerHTML = tbody.innerHTML;
+            fetch(`{{ route('kelola_jadwal.index') }}?search=${search}`)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const tbody = doc.querySelector('tbody');
+                    document.querySelector('tbody').innerHTML = tbody.innerHTML;
 
-                        // Reapply event listeners for dynamically updated rows
-                        attachRowEventListeners();
-                    });
-            });
+                    // Reapply event listeners for dynamically updated rows
+                    attachRowEventListeners();
+                });
+        });
     </script>
 </x-layout-admin>

@@ -7,7 +7,7 @@
             <div class="p-2 bg-[rgba(191,243,221,0.8)] rounded-2xl shadow">
                 <div class="mx-auto mt-1 mb-10 p-5">
                     <div id='kaderTableContainer'>
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 mb-5">
                             <div>
                                 <input type="text" id="default-search" placeholder="Cari Nama Bayi" required
                                     class="border border-gray-300 rounded-md w-full sm:w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm" />
@@ -30,41 +30,43 @@
                         </div>
 
                         <!-- Table -->
-                        <table id="kaderTable" class="w-full table-auto border border-[#62BCB1] mt-5">
-                            <thead>
-                                <tr>
-                                    <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
-                                        Nama</th>
-                                    <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
-                                        Alamat</th>
-                                    <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
-                                        Jabatan</th>
-                                </tr>
-                            </thead>
-                            <tbody class= "bg-white">
-                                <!-- Contoh Data -->
-                                @forelse ($kaders as $kader)
-                                    <tr class="text-center kader-row" data-id="{{ $kader->id }}">
-                                        <td
-                                            class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
-                                            {{ $kader->nama }}
-                                        </td>
-                                        <td
-                                            class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
-                                            {{ $kader->alamat }}
-                                        </td>
-                                        <td
-                                            class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
-                                            {{ $kader->jabatan }}
-                                        </td>
+                        <div class="rounded shadow-sm overflow-x-auto">
+                            <table id="kaderTable" class="w-full table-auto border border-[#62BCB1] mt-5">
+                                <thead>
+                                    <tr>
+                                        <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
+                                            Nama</th>
+                                        <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
+                                            Alamat</th>
+                                        <th class="text-sm sm:text-base text-white bg-[#62BCB1] border px-4 py-2 ">
+                                            Jabatan</th>
                                     </tr>
-                                @empty
-                                    <p class="text-center text-gray-500 col-span-full">Belum ada kader yang
-                                        tersedia.
-                                    </p>
-                                @endforelse
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody class= "bg-white">
+                                    <!-- Contoh Data -->
+                                    @forelse ($kaders as $kader)
+                                        <tr class="text-center kader-row" data-id="{{ $kader->id }}">
+                                            <td
+                                                class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
+                                                {{ $kader->nama }}
+                                            </td>
+                                            <td
+                                                class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
+                                                {{ $kader->alamat }}
+                                            </td>
+                                            <td
+                                                class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base ">
+                                                {{ $kader->jabatan }}
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <p class="text-center text-gray-500 col-span-full">Belum ada kader yang
+                                            tersedia.
+                                        </p>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <div class="mt-4">
