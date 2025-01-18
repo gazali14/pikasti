@@ -57,13 +57,30 @@
                                             {{ $bayi->alamat }}</td>
                                         <td
                                             class="text-gray-900 font-light border-collapse border border-[#62BCB1] px-6 py-4 text-sm sm:text-base">
-                                            <button
-                                                class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition text-sm sm:text-base"
-                                                onclick="openEditModal('{{ $bayi->nik }}')">
-                                                <i class="fas fa-edit"></i>
-                                                <span>Edit</span>
-                                            </button>
+                                            <div class="flex gap-2 justify-center">
+                                                <!-- Tombol Edit -->
+                                                <button
+                                                    class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition text-sm sm:text-base"
+                                                    onclick="openEditModal('{{ $bayi->nik }}')">
+                                                    <i class="fas fa-edit"></i>
+                                                    <span>Edit</span>
+                                                </button>
+
+                                                <!-- Tombol Hapus -->
+                                                <form action="{{ route('admin.kohort.destroy', $bayi->nik) }}" method="POST" style="display:inline-block;"
+                                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus data bayi ini?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button
+                                                        class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition text-sm sm:text-base">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                        <span>Hapus</span>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
+
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -119,10 +136,17 @@
                         <label for="addTinggi" class="block text-sm font-medium text-gray-700">Tinggi Lahir (cm)</label>
                         <input type="text" id="addTinggi" name="tinggi_badan_lahir"
                             class="w-full border p-2 rounded" required />
+                        <div>
+                            <label for="addPassword" class="block text-sm font-medium text-gray-700">Password</label>
+                            <div class="relative">
+                                <input type="password" id="addPassword" name="password" class="w-full border p-2 rounded" required />
+                                <span id="toggleAddPassword" 
+                                    class="absolute right-4 top-[50%] transform -translate-y-1/2 cursor-pointer">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
 
-                        <label for="addPassword" class="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" id="addPassword" name="password" class="w-full border p-2 rounded"
-                            required />
                     </div>
                     <div class="mt-4 flex justify-end gap-2">
                         <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded"
@@ -177,10 +201,17 @@
                             (cm)</label>
                         <input type="text" id="editTinggi" name="tinggi_badan_lahir"
                             class="w-full border p-2 rounded" required />
+                        <div>
+                            <label for="editPassword" class="block text-sm font-medium text-gray-700">Password</label>
+                            <div class="relative">
+                                <input type="password" id="editPassword" name="password" class="w-full border p-2 rounded" required />
+                                <span id="toggleAddPassword" 
+                                    class="absolute right-4 top-[50%] transform -translate-y-1/2 cursor-pointer">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
 
-                        <label for="editPassword" class="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" id="editPassword" name="password"
-                            class="w-full border p-2 rounded" />
                     </div>
                     <div class="mt-4 flex justify-end gap-2">
                         <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded"
@@ -210,6 +241,29 @@
                 attachRowEventListeners();
             });
     });
+
+    // Toggle Password Visibility
+    function setupPasswordToggle(inputId, toggleId) {
+        const input = document.getElementById(inputId);
+        const toggle = document.getElementById(toggleId);
+
+        toggle.addEventListener('click', () => {
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggle.innerHTML = '<i class="fas fa-eye-slash"></i>'; // Ikon untuk "Hide"
+            } else {
+                input.type = 'password';
+                toggle.innerHTML = '<i class="fas fa-eye"></i>'; // Ikon untuk "Show"
+            }
+        });
+    }
+
+    // Apply to Add Modal
+    setupPasswordToggle('addPassword', 'toggleAddPassword');
+
+    // Apply to Edit Modal
+    setupPasswordToggle('editPassword', 'togglePassword');
+
 
     function openAddModal() {
         document.getElementById('addModal').classList.remove('hidden');

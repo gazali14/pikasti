@@ -96,8 +96,13 @@
                     }
                 }
             });
+            const getDynamicPointRadius = () => {
+                const width = window.innerWidth;
+                if (width < 640) return 2; // Layar kecil
+                if (width < 1024) return 3; // Layar sedang
+                return 5; // Layar besar
+            };
 
-            // Data Berat Badan
             const beratBadanChart = new Chart(document.getElementById('beratBadanChart'), {
                 type: 'line',
                 data: {
@@ -106,27 +111,35 @@
                         ...Object.entries(referensi.beratBadan).map(([label, data]) => ({
                             label: `Berat Badan ${label}`,
                             data,
-                            borderColor: label === '-3SD' ? '#d90f0f' :
-                                        label === '-2SD' ? 'rgba(144, 238, 144, 1)' :
-                                        label === '-1SD' ? 'rgba(0, 128, 0, 1)' :
-                                        label === 'Median' ? '#00FF00' :
-                                        label === '+1SD' ? '#008000' :
-                                        label === '+2SD' ? '#90EE90' : '#FFC107',
+                            borderColor:
+                                label === '-3SD'
+                                    ? '#d90f0f'
+                                    : label === '-2SD'
+                                    ? 'rgba(144, 238, 144, 1)'
+                                    : label === '-1SD'
+                                    ? 'rgba(0, 128, 0, 1)'
+                                    : label === 'Median'
+                                    ? '#00FF00'
+                                    : label === '+1SD'
+                                    ? '#008000'
+                                    : label === '+2SD'
+                                    ? '#90EE90'
+                                    : '#FFC107',
                             fill: false,
-                            pointRadius: 0
+                            pointRadius: 0,
                         })),
                         {
                             label: 'Data Berat Badan Bayi',
-                            data: bayiData.map(kms => ({
-                                x: Math.floor(kms.umur_bulan), 
-                                y: kms.berat_badan 
+                            data: bayiData.map((kms) => ({
+                                x: Math.floor(kms.umur_bulan),
+                                y: kms.berat_badan,
                             })),
                             borderColor: bayiPointColor,
                             backgroundColor: bayiPointColor,
-                            pointRadius: 5,
-                            showLine: false
-                        }
-                    ]
+                            pointRadius: getDynamicPointRadius(),
+                            showLine: false,
+                        },
+                    ],
                 },
                 options: {
                     responsive: true,
@@ -134,31 +147,32 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: `Grafik Berat Badan Bayi (${selectedBayi.jenis_kelamin})`
-                        }
+                            text: `Grafik Berat Badan Bayi (${selectedBayi.jenis_kelamin})`,
+                        },
                     },
                     scales: {
                         y: {
                             title: {
                                 display: true,
-                                text: 'Berat Badan (kg)'
+                                text: 'Berat Badan (kg)',
                             },
                             min: 0,
-                            max: 30
+                            max: 30,
                         },
                         x: {
                             title: {
                                 display: true,
-                                text: 'Umur (bulan)'
+                                text: 'Umur (bulan)',
                             },
                             min: 1,
                             max: 60,
-                            type: 'linear'
-                        }
-                    }
-                }
+                            type: 'linear',
+                        },
+                    },
+                },
             });
 
+            // Update tinggi badan chart
             const tinggiBadanChart = new Chart(document.getElementById('tinggiBadanChart'), {
                 type: 'line',
                 data: {
@@ -167,27 +181,35 @@
                         ...Object.entries(referensi.tinggiBadan).map(([label, data]) => ({
                             label: `Tinggi Badan ${label}`,
                             data,
-                            borderColor: label === '-3SD' ? '#d90f0f' :
-                                        label === '-2SD' ? 'rgba(144, 238, 144, 1)' :
-                                        label === '-1SD' ? 'rgba(0, 128, 0, 1)' :
-                                        label === 'Median' ? '#00FF00' :
-                                        label === '+1SD' ? '#008000' :
-                                        label === '+2SD' ? '#90EE90' : '#FFC107',
+                            borderColor:
+                                label === '-3SD'
+                                    ? '#d90f0f'
+                                    : label === '-2SD'
+                                    ? 'rgba(144, 238, 144, 1)'
+                                    : label === '-1SD'
+                                    ? 'rgba(0, 128, 0, 1)'
+                                    : label === 'Median'
+                                    ? '#00FF00'
+                                    : label === '+1SD'
+                                    ? '#008000'
+                                    : label === '+2SD'
+                                    ? '#90EE90'
+                                    : '#FFC107',
                             fill: false,
-                            pointRadius: 0
+                            pointRadius: 0,
                         })),
                         {
                             label: 'Data Tinggi Badan Bayi',
-                            data: bayiData.map(kms => ({
+                            data: bayiData.map((kms) => ({
                                 x: Math.floor(kms.umur_bulan),
-                                y: kms.tinggi_badan 
+                                y: kms.tinggi_badan,
                             })),
                             borderColor: bayiPointColor,
                             backgroundColor: bayiPointColor,
-                            pointRadius: 5,
-                            showLine: false
-                        }
-                    ]
+                            pointRadius: getDynamicPointRadius(),
+                            showLine: false,
+                        },
+                    ],
                 },
                 options: {
                     responsive: true,
@@ -195,30 +217,31 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: `Grafik Tinggi Badan Bayi (${selectedBayi.jenis_kelamin})`
-                        }
+                            text: `Grafik Tinggi Badan Bayi (${selectedBayi.jenis_kelamin})`,
+                        },
                     },
                     scales: {
                         y: {
                             title: {
                                 display: true,
-                                text: 'Tinggi Badan (cm)'
+                                text: 'Tinggi Badan (cm)',
                             },
                             min: 20,
-                            max: 130
+                            max: 130,
                         },
                         x: {
                             title: {
                                 display: true,
-                                text: 'Umur (bulan)'
+                                text: 'Umur (bulan)',
                             },
                             min: 1,
                             max: 60,
-                            type: 'linear' 
-                        }
-                    }
-                }
+                            type: 'linear',
+                        },
+                    },
+                },
             });
+
 
             // Render Charts
             new Chart(document.getElementById('beratBadanChart'), chartConfig('beratBadanChart', `Grafik Berat Badan Bayi (${selectedBayi.jenis_kelamin})`, beratBadanDatasets, 'Berat Badan (kg)', 2, 30));

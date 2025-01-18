@@ -80,6 +80,17 @@
             </section>
         </div>
     </div>
+    {{-- lihat selengkapnya --}}
+    @auth
+    <a href="{{ route('orang_tua.before_login.jadwal') }}">
+        <div class="flex justify-end cursor-pointer mt-10 hover:underline">
+            <p class="flex items-center space-x-2">
+                <span class="text-[#353535] font-semibold text-lg sm:text-xl md:text-2xl">Lihat Selengkapnya</span>
+                <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-6 sm:w-8 md:w-10 h-auto">
+            </p>
+        </div>
+    </a>
+    @else
     <a href="orang_tua/before_login/jadwal">
         <div class="flex justify-end cursor-pointer mt-10 hover:underline">
             <p class="flex items-center space-x-2">
@@ -88,6 +99,7 @@
             </p>
         </div>
     </a>
+    @endauth
     {{-- PROFIL KADER --}}
     <div>
         <div class="flex items-center w-full mt-20">
@@ -115,6 +127,16 @@
         </div>
     </div>
     <!-- Lihat Selengkapnya -->
+    @auth
+    <a href="{{ route('orang_tua.before_login.profil_kader') }}">
+        <div class="flex justify-end cursor-pointer mt-10 hover:underline">
+            <p class="flex items-center space-x-2">
+                <span class="text-[#353535] font-semibold text-lg sm:text-xl md:text-2xl">Lihat Selengkapnya</span>
+                <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-6 sm:w-8 md:w-10 h-auto">
+            </p>
+        </div>
+    </a>
+    @else
     <a href="orang_tua/before_login/profil_kader">
         <div class="flex justify-end cursor-pointer mt-10 hover:underline">
             <p class="flex items-center space-x-2">
@@ -123,6 +145,7 @@
             </p>
         </div>
     </a>
+    @endauth
     {{-- DOKUMENTASI KEGIATAN --}}
     <div>
         <div class="flex items-center w-full mt-20">
@@ -134,6 +157,16 @@
         <x-component-dokumentasi :dokumentasis="$dokumentasis"></x-component-dokumentasi>
     </div>
     {{-- Lihat Selengkapnya --}}
+    @auth
+    <a href="{{ route('orang_tua.before_login.dokumentasi') }}">
+        <div class="flex justify-end cursor-pointer mt-0 sm:mt-5 mb-10 hover:underline">
+            <p class="flex items-center space-x-2">
+                <span class="text-[#353535] font-semibold text-lg sm:text-xl md:text-2xl">Lihat Selengkapnya</span>
+                <img src="{{ asset('img/arrow.png') }}" alt="Ikon" class="w-6 sm:w-8 md:w-10 h-auto">
+            </p>
+        </div>
+    </a>
+    @else
     <a href="orang_tua/before_login/dokumentasi">
         <div class="flex justify-end cursor-pointer mt-0 sm:mt-5 mb-10 hover:underline">
             <p class="flex items-center space-x-2">
@@ -142,5 +175,7 @@
             </p>
         </div>
     </a>
+    @endauth
+    
 </x-layout>
 <x-footer-home></x-footer-home>

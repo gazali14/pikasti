@@ -154,7 +154,7 @@
 
                         <!-- Kolom Kanan: Foto -->
                         <div class="w-full md:w-1/3 flex flex-col items-center space-y-4">
-                            <img id="photoPreview" src="{{ asset('public/img/login-pict.jpg') }}" alt="Placeholder"
+                            <img id="photoPreview" src="{{ asset('public/img/login-pict.jpg') }}" alt="Foto Kader"
                                 class="w-48 h-60 object-cover border rounded shadow">
                             <input type="file" name="foto" id="foto"
                                 class="w-full mt-1 p-2 border rounded focus:ring focus:ring-teal-300 focus:outline-none"

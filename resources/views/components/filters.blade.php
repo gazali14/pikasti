@@ -1,14 +1,16 @@
 <!-- Tanggal -->
 <form action="{{ route('kader.dashboard') }}" method="GET">
     <div class="flex flex-wrap md:flex-nowrap justify-between items-center space-y-2 md:space-y-0 md:space-x-4 bg-white p-4 rounded-lg shadow-md mb-4">
+        <!-- Bagian Kegiatan -->
         <div class="w-full md:w-auto flex justify-start">
-        @if(request('tanggal'))
-            <h3 class="text-xl font-semibold text-gray-900">Kegiatan: <span class="text-blue-600">{{ $namaKegiatan }}</span></h3>
-        @else
-            <h3 class="text-xl font-semibold text-gray-900">Kegiatan: <span class="text-gray-500">Belum ada kegiatan</span></h3>
-        @endif
+            @if(request('tanggal'))
+                <h3 class="text-xl font-semibold text-gray-900">Kegiatan: <span class="text-blue-600">{{ $namaKegiatan }}</span></h3>
+            @else
+                <h3 class="text-xl font-semibold text-gray-900">Kegiatan: <span class="text-gray-500">Belum ada kegiatan</span></h3>
+            @endif
         </div>
-        <div class="flex justify-end w-full md:w-auto space-x-4">
+        <!-- Input Tanggal dan Tombol -->
+        <div class="flex flex-col md:flex-row justify-end w-full md:w-auto space-y-2 md:space-y-0 md:space-x-4">
             <input 
                 type="date" 
                 name="tanggal" 

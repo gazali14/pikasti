@@ -21,11 +21,9 @@ class Dokumentasi extends Model
     protected $casts = [
         'tanggal' => 'date',
     ];
-
-    // Mutator untuk mengubah JSON foto menjadi array
     public function getFotoAttribute($value)
     {
-        return json_decode($value, true); // Ubah JSON menjadi array
+        return json_decode($value, true);
     }
 
     public function setFotoAttribute($value)

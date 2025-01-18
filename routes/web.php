@@ -94,6 +94,7 @@ Route::prefix('admin')->middleware('auth:kader')->group(function () {
     Route::post('/kohort', [KohortController::class, 'store'])->name('admin.kohort.store');
     Route::get('/kohort/{nik}/edit', [KohortController::class, 'edit'])->name('admin.kohort.edit');
     Route::put('/kohort/{nik}', [KohortController::class, 'update'])->name('admin.kohort.update');
+    Route::delete('/admin/kohort/{nik}', [KohortController::class, 'destroy'])->name('admin.kohort.destroy');
 });
 
 // Routes for kader

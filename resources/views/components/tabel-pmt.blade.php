@@ -47,7 +47,7 @@
             <button id="add-button"
                 class="p-3 w-full sm:w-auto bg-teal-500 text-white rounded hover:bg-teal-600 min-w-[200px] max-w-[250px] whitespace-nowrap">
                 <i class="fas fa-folder-plus"></i>
-                <span>Tambah Data Vitamin</span>
+                <span>Tambah Data PMT</span>
             </button>
         </div>
 

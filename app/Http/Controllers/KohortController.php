@@ -72,6 +72,18 @@ class KohortController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data bayi: ' . $e->getMessage());
         }
     }
+    public function destroy($nik)
+    {
+        try {
+            $bayi = Bayi::where('nik', $nik)->firstOrFail();
+            $bayi->delete();
+
+            return redirect()->route('admin.kohort.index')->with('success', 'Data bayi berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data bayi: ' . $e->getMessage());
+        }
+    }
+
 
     public function store(Request $request)
     {

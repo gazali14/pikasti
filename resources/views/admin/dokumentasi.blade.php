@@ -89,9 +89,9 @@
             </div>
 
             <!-- Popup form -->
-            <div id="popupForm" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+            <div id="popupForm" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
                 <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-5 rounded-md w-full max-w-2xl sm:max-w-lg lg:max-w-2xl shadow-lg">
+                    class="bg-white p-4 rounded-lg shadow-lg max-w-lg w-full max-h-[80vh] overflow-y-auto m-4">
 
                     <h2 id="popupTitle" class="text-xl text-center font-bold mb-4"></h2>
                     <form id="popupInputForm" action="{{ route('dokumentasi.store') }}" method="POST" enctype="multipart/form-data">

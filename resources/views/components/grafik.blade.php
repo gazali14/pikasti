@@ -1,15 +1,15 @@
 <!-- Grafik Rata-Rata Tinggi Badan Bayi -->
-<div class="chart bg-white p-4 rounded-lg shadow mb-6">
+<div class="chart bg-white p-4 rounded-lg shadow mt-5">
     <h3 class="font-semibold text-lg text-center">Rata-Rata Tinggi Badan Bayi Menurut Umur (Bulan)</h3>
-    <div class="relative h-64 w-full sm:h-72 lg:h-96"> <!-- Responsif di sini -->
+    <div class="relative w-full"> <!-- Responsif di sini -->
         <canvas id="heightBarChart"></canvas>
     </div>
 </div>
 
 <!-- Grafik Rata-Rata Berat Badan Bayi -->
-<div class="chart bg-white p-4 rounded-lg shadow mt-6">
+<div class="chart bg-white p-4 rounded-lg shadow mt-5">
     <h3 class="font-semibold text-lg text-center">Rata-Rata Berat Badan Bayi Menurut Umur (Bulan)</h3>
-    <div class="relative h-64 w-full sm:h-72 lg:h-96"> <!-- Responsif di sini -->
+    <div class="relative w-full"> <!-- Responsif di sini -->
         <canvas id="weightBarChart"></canvas>
     </div>
 </div>
