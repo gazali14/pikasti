@@ -39,7 +39,7 @@
                                 <div>
                                     <input type="text" id="search"
                                         class="border border-gray-300 rounded-md w-80 p-3 focus:ring-1 focus:ring-gray-300 text-gray-700 text-sm"
-                                        placeholder="Cari nama bayi..." oninput="filterKaders()" />
+                                        placeholder="Cari nama bayi..." oninput="filterBayis()" />
                                 </div>
                             </div>
 
@@ -58,9 +58,9 @@
                                             <th class="text-white text-center py-3 px-4 border">Kehadiran</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="kader-list" class="bg-white">
+                                    <tbody id="bayi-list" class="bg-white">
                                         @foreach ($bayis as $bayi)
-                                            <tr class="kader-item hover:bg-teal-50">
+                                            <tr class="bayi-item hover:bg-teal-50">
                                                 <td
                                                     class="text-gray-900 text-center border border-gray-300 px-6 py-4 text-sm sm:text-base">
                                                     {{ $bayi->nik }}</td>
